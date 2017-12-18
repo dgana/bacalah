@@ -1,0 +1,159 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
+@import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+body {
+    font-size: 13px;
+    line-height: 1.5;
+    font-family: 'Open Sans', sans-serif;
+    color: #666;
+    background-color: #F8F8F8
+}
+
+img {
+	max-width: 100%;
+	width: 100%;
+}
+
+a {
+	color: #000;
+	display: inline-block;
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #999;
+}
+
+.title {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 400;
+	color:#000;	
+	line-height: 1.2
+}
+
+.list {
+	margin: 0;
+	padding: 0;
+}
+
+.list li {
+	list-style-type: none;
+	border-bottom: 1px dotted #C5C5C5;
+}
+
+.list li:last-child {
+	border-bottom:none;
+}
+
+
+.list-view {
+	margin-top: 10px
+}
+
+.list-view li {
+	padding: 10px 0;
+}
+
+.site-header {
+	padding: 20px 0;
+	border-top: 10px solid #51A8DD;
+}
+
+.nav-topbar {
+	background-color: #0B1013;
+	padding: 5px 0;
+}
+
+.nav-topbar a,
+.nav-topbar {
+	color: #999
+}
+
+.menu,
+.slider-list {
+	margin: 0;
+	padding: 0;
+}
+
+.slider-list li {
+	list-style-type: none;
+}
+
+.site-logo {
+	margin: 0;
+	padding: 0;
+	display: inline
+}
+
+.menu-wrapper .menu {
+	float: right;
+}
+
+.menu li {
+	display: inline-block;
+}
+
+.menu li a {
+	padding: 10px 20px;
+	font-weight: 700;
+	text-transform: uppercase;
+	display: block
+}
+
+.social-icon-list {
+	float: right;
+}
+
+.social-icon-list li a{
+	padding: 5px 10px;
+}
+
+.widget {
+	background-color: #fff;
+	margin-bottom: 30px;
+}
+
+.widget-header .title {
+	line-height: 1;
+	margin: 0;
+	padding: 20px;
+	font-size: 14px;
+	border-top: double 4px #0B1013;
+	border-bottom: solid 1px #eee;
+	text-transform: uppercase;
+}
+
+.widget-content {
+	padding: 0 20px 20px 20px;
+}
+
+.widget-right-content {
+	padding: 10px 30px 0px 5px;
+}
+
+.widget-content > .media-list {
+	margin-top: 20px;
+}
+
+.site-footer {
+	background-color: #0B1013;
+	min-height: 30px;
+}
+
+/*.site-footer a,
+.site-footer .widget {
+	background-color: transparent;
+	color: #eee;
+}
+
+.site-footer .widget-header .title {
+	color: #eee;
+}
+
+.site-footer .widget-header .title,
+.site-footer .list li {
+	border-bottom-color: #444
+}
+*/

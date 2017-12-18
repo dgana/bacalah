@@ -1,0 +1,20 @@
+.panel-list {
+	margin: 0;
+	padding: 0
+}
+
+.panel-list li {
+	list-style: none;
+}
+
+.pull-left.panel-thumbnail {
+	margin-right: 10px
+}
+
+.panel-title {
+	font-size: 12px;
+}
+
+.panel-item > .col-inner {
+	background-color: #fff
+}

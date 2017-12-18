@@ -1,0 +1,54 @@
+.bar-view {
+    overflow: hidden;
+}
+
+.bar-title {
+	border-right: double 4px #0B1013;
+	text-align: center;
+	padding: 10px;
+	margin: -10px;
+}
+
+.bar-content {
+	position: relative;
+    white-space: nowrap;
+}
+
+.bar-link a {
+	font-size: 12px;
+	margin:0 1em;
+	font-style: italic;	
+	position: relative;
+}
+
+.bar-link a::after {
+	content: '.';
+	position: absolute;
+	right: -1.3em;
+	top: -3px;
+}
+
+.ticker {
+	margin:0;
+	padding: 0;
+}
+
+.ticker li {
+	width: 100%;
+	margin:0;
+}
+
+@media screen and (max-width: 992px) {
+	.bar-title {
+		border-right: none;
+		border-top: double 4px #0B1013;
+		border-bottom: dotted 1px #ccc;
+		text-align: center;
+		padding: 10px;
+		margin:0 0 10px 0;
+	}
+	.bar-content  {
+		text-align: center;
+		white-space:normal;
+	}
+}

@@ -1,0 +1,32 @@
+.news-post-format > .post > p {
+	font-size: 14px;
+	line-height: 1.6;
+	width: 41em;
+	float: right;
+}
+
+.news-segment {
+	width: 220px;
+	margin-right: 20px;
+	float:left;
+}
+
+.three-col-view > .news-post-format > .post > p {
+	float: none;
+	width: 100%
+}
+
+@media screen and (max-width: 1200px) {
+	.news-post-format > .post > p {
+		float: none;
+		width: 100%
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.news-segment {
+		width: 100%;
+		margin-right: 0;
+		float:left;
+	}
+}
