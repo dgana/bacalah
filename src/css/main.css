@@ -139,7 +139,7 @@ blockquote:after{
 }
 
 .search-query:focus + button {
-    z-index: 3;   
+    z-index: 3;
 }
 
 
@@ -168,10 +168,10 @@ blockquote:after{
 	color: #000;
 }
 
-.nav .open>a, 
-.nav .open>a:hover, 
+.nav .open>a,
+.nav .open>a:hover,
 .nav .open>a:focus,
-.nav>li>a:hover, 
+.nav>li>a:hover,
 .nav>li>a:focus{
 	background: none;
 	color: #81415C
@@ -269,7 +269,7 @@ blockquote:after{
 	font-family: 'Oswald', sans-serif;
 }
 
-.pagination>li>a, 
+.pagination>li>a,
 .pagination>li>span {
 	border-color: transparent;
 	padding: 0 6px;
@@ -277,18 +277,18 @@ blockquote:after{
 	font-size: 12px;
 }
 
-.pagination>li>a:hover, 
-.pagination>li>span:hover, 
-.pagination>li>a:focus, 
+.pagination>li>a:hover,
+.pagination>li>span:hover,
+.pagination>li>a:focus,
 .pagination>li>span:focus {
 	background-color: transparent;
 }
 
-.pagination>.active>a, 
-.pagination>.active>span, 
-.pagination>.active>a:hover, 
-.pagination>.active>span:hover, 
-.pagination>.active>a:focus, 
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
 .pagination>.active>span:focus {
 	background-color: #000;
 	border-color: transparent;
@@ -305,7 +305,7 @@ blockquote:after{
 .title {
 	font-family: 'Oswald', sans-serif;
 	font-weight: 400;
-	color:#000;	
+	color:#000;
 	line-height: 1.2;
 	text-transform: uppercase;
 	position: relative;
@@ -360,7 +360,7 @@ blockquote:after{
 	color: #fff;
 }
 
-.page-meta .meta i.fa {	
+.page-meta .meta i.fa {
 	margin-right: 3px;
 }
 
@@ -549,4 +549,26 @@ blockquote:after{
 		font-weight: 500
 	}
 
+}
+
+.slick-initialized.slick-slider {
+  width: 92%;
+  margin: auto;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
+  font-size: 28px !important;
+}
+.slick-next:before {
+  position: absolute;
+  right: -6px;
+  bottom: 100px;
+}
+
+.slick-prev:before {
+  position: absolute;
+  left: -6px;
+  bottom: 100px;
 }

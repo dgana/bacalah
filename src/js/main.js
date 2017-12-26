@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 if ($('.slider').bxSlider){
 	$('.slider').bxSlider({
 	    adaptiveHeight: true,
@@ -20,7 +22,7 @@ if ($('.carousel').length){
 }
 
 var nav = $('.site-header');
-    
+
 $(window).scroll(function () {
     if ($(this).scrollTop() > 60) {
         nav.addClass("fixed-top");

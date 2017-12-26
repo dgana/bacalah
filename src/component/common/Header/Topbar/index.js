@@ -6,12 +6,12 @@ const Topbar = () => (
       <div className="row">
         <div className="col-md-6 col-sm-6">
           <ul className="top-link menu top-bar-menu">
-            <li><a href="#">Register</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Advertisement</a></li>
+            <li><a href="">Register</a></li>
+            <li><a href="">Login</a></li>
+            <li><a href="">Advertisement</a></li>
           </ul>
         </div>
-        <div className="col-md-6 col-sm-6">
+        <div className="col-md-6 col-sm-6" style={{marginTop: 4}}>
           <ul className="social-icon-list menu top-bar-menu">
             <li>
               <form id="search-form" className="form-search form-horizontal">
@@ -21,10 +21,6 @@ const Topbar = () => (
                 </div>
               </form>
             </li>
-            <li><a href="#"><i className="fa fa-rss-square"></i></a></li>
-            <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i className="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i className="fa fa-twitter"></i></a></li>
           </ul>
         </div>
       </div>
