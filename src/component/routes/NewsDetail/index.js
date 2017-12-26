@@ -6,8 +6,10 @@ import ContainerMain from '../../common/ContainerMain'
 import Footer from '../../common/Footer'
 import MainContent from '../../common/MainContent'
 import SideContent from '../../common/SideContent'
+import Breadcrumb from '../../common/Breadcrumb'
 import Content from './Content'
 import SubContent from './SubContent'
+
 
 class NewsDetail extends Component {
   constructor(props) {
@@ -18,20 +20,16 @@ class NewsDetail extends Component {
     return (
       <div>
         <Header />
-        <ContainerMain MainAds>
-          <div className="breadcrumb-wrapper">
-            <ol className="breadcrumb">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Blog</a></li>
-              <li class="active">Single Post</li>
-            </ol>
+        <ContainerMain>
+          <Breadcrumb path={this.props.location.pathname} />
+          <div className="post-container container">
+            <MainContent newsDetail>
+              <Content />
+            </MainContent>
+            <SideContent>
+              <SubContent />
+            </SideContent>
           </div>
-          <MainContent>
-            <Content />
-          </MainContent>
-          <SideContent>
-            <SubContent />
-          </SideContent>
         </ContainerMain>
         <Footer />
       </div>

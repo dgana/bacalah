@@ -6,6 +6,7 @@ import ContainerMain from '../../common/ContainerMain'
 import Footer from '../../common/Footer'
 import MainContent from '../../common/MainContent'
 import SideContent from '../../common/SideContent'
+import Breadcrumb from '../../common/Breadcrumb'
 import Content from './Content'
 import SubContent from './SubContent'
 
@@ -18,19 +19,16 @@ class Category extends Component {
     return (
       <div>
         <Header />
-        <ContainerMain MainAds>
-          <div className="breadcrumb-wrapper">
-            <ol className="breadcrumb">
-              <li><a href="#">Home</a></li>
-              <li className="active">Travel</li>
-            </ol>
+        <ContainerMain>
+          <Breadcrumb path={this.props.location.pathname} />
+          <div className="post-container container">
+            <MainContent newsCategory>
+              <Content match={this.props.match} />
+            </MainContent>
+            <SideContent>
+              <SubContent />
+            </SideContent>
           </div>
-          <MainContent>
-            <Content match={this.props.match} />
-          </MainContent>
-          <SideContent>
-            <SubContent />
-          </SideContent>
         </ContainerMain>
         <Footer />
       </div>
