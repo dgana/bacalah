@@ -1,6 +1,31 @@
 import React from 'react'
-
+import gql from 'graphql-tag';
 import { Link } from 'react-router-dom'
+import {
+  graphql
+} from 'react-apollo';
+const categoryListQuery = gql`
+query {
+  categories {
+    id
+    name
+  }
+}
+`;
+const CategoryList = ({ data: {loading, error, categories }}) => {
+  if (loading) {
+    return <p>Loading ...</p>;
+  }
+  if (error) {
+    console.log('masuk sini')
+    return <p>{error.message}</p>;
+  }
+  return <ul>
+    { categories.map( cat => <li key={cat.id}><Link to={`/${cat.id}`}>{cat.name}</Link></li> ) }
+  </ul>;
+};
+
+const CategoryListWithData = graphql(categoryListQuery)(CategoryList);
 
 const Category = (props) => (
   <header className="site-header">
@@ -21,37 +46,7 @@ const Category = (props) => (
         </div>
         <nav id="main-menu" className="menu-wrapper col-md-10 collapse navbar-collapse">
           <ul className="menu nav navbar-nav">
-            <li className="dropdown"><a href="" className="dropdown-toggle" data-toggle="dropdown">Technology <i className="fa fa-angle-down"></i></a>
-              <ul className="children sub-menu dropdown-menu">
-                <li>
-                  <Link to='/apps'>Apps</Link>
-                </li>
-                <li>
-                  <Link to='/design'>Design</Link>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Link to='/health'>Health</Link>
-            </li>
-            <li>
-              <Link to='/money'>Money</Link>
-            </li>
-            <li>
-              <Link to='/education'>Education</Link>
-            </li>
-            <li>
-              <Link to='/cars'>Cars</Link>
-            </li>
-            <li>
-              <Link to='/travel'>Travel</Link>
-            </li>
-            <li>
-              <Link to='/law'>Law</Link>
-            </li>
-            <li>
-              <Link to='/video'>Video</Link>
-            </li>
+            <CategoryListWithData />
           </ul>
         </nav>
       </div>

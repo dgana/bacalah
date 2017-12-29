@@ -23,7 +23,7 @@ class Category extends Component {
           <Breadcrumb path={this.props.location.pathname} />
           <div className="post-container container">
             <MainContent newsCategory>
-              <Content match={this.props.match} />
+              <Content currentId={this.props.match.url.split('/')[1]} />
             </MainContent>
             <SideContent>
               <SubContent />
