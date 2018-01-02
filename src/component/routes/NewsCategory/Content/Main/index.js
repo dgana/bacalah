@@ -31,7 +31,6 @@ const detailNews = ({currentId,id,path,title,content,createdAt,commentCount}) =>
 )
 
 export default ({categories,news,categoryName,currentId}) => {
-  console.log(currentId)
     return (
       <div className="post clearfix">
         <header className="page-header">

@@ -24,7 +24,7 @@ class NewsDetail extends Component {
           <Breadcrumb path={this.props.location.pathname} />
           <div className="post-container container">
             <MainContent newsDetail>
-              <Content />
+              <Content currentId={this.props.match.params.newsDetailId} />
             </MainContent>
             <SideContent>
               <SubContent />
