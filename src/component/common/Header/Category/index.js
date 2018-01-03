@@ -1,9 +1,8 @@
 import React from 'react'
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
-import {
-  graphql
-} from 'react-apollo';
+import { graphql } from 'react-apollo'
+
 const categoryListQuery = gql`
 query {
   categories {
@@ -11,21 +10,21 @@ query {
     name
   }
 }
-`;
-const CategoryList = ({ data: {loading, error, categories }}) => {
+`
+
+const CategoryList = ({ data: { loading, error, categories }}) => {
   if (loading) {
-    return <p>Loading ...</p>;
+    return <p>Loading ...</p>
   }
   if (error) {
-    console.log('masuk sini')
-    return <p>{error.message}</p>;
+    return <p>{error.message}</p>
   }
   return <ul>
     { categories.map( cat => <li key={cat.id}><Link to={`/${cat.id}`}>{cat.name}</Link></li> ) }
-  </ul>;
-};
+  </ul>
+}
 
-const CategoryListWithData = graphql(categoryListQuery)(CategoryList);
+const CategoryListWithData = graphql(categoryListQuery)(CategoryList)
 
 const Category = (props) => (
   <header className="site-header">

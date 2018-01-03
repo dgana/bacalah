@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 // Content Component
 import Pagination from '../Pagination'
 
 // Utility
-import { capitalizeFirstLetter,limitString} from '../../../../../util'
+import { capitalizeFirstLetter, limitString } from '../../../../../util'
 
 const category = ({ id, name }) => (
   <Link className="tag" key={`cat-${id}`} to={`/${id}`}>
     {name}
   </Link>
-);
+)
 
 const detailNews = ({currentId,id,path,title,content,createdAt,commentCount}) => (
   <div className="list-item clearfix">
@@ -31,7 +32,6 @@ const detailNews = ({currentId,id,path,title,content,createdAt,commentCount}) =>
 )
 
 export default ({categories,news,categoryName,currentId}) => {
-  console.log(currentId)
     return (
       <div className="post clearfix">
         <header className="page-header">
@@ -59,18 +59,15 @@ export default ({categories,news,categoryName,currentId}) => {
              <p>This month, CNNGo visits South Africa's largest city and one of its most exciting -- home to radical theater, apartheid relics and a museum of beer.This month, CNNGo visits South Africa's largest city and one of its most exciting -- home to radical theater, apartheid </p>
            </div>
         </div>
-  
+
         <div className="post margin-top-20 clearfix">
           <div className="row">
             {news.map(detailNews)}
           </div>
-  
+
           <Pagination />
-  
+
         </div>
       </div>
     )
   }
-  
-
-  
