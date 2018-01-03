@@ -551,6 +551,10 @@ blockquote:after{
 
 }
 
+.slick-slide img {
+  max-height: 450px;
+}
+
 .slick-initialized.slick-slider {
   width: 92%;
   margin: auto;
