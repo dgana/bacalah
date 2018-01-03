@@ -12,11 +12,8 @@ import SubContent from './SubContent'
 
 
 class NewsDetail extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
+    console.log(this.props);
     return (
       <div>
         <Header />

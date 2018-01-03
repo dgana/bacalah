@@ -13,15 +13,12 @@ query {
 `
 
 const CategoryList = ({ data: { loading, error, categories }}) => {
-  if (loading) {
-    return <p>Loading ...</p>
-  }
-  if (error) {
-    return <p>{error.message}</p>
-  }
-  return <ul>
-    { categories.map( cat => <li key={cat.id}><Link to={`/${cat.id}`}>{cat.name}</Link></li> ) }
-  </ul>
+  if (loading) return (<p>Loading ...</p>)
+  if (error) return (<p>{error.message}</p>)
+  return (
+    <ul>
+      { categories.map( cat => <li key={cat.id}><Link to={`/${cat.id}`}>{cat.name}</Link></li> ) }
+    </ul>)
 }
 
 const CategoryListWithData = graphql(categoryListQuery)(CategoryList)

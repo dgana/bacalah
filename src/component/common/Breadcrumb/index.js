@@ -5,15 +5,17 @@ import { Link } from 'react-router-dom'
 import { capitalizeFirstLetter } from '../../../util'
 
 const Breadcrumb = (props) => {
+
   const splitPathname = props.path.split('/')
-  const splitFirst = splitPathname.shift()
+  splitPathname.shift()
   const splitLast = splitPathname.pop()
+  console.log(props)
   return (
     <div className="breadcrumb-wrapper">
       <ol className="breadcrumb">
         <li><Link to="/">Home</Link></li>
         { splitPathname.map((item, index) => (
-            <li><Link to={`/${item}`}>{capitalizeFirstLetter(item)}</Link></li>
+            <li key={index}><Link to={`/${item}`}>{capitalizeFirstLetter(item)}</Link></li>
           ))
         }
         <li className="active">{capitalizeFirstLetter(splitLast)}</li>

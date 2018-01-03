@@ -13,25 +13,25 @@ const category = ({ id, name }) => (
   </Link>
 )
 
-const detailNews = ({currentId,id,path,title,content,createdAt,commentCount}) => (
-  <div className="list-item clearfix">
-  <div className="list-thumbnail col-md-4">
-    <Link key={`catdet-${id}`} to={`/${currentId}/${id}`}><img src={path} alt="no-pic" /></Link>
+const detailNews = ({ currentId, id, path, title, content, createdAt, commentCount }) => (
+  <div key={id} className="list-item clearfix">
+    <div className="list-thumbnail col-md-4">
+      <Link key={`catdet-${id}`} to={`/${currentId}/${id}`}><img src={path} alt="no-pic" /></Link>
+    </div>
+    <div className="list-inner col-md-8">
+      <h4 className="title">
+        <Link key={`catdet2-${id}`} to={`/${currentId}/${id}`}>{title}</Link>
+      </h4>
+      <div className="meta-wrapper">
+         <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
+         <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
+       </div>
+      <p>{limitString(content)}</p>
+    </div>
   </div>
-  <div className="list-inner col-md-8">
-    <h4 className="title">
-      <Link key={`catdet2-${id}`} to={`/${currentId}/${id}`}>{title}</Link>
-    </h4>
-    <div className="meta-wrapper">
-       <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
-       <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
-     </div>
-    <p>{limitString(content)}</p>
-  </div>
-</div>
 )
 
-export default ({categories,news,categoryName,currentId}) => {
+export default ({ categories, news, categoryName, currentId }) => {
     return (
       <div className="post clearfix">
         <header className="page-header">

@@ -11,10 +11,6 @@ import Content from './Content'
 import SubContent from './SubContent'
 
 class Category extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div>

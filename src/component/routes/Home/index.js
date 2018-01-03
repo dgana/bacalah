@@ -10,10 +10,6 @@ import Content from './Content'
 import SubContent from './SubContent'
 
 class Home extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     return (
       <div>

@@ -1,5 +1,12 @@
 import React from 'react'
 
+// images
+import post1 from '../../../../dist/img/aside_post_1.jpg'
+import post2 from '../../../../dist/img/aside_post_2.jpg'
+import post3 from '../../../../dist/img/aside_post_3.jpg'
+import post4 from '../../../../dist/img/aside_post_4.jpg'
+import post5 from '../../../../dist/img/aside_post_5.jpg'
+
 const SubContent = (props) => (
   <div>
     <div className="widget">
@@ -39,7 +46,7 @@ const SubContent = (props) => (
               <a href="">Scenes from the field</a>
             </div>
             <a href="" className="pull-left">
-              <img src="img/aside_post_1.jpg" alt="" className="media-object" />
+              <img src={post1} alt="" />
             </a>
             <div className="media-body">
               <p className="small">Browse through images you don't always see in news reports, taken by CNN teams all around the world.</p>
@@ -50,7 +57,7 @@ const SubContent = (props) => (
               <a href="">Heroes or villains? Cricket's rebels</a>
             </div>
             <a href="" className="pull-left">
-              <img src="img/aside_post_2.jpg" alt="" className="media-object" />
+              <img src={post2} alt="" />
             </a>
             <div className="media-body">
               <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
@@ -61,7 +68,7 @@ const SubContent = (props) => (
               <a href="">Heroes or villains? Cricket's rebels</a>
             </div>
             <a href="" className="pull-left">
-              <img src="img/aside_post_3.jpg" alt="" className="media-object" />
+              <img src={post3} alt="" />
             </a>
             <div className="media-body">
               <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
@@ -72,7 +79,7 @@ const SubContent = (props) => (
               <a href="">New year, chance to reclaim humanity?</a>
             </div>
             <a href="" className="pull-left">
-              <img src="img/aside_post_4.jpg" alt="" className="media-object" />
+              <img src={post4} alt="" />
             </a>
             <div className="media-body">
               <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
@@ -83,18 +90,7 @@ const SubContent = (props) => (
               <a href="">Tribesmen join forces vs. al Qaeda</a>
             </div>
             <a href="" className="pull-left">
-              <img src="img/aside_post_5.jpg" alt="" className="media-object" />
-            </a>
-            <div className="media-body">
-              <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
-            </div>
-          </li>
-          <li className="media">
-            <div className="title margin-bottom-10">
-              <a href="">Six odd and crazy technologies</a>
-            </div>
-            <a href="" className="pull-left">
-              <img src="img/aside_post_6.jpg" alt="" className="media-object" />
+              <img src={post5} alt="" />
             </a>
             <div className="media-body">
               <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
