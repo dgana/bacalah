@@ -17,7 +17,7 @@ const CategoryList = ({ data: { loading, error, categories }}) => {
   if (error) return (<p>{error.message}</p>)
   return (
     <ul>
-      { categories.map( cat => <li key={cat.id}><Link to={`/${cat.id}`}>{cat.name}</Link></li> ) }
+      { categories.map(category => <li key={category.id}><Link to={`/${category.name.toLowerCase()}`}>{category.name}</Link></li> )}
     </ul>)
 }
 

@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import gql from 'graphql-tag'
+import { graphql } from 'react-apollo'
+import categoryListNameQuery from './gql/'
 
 // Category Component
 import Header from '../../common/Header'
@@ -12,6 +15,13 @@ import SubContent from './SubContent'
 
 class Category extends Component {
   render() {
+    console.log(this.props)
+    const { loading, error, categories } = this.props.data
+
+    if (loading) return null
+    if (error) return <p>{error.message}</p>
+
+    const currentId = categories.filter(item => item.name.toLowerCase() === this.props.match.url.split('/')[1])[0].id
     return (
       <div>
         <Header />
@@ -19,7 +29,7 @@ class Category extends Component {
           <Breadcrumb path={this.props.location.pathname} />
           <div className="post-container container">
             <MainContent newsCategory>
-              <Content currentId={this.props.match.url.split('/')[1]} />
+              <Content currentId={currentId} />
             </MainContent>
             <SideContent>
               <SubContent />
@@ -32,4 +42,4 @@ class Category extends Component {
   }
 }
 
-export default Category
+export default graphql(gql(categoryListNameQuery))(Category)

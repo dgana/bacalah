@@ -5,11 +5,9 @@ import { Link } from 'react-router-dom'
 import { capitalizeFirstLetter } from '../../../util'
 
 const Breadcrumb = (props) => {
-
   const splitPathname = props.path.split('/')
   splitPathname.shift()
   const splitLast = splitPathname.pop()
-  console.log(props)
   return (
     <div className="breadcrumb-wrapper">
       <ol className="breadcrumb">

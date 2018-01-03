@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import findIndex from 'lodash/findIndex'
 import Content from './Main'
-import categoryListQuery from './gql'
+import categoryListQuery from './gql/'
 
 const CategoryList = ({ data: {loading, error, categories}, currentId}) => {
   if (loading) return null
