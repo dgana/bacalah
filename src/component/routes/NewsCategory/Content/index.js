@@ -6,7 +6,6 @@ import {
 } from 'react-apollo';
 import findIndex from 'lodash/findIndex';
 import Content from './Main'
-
 const categoryListQuery = gql`
 query{
   categories{
@@ -30,8 +29,6 @@ query{
 `;
 
 const CategoryList = ({ data: {loading, error, categories},currentId}) => {
-  console.log(currentId)
-  console.log(categories)
   if (loading) {
     return null
   }
