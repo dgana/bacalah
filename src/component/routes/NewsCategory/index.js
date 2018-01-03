@@ -15,13 +15,14 @@ import SubContent from './SubContent'
 
 class Category extends Component {
   render() {
-    console.log(this.props)
     const { loading, error, categories } = this.props.data
 
     if (loading) return null
     if (error) return <p>{error.message}</p>
 
-    const currentId = categories.filter(item => item.name.toLowerCase() === this.props.match.url.split('/')[1])[0].id
+    const currentCategoryName = this.props.match.url.split('/')[1]
+    const currentCategoryId = categories.filter(item => item.name.toLowerCase() === currentCategoryName)[0].id
+
     return (
       <div>
         <Header />
@@ -29,7 +30,7 @@ class Category extends Component {
           <Breadcrumb path={this.props.location.pathname} />
           <div className="post-container container">
             <MainContent newsCategory>
-              <Content currentId={currentId} />
+              <Content currentId={currentCategoryId} />
             </MainContent>
             <SideContent>
               <SubContent />

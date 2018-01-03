@@ -2,10 +2,10 @@ import React from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import findIndex from 'lodash/findIndex'
-import Content from './Main'
+import Main from './Main'
 import categoryListQuery from './gql/'
 
-const CategoryList = ({ data: {loading, error, categories}, currentId}) => {
+const CategoryList = ({ data: {loading, error, categories}, currentId, categoryName}) => {
   if (loading) return null
   if (error) return <p>{error.message}</p>
 
@@ -13,12 +13,14 @@ const CategoryList = ({ data: {loading, error, categories}, currentId}) => {
   const category = categories[catIdx]
 
   return (
-    <Content
+    <Main
       categories={categories.map(item => ({
+        categoryName: category.name,
         id: item.id,
         name: item.name
       }))}
       news={category.news.map(item => ({
+        categoryName: category.name,
         currentId: currentId,
         id: item.id,
         path : item.pictures[0].path,
@@ -28,7 +30,7 @@ const CategoryList = ({ data: {loading, error, categories}, currentId}) => {
         commentCount: item.comment.length,
       }))}
       currentId={currentId}
-      categoryName = {category.name}
+      categoryName={category.name}
     />
   )
 }

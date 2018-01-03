@@ -13,7 +13,7 @@ const Breadcrumb = (props) => {
       <ol className="breadcrumb">
         <li><Link to="/">Home</Link></li>
         { splitPathname.map((item, index) => (
-            <li key={index}><Link to={`/${item}`}>{capitalizeFirstLetter(item)}</Link></li>
+            <li key={index}><Link to={`/${item.toLowerCase()}`}>{capitalizeFirstLetter(item)}</Link></li>
           ))
         }
         <li className="active">{capitalizeFirstLetter(splitLast)}</li>
