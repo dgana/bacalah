@@ -26,13 +26,12 @@ const detailNews = ({ categoryName, currentId, id, path, title, content, created
          <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
          <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
        </div>
-      <p>{limitString(content)}</p>
+      <p>{limitString(content, 350)}</p>
     </div>
   </div>
 )
 
 export default ({ categories, latestNews, news, categoryName, currentId }) => {
-  console.log(latestNews)
   return (
     <div className="post clearfix">
       <header className="page-header">
@@ -59,7 +58,7 @@ export default ({ categories, latestNews, news, categoryName, currentId }) => {
              <h4 className="title">
                <Link key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>{latestNews.title}</Link>
              </h4>
-             <p>{latestNews.content}</p>
+             <p>{limitString(latestNews.content, 500)}</p>
            </div>
         </div> : null
       }

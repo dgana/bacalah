@@ -52,7 +52,7 @@ const NewsDetail = props => (
       </div>
     </header>
     <img src={props.picture} alt="" className="post-thumbnail" />
-    <p>{props.content}</p>
+    <p id="p_wrap">{props.content}</p>
   </div>
 
   <div className="related-post margin-top-20 clearfix">

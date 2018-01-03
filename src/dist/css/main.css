@@ -572,3 +572,7 @@ blockquote:after{
   left: -6px;
   bottom: 100px;
 }
+
+#p_wrap {
+  white-space: pre-line;
+}
