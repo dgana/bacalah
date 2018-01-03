@@ -78,9 +78,9 @@ a:hover + .card-thumbnail:after {
 }
 
 .feature-view  a:hover {
-	--ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	/*--ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
 	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-	opacity: .8
+	opacity: .8*/
 }
 
 .card-post-format .feature-view .card-meta li {

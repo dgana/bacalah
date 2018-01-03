@@ -31,7 +31,8 @@ const detailNews = ({ categoryName, currentId, id, path, title, content, created
   </div>
 )
 
-export default ({ categories, news, categoryName, currentId }) => {
+export default ({ categories, latestNews, news, categoryName, currentId }) => {
+  console.log(latestNews)
   return (
     <div className="post clearfix">
       <header className="page-header">
@@ -42,24 +43,26 @@ export default ({ categories, news, categoryName, currentId }) => {
         <div className="margin-bottom-10">
           {categories.map(category)}
         </div>
-      <div className="feature-view">
-        <div className="card-thumbnail">
-         <img src="img/travel_11.jpg" alt="" />
-         <div className="card-meta">
-           <ul className="list">
-             <li><a href=""><i className="fa fa-heart"></i>121</a></li>
-             <li><a href=""><i className="fa fa-comment"></i>320</a></li>
-           </ul>
-         </div>
-        </div>
-        <div className="col-inner">
-           <h4 className="title">
-             <Link to={`/${currentId}/1`}>15 lesser-known ski resorts to check out this winter</Link>
-           </h4>
-           <p>This month, CNNGo visits South Africa's largest city and one of its most exciting -- home to radical theater, apartheid relics and a museum of beer.This month, CNNGo visits South Africa's largest city and one of its most exciting -- home to radical theater, apartheid </p>
-         </div>
-      </div>
-
+      { latestNews ?
+        <div className="feature-view">
+          <div className="card-thumbnail">
+            <Link key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>
+              <img src={latestNews.pictures[0].path} alt="Latest News" />
+              <div className="card-meta">
+                <ul className="list">
+                  <li style={{color: 'rgb(40,40,40)'}}><i className="fa fa-comment"></i>{latestNews.comment.length}</li>
+                </ul>
+              </div>
+            </Link>
+          </div>
+          <div className="col-inner">
+             <h4 className="title">
+               <Link key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>{latestNews.title}</Link>
+             </h4>
+             <p>{latestNews.content}</p>
+           </div>
+        </div> : null
+      }
       <div className="post margin-top-20 clearfix">
         <div className="row">
           {news.map(detailNews)}

@@ -11,7 +11,7 @@ import MainContent from '../../common/MainContent'
 import SideContent from '../../common/SideContent'
 import Breadcrumb from '../../common/Breadcrumb'
 import Content from './Content'
-import SubContent from './SubContent'
+import SubContent from './SideContent'
 
 class Category extends Component {
   render() {

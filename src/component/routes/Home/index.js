@@ -7,7 +7,7 @@ import Footer from '../../common/Footer'
 import MainContent from '../../common/MainContent'
 import SideContent from '../../common/SideContent'
 import Content from './Content'
-import SubContent from './SubContent'
+import SubContent from './SideContent'
 
 class Home extends Component {
   render() {

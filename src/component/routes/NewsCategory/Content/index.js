@@ -12,6 +12,10 @@ const CategoryList = ({ data: {loading, error, categories}, currentId, categoryN
   const catIdx = currentId ? findIndex(categories, ['id', currentId]) : 0
   const category = categories[catIdx]
 
+  console.log(!!category.news[0])
+  const latestNews = !!category.news[0] ? category.news[0] : null
+  console.log(latestNews)
+
   return (
     <Main
       categories={categories.map(item => ({
@@ -19,7 +23,8 @@ const CategoryList = ({ data: {loading, error, categories}, currentId, categoryN
         id: item.id,
         name: item.name
       }))}
-      news={category.news.map(item => ({
+      latestNews={latestNews}
+      news={category.news.slice(1).map(item => ({
         categoryName: category.name,
         currentId: currentId,
         id: item.id,
