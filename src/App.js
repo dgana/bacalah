@@ -13,10 +13,10 @@ import './dist/css/modules/form.css'
 import './dist/css/modules/media.css'
 import './dist/css/layouts/card.css'
 import './dist/css/layouts/news.css'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
-import 'bootstrap/dist/js/bootstrap.min.js'
+// import 'bootstrap/dist/js/bootstrap.min.js'
 
 class App extends Component {
   render() {
