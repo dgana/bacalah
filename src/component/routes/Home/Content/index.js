@@ -19,7 +19,7 @@ const settings = {
 }
 
 const Content = ({ data: { loading, error, allNews }}) => {
-  if (loading) return null
+  if (loading) return <p>{'Loading...'}</p>
   if (error) return <p>{error.message}</p>
 
   const latestNews = allNews.slice(0, 4)

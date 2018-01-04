@@ -5,7 +5,7 @@ import Content from './Main'
 
 // gql
 import detailNewsQuery from './gql/'
-import queryVariables from './gql/queryVariables'
+import config from './gql/config'
 
 const DetailNews = ({ data: { loading, error, news }, currentId}) => {
   if (loading) return (<p>loading...</p>)
@@ -34,4 +34,4 @@ const DetailNews = ({ data: { loading, error, news }, currentId}) => {
   )
 }
 
-export default graphql(gql(detailNewsQuery), queryVariables)(DetailNews)
+export default graphql(gql(detailNewsQuery), config)(DetailNews)
