@@ -34,8 +34,6 @@ const Content = (props) => {
   const popularTechnologyNewsByCategory = _.maxBy(newsByCategory, 'clickCount')
   const popularHealthNewsByCategory = _.maxBy(props.healthCategory.newsByCategory, 'clickCount')
 
-  console.log(popularTechnologyNewsByCategory)
-
   return (
     <div>
       <div className="widget-thumbnail corousel-wrapper" style={{marginBottom: 12}}>
