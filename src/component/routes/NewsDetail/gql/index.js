@@ -1,32 +1,13 @@
 module.exports = `
-  query detailNewsQuery($id:String!){
+  query($id:String!){
+    categories{
+      id
+      name
+    },
     news(id:$id){
       id
-      title
-      content
-      author{
+      category{
         id
-        username
-      }
-      pictures{
-        id
-        path
-      }
-      comment{
-        id
-        content
-        user{
-          id
-          username
-        }
-        replies{
-          id
-          content
-          user{
-            id
-            username
-          }
-        }
       }
     }
   }

@@ -3,9 +3,8 @@ import React from 'react'
 // GraphQL
 // import { graphql } from 'react-apollo'
 // import gql from 'graphql-tag'
-// import addCommentQuery from './gql/'
+// import query from './gql/'
 // import config from './gql/config'
-
 
 const comment = ({replies, author, date, content, id}) => (
   <li key={id} className="media">
@@ -60,21 +59,21 @@ class NewsDetail extends React.Component {
     return (
       <div>
         <div className="post clearfix">
-        <header className="page-header">
-          <div className="page-title">
-            <h2 className="title">{title}</h2>
-            <div className="meta-wrapper">
-              <span className="meta"><i className="fa fa-pencil-square-o"></i>{author}</span>
-              <span className="meta"><i className="fa fa-calendar"></i> {date}</span>
-              <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
+          <header className="page-header">
+            <div className="page-title">
+              <h2 className="title">{title}</h2>
+              <div className="meta-wrapper">
+                <span className="meta"><i className="fa fa-pencil-square-o"></i>{author}</span>
+                <span className="meta"><i className="fa fa-calendar"></i> {date}</span>
+                <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
+              </div>
             </div>
-          </div>
-        </header>
-        <img src={picture} alt="" className="post-thumbnail" />
-        <p id="p_wrap">{content}</p>
-      </div>
+          </header>
+          <img src={picture} alt="" className="post-thumbnail" />
+          <p id="p_wrap">{content}</p>
+        </div>
 
-      <div className="related-post margin-top-20 clearfix">
+        {/* <div className="related-post margin-top-20 clearfix">
          <header className="widget-header">
             <h4 className="title">
               We recommend
@@ -113,7 +112,7 @@ class NewsDetail extends React.Component {
           </div>
         </div>
 
-        </div>
+        </div> */}
 
         <div id="comment-view" className="comment clearfix">
           <header className="widget-header">
@@ -125,9 +124,9 @@ class NewsDetail extends React.Component {
             {comments.map(comment)}
           </ul>
 
-          <div className="load-more cleafix" data-role="more">
+          {/* <div className="load-more cleafix" data-role="more">
             <a href="" data-action="more-posts" className="btn col-md-12">Load more comments</a>
-          </div>
+          </div> */}
 
         </div>
 
@@ -162,7 +161,6 @@ class NewsDetail extends React.Component {
       </div>
     )
   }
-
 }
 
 export default NewsDetail

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 // images
 import post1 from '../../../../dist/img/aside_post_1.jpg'
@@ -7,99 +8,85 @@ import post3 from '../../../../dist/img/aside_post_3.jpg'
 import post4 from '../../../../dist/img/aside_post_4.jpg'
 import post5 from '../../../../dist/img/aside_post_5.jpg'
 
-const SubContent = (props) => (
-  <div>
-    <div className="widget">
-      <header className="widget-header">
-        <h4 className="title">
-          Tagged with
-        </h4>
-      </header>
-      <div className="widget-content meta-tag">
+// GraphQL
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
+import { newsQuery } from './gql/'
+import { newsConfig } from './gql/config'
+
+// Plugin Dependencies
+import _ from 'lodash'
+
+// Utility
+import { limitString } from '../../../../util'
+
+const SubContent = (props) => {
+
+  const sortedPopularNews = _.sortBy(props.popularNews.newsByCategory, 'clickCount').reverse().slice(0,5)
+  console.log(sortedPopularNews);
+
+  return (
+    <div>
+      {/* <div className="widget">
+        <header className="widget-header">
+          <h4 className="title">
+            Tagged with
+          </h4>
+        </header>
+        <div className="widget-content meta-tag">
+          <div className="margin-top-20">
+            <a className="tag" href="">Cold War</a>
+            <a className="tag" href="">Russian Revolution</a>
+            <a className="tag" href="">Czechoslovakia</a>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="widget banner">
+        <header className="widget-header">
+          <h4 className="title">
+            Advertisement
+          </h4>
+        </header>
+        <img src="img/banner_250.jpg" alt="" />
+      </div>
+
+      <div className="widget">
+        <header className="widget-header">
+          <h4 className="title">
+            MOST POPULAR
+          </h4>
+        </header>
         <div className="margin-top-20">
-          <a className="tag" href="">Cold War</a>
-          <a className="tag" href="">Russian Revolution</a>
-          <a className="tag" href="">Czechoslovakia</a>
+          <ul className="media-list list">
+            { sortedPopularNews.map(item => {
+              return (
+                <li key={item.id} className="media">
+                  <div className="title margin-bottom-10">
+                    <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}>{item.title}</Link>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <Link to={`/${item.category.name.toLowerCase()}/${item.id}`} className="pull-left">
+                        <img src={item.pictures[0].path} alt="Popular News" className="media-object" />
+                      </Link>
+                    </div>
+                    <div className="col-md-6" style={{paddingLeft: 0}}>
+                      <p className="small">{limitString(item.content, 100)}</p>
+                    </div>
+                  </div>
+                </li>
+              )
+            })
+            }
+          </ul>
         </div>
       </div>
     </div>
+  )
+}
 
-    <div className="widget banner">
-      <header className="widget-header">
-        <h4 className="title">
-          Advertisement
-        </h4>
-      </header>
-      <img src="img/banner_250.jpg" alt="" />
-    </div>
-
-    <div className="widget">
-      <header className="widget-header">
-        <h4 className="title">
-          MOST POPULAR
-        </h4>
-      </header>
-      <div className="margin-top-20">
-        <ul className="media-list list">
-          <li className="media">
-            <div className="title margin-bottom-10">
-              <a href="">Scenes from the field</a>
-            </div>
-            <a href="" className="pull-left">
-              <img src={post1} alt="" />
-            </a>
-            <div className="media-body">
-              <p className="small">Browse through images you don't always see in news reports, taken by CNN teams all around the world.</p>
-            </div>
-          </li>
-          <li className="media">
-            <div className="title margin-bottom-10">
-              <a href="">Heroes or villains? Cricket's rebels</a>
-            </div>
-            <a href="" className="pull-left">
-              <img src={post2} alt="" />
-            </a>
-            <div className="media-body">
-              <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
-            </div>
-          </li>
-          <li className="media">
-            <div className="title margin-bottom-10">
-              <a href="">Heroes or villains? Cricket's rebels</a>
-            </div>
-            <a href="" className="pull-left">
-              <img src={post3} alt="" />
-            </a>
-            <div className="media-body">
-              <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
-            </div>
-          </li>
-          <li className="media">
-            <div className="title margin-bottom-10">
-              <a href="">New year, chance to reclaim humanity?</a>
-            </div>
-            <a href="" className="pull-left">
-              <img src={post4} alt="" />
-            </a>
-            <div className="media-body">
-              <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
-            </div>
-          </li>
-          <li className="media">
-            <div className="title margin-bottom-10">
-              <a href="">Tribesmen join forces vs. al Qaeda</a>
-            </div>
-            <a href="" className="pull-left">
-              <img src={post5} alt="" />
-            </a>
-            <div className="media-body">
-              <p className="small">Gareth Evans was just a small boy when a team of West Indies cricketers arrived in apartheid South Africa. Their lives would never be the same.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-)
-
-export default SubContent
+export default compose(
+  // graphql(gql(categoriesQuery), categoriesConfig),
+  graphql(gql(newsQuery), newsConfig)
+)(SubContent)
