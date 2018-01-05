@@ -42,7 +42,7 @@ const detailNews = ({ categoryName, currentId, id, path, title, content, created
 class Main extends React.Component {
 
   render() {
-    const { categories, latestNews, news, categoryName, currentId, submit, loading, error } = this.props
+    const { categories, latestNews, news, categoryName, submit, loading, error } = this.props
 
     if (loading) return (<p>Loading...</p>)
     if (error) return (<p>{error.message}</p>)

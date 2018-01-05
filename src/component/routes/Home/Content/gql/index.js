@@ -1,21 +1,63 @@
-module.exports = `
-  query{
-    allNews{
-      id
-      title
-      content
-      category {
+module.exports = {
+  allNewsQuery: `
+    query($categoryId:String!){
+      allNews{
         id
-        name
-      }
-      comment {
+        title
+        content
+        category {
+          id
+          name
+        }
+        comment {
+          id
+        }
+        pictures {
+          id
+          path
+        }
+        createdAt
+      },
+      newsByCategory(categoryId:$categoryId) {
         id
+        title
+        content
+        clickCount
+        category {
+          id
+          name
+        }
+        comment {
+          id
+        }
+        pictures {
+          id
+          path
+        }
+        createdAt
       }
-      pictures {
-        id
-        path
-      }
-      createdAt
     }
-  }
-`
+  `,
+  categoriesQuery: `
+    query($categoryId:String!){
+      newsByCategory(categoryId:$categoryId) {
+        id
+        title
+        content
+        clickCount
+        category {
+          id
+          name
+        }
+        comment {
+          id
+        }
+        pictures {
+          id
+          path
+        }
+        createdAt
+      }
+    }
+  `
+}

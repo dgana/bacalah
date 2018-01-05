@@ -1,10 +1,10 @@
 import React from 'react'
 
 // GraphQL
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
-import addCommentQuery from './gql/'
-import config from './gql/config'
+// import { graphql } from 'react-apollo'
+// import gql from 'graphql-tag'
+// import addCommentQuery from './gql/'
+// import config from './gql/config'
 
 
 const comment = ({replies, author, date, content, id}) => (
@@ -48,12 +48,13 @@ const reply = ({author, date, content, id}) => (
 class NewsDetail extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   formComment: {
-    //
-    //   }
-    // }
+    this.state = {
+      formComment: {
+        name: ''
+      }
+    }
   }
+
   render() {
     const { title, author, date, commentCount, picture, content, comments } = this.props
     return (

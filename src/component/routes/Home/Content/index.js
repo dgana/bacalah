@@ -1,11 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+// GraphQL
 import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
-import allNewsQuery from './gql/'
+import { graphql, compose } from 'react-apollo'
+import { allNewsQuery, categoriesQuery } from './gql/'
+import { allNewsConfig, categoriesConfig } from './gql/config'
 
 // Plugin Dependencies
 import Slider from 'react-slick'
+import _ from 'lodash'
 
 // Utility
 import { limitString } from '../../../../util'
@@ -18,10 +22,19 @@ const settings = {
   slidesToScroll: 1
 }
 
-const Content = ({ data: { loading, error, allNews }}) => {
+const Content = (props) => {
+
+  // console.log(props)
+
+  const { loading, error, allNews, newsByCategory } = props.data
 
   if (loading) return (<p>Loading...</p>)
   if (error) return (<p>{error.message}</p>)
+
+  const popularTechnologyNewsByCategory = _.maxBy(newsByCategory, 'clickCount')
+  const popularHealthNewsByCategory = _.maxBy(props.healthCategory.newsByCategory, 'clickCount')
+
+  console.log(popularTechnologyNewsByCategory)
 
   return (
     <div>
@@ -34,7 +47,7 @@ const Content = ({ data: { loading, error, allNews }}) => {
         <Slider {...settings}>
           { allNews.slice(0, 4).map(item => {
               return (
-                <div>
+                <div key={item.id}>
                   <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}><img src={item.pictures[0].path} alt="Feature News" /></Link>
                   <div className="caption-block">
                     <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}>
@@ -54,67 +67,69 @@ const Content = ({ data: { loading, error, allNews }}) => {
           }
         </Slider>
       </div>
-
       <div className="row">
-      <div className="col-md-12" style={{background: 'white'}}>
-      <div className="col-md-6 main-content">
-        <div className="widget">
-          <header className="widget-header">
-            <h4 className="title">
-              Technology
-            </h4>
-          </header>
-            <div className="widget-thumbnail">
-              <img src="img/9.jpg" alt="" />
+        <div className="col-md-12" style={{background: 'white'}}>
+          <div className="col-md-6 main-content" style={{padding: '0px 30px'}}>
+            <div className="widget">
+              <header className="widget-header">
+                <h4 className="title">
+                  Technology
+                </h4>
+              </header>
+                <div className="widget-thumbnail">
+                  <Link to={`/${popularTechnologyNewsByCategory.category.name.toLowerCase()}/${popularTechnologyNewsByCategory.id}`}>
+                    <img src={popularTechnologyNewsByCategory.pictures[0].path} alt="Technology Popular" />
+                  </Link>
+                </div>
+                <div className="widget-content">
+                  <h3 className="title widget-title" style={{fontSize: 20}}>
+                    <Link to={`/${popularTechnologyNewsByCategory.category.name.toLowerCase()}/${popularTechnologyNewsByCategory.id}`}>
+                      {popularTechnologyNewsByCategory.title}
+                    </Link>
+                  </h3>
+                  <div className="meta-wrapper">
+                    <span className="meta"><i className="fa fa-calendar"></i>{popularTechnologyNewsByCategory.createdAt}</span>
+                    <span className="meta"><i className="fa fa-comment-o"></i>{popularTechnologyNewsByCategory.comment.length}</span>
+                  </div>
+                  <p>{limitString(popularTechnologyNewsByCategory.content, 350)}</p>
+                </div>
             </div>
-            <div className="widget-content">
-              <h3 className="title widget-title">
-                Buying Into Obamacare
-              </h3>
-              <p>A health writer tries to buy insurance on an Obamacare exchange and confronts the good, the bad and the ugly of the new health insurance marketplace.</p>
-            </div>
-            <div className="related-content box">
-              <div className="inner">
-                <ul className="list list-view">
-                  <li><a href="">U.S. Grouped With Powerhouse Germany in World Cup 2014 Draw</a></li>
-                  <li><a href="">Seahawks clinch top seed with 27-9 win over Rams</a></li>
-                  <li><a href="">Blount leads Pats to bye with 34-20 win over Bills</a></li>
-                </ul>
+          </div>
+          { popularHealthNewsByCategory ?
+            <div className="col-md-6 main-content" style={{padding: '0px 30px'}}>
+              <div className="widget">
+                <header className="widget-header">
+                  <h4 className="title">
+                    health
+                  </h4>
+                </header>
+                <div className="widget-thumbnail">
+                  <Link to={`/${popularHealthNewsByCategory.category.name.toLowerCase()}/${popularHealthNewsByCategory.id}`}>
+                    <img src={popularHealthNewsByCategory.pictures[0].path} alt="Health Popular" />
+                  </Link>
+                </div>
+                <div className="widget-content">
+                  <h3 className="title widget-title" style={{fontSize: 20}}>
+                    <Link to={`/${popularHealthNewsByCategory.category.name.toLowerCase()}/${popularHealthNewsByCategory.id}`}>
+                      {popularHealthNewsByCategory.title}
+                    </Link>
+                  </h3>
+                  <div className="meta-wrapper">
+                    <span className="meta"><i className="fa fa-calendar"></i>{popularHealthNewsByCategory.createdAt}</span>
+                    <span className="meta"><i className="fa fa-comment-o"></i>{popularHealthNewsByCategory.comment.length}</span>
+                  </div>
+                  <p>{limitString(popularHealthNewsByCategory.content, 350)}</p>
+                </div>
               </div>
-            </div>
+            </div> : null
+          }
         </div>
       </div>
-      <div className="col-md-6 main-content">
-        <div className="widget">
-          <header className="widget-header">
-            <h4 className="title">
-              health
-            </h4>
-          </header>
-          <div className="widget-thumbnail">
-            <img src="img/7.jpg" alt="" />
-          </div>
-          <div className="widget-content">
-            <h3 className="title widget-title">
-              Buying Into Obamacare
-            </h3>
-            <p>A health writer tries to buy insurance on an Obamacare exchange and confronts the good, the bad and the ugly of the new health insurance marketplace.</p>
-          </div>
-          <div className="related-content box">
-            <div className="inner">
-              <ul className="list list-view">
-                <li><a href="">U.S. Grouped With Powerhouse Germany in World Cup 2014 Draw</a></li>
-                <li><a href="">Seahawks clinch top seed with 27-9 win over Rams</a></li>
-                <li><a href="">Blount leads Pats to bye with 34-20 win over Bills</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
     </div>
   )
 }
 
-export default graphql(gql(allNewsQuery))(Content)
+export default compose(
+  graphql(gql(allNewsQuery), allNewsConfig),
+  graphql(gql(categoriesQuery), categoriesConfig)
+)(Content)
