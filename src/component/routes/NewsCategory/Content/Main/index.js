@@ -8,7 +8,7 @@ import updateClickCountQuery from './gql/'
 import config from './gql/config'
 
 // Content Component
-import Pagination from '../Pagination'
+// import Pagination from './Pagination'
 
 // Utility
 import { capitalizeFirstLetter, limitString } from '../../../../../util'
@@ -19,34 +19,40 @@ const category = ({ id, name }) => (
   </Link>
 )
 
-const detailNews = ({ categoryName, currentId, id, path, title, content, createdAt, commentCount }) => (
-  <div key={id} className="list-item clearfix">
-    <div className="list-thumbnail col-md-4">
-      <Link key={`catdet-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}><img src={path} alt="no-pic" /></Link>
+const detailNews = ({ categoryName, currentId, id, path, title, content, createdAt, commentCount, submit }) => {
+  return (
+    <div key={id} className="list-item clearfix">
+      <div className="list-thumbnail col-md-4">
+        <Link onClick={() => submit(id)} key={`catdet-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}><img src={path} alt="no-pic" /></Link>
+      </div>
+      <div className="list-inner col-md-8">
+        <h4 className="title">
+          <Link onClick={() => submit(id)} key={`catdet2-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}>{title}</Link>
+        </h4>
+        <div className="meta-wrapper">
+           <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
+           <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
+         </div>
+        <p>{limitString(content, 350)}</p>
+      </div>
     </div>
-    <div className="list-inner col-md-8">
-      <h4 className="title">
-        <Link key={`catdet2-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}>{title}</Link>
-      </h4>
-      <div className="meta-wrapper">
-         <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
-         <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
-       </div>
-      <p>{limitString(content, 350)}</p>
-    </div>
-  </div>
-)
+  )
+}
 
 class Main extends React.Component {
 
   render() {
-    const { categories, latestNews, news, categoryName, currentId, submit, mutate } = this.props
+    const { categories, latestNews, news, categoryName, currentId, submit, loading, error } = this.props
 
-    // if (loading) return (<p>Loading...</p>)
-    // if (error) return (<p>{error.message}</p>)
-    console.log(this.props)
-    console.log(submit)
-    console.log(mutate)
+    if (loading) return (<p>Loading...</p>)
+    if (error) return (<p>{error.message}</p>)
+
+    const news2 = news.map(item => {
+      return {
+        ...item,
+        submit
+      }
+    })
 
     return (
       <div className="post clearfix">
@@ -60,8 +66,8 @@ class Main extends React.Component {
         </div>
         { latestNews ?
           <div className="feature-view">
-            <div className="card-thumbnail" onClick={() => alert('jbrng5az', 1)}>
-              <Link key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>
+            <div className="card-thumbnail">
+              <Link onClick={() => submit(latestNews.id)} key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>
                 <img src={latestNews.pictures[0].path} alt="Latest News" />
                 <div className="card-meta">
                   <ul className="list">
@@ -80,27 +86,15 @@ class Main extends React.Component {
         }
         <div className="post margin-top-20 clearfix">
           <div className="row">
-            {news.map(detailNews)}
+            {news2.map(detailNews)}
           </div>
 
-          <Pagination />
+          {/* <Pagination /> */}
 
         </div>
       </div>
     )
   }
-
 }
-
-// onClick={() => submit('jbrng5az', 1)
-// onClick={() => {
-//   // Mutate function passed via props
-//   mutate({
-//     variables: {
-//       id: "jbrng5az",
-//       clickCount: 1
-//     }
-//   })
-// }}
 
 export default graphql(gql(updateClickCountQuery), config)(Main)

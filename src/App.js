@@ -15,7 +15,7 @@ import './dist/css/layouts/card.css'
 import './dist/css/layouts/news.css'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-
+import 'react-bootstrap-modal/lib/css/rbm-patch.css'
 // import 'bootstrap/dist/js/bootstrap.min.js'
 
 class App extends Component {

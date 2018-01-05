@@ -10,10 +10,8 @@ import Breadcrumb from '../../common/Breadcrumb'
 import Content from './Content'
 import SubContent from './SideContent'
 
-
 class NewsDetail extends Component {
   render() {
-    console.log(this.props);
     return (
       <div>
         <Header />

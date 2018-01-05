@@ -19,25 +19,24 @@ const settings = {
 }
 
 const Content = ({ data: { loading, error, allNews }}) => {
-  if (loading) return <p>{'Loading...'}</p>
-  if (error) return <p>{error.message}</p>
 
-  const latestNews = allNews.slice(0, 4)
+  if (loading) return (<p>Loading...</p>)
+  if (error) return (<p>{error.message}</p>)
 
   return (
     <div>
-      <div className="widget-thumbnail corousel-wrapper">
+      <div className="widget-thumbnail corousel-wrapper" style={{marginBottom: 12}}>
         <header className="widget-header">
           <h4 className="title">
             latest news
           </h4>
         </header>
         <Slider {...settings}>
-          { latestNews.map(item => {
+          { allNews.slice(0, 4).map(item => {
               return (
                 <div>
                   <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}><img src={item.pictures[0].path} alt="Feature News" /></Link>
-                  <div className="caption-block" style={{paddingBottom: 26}}>
+                  <div className="caption-block">
                     <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}>
                       <h3 className="title widget-title">
                         {item.title}
@@ -56,11 +55,13 @@ const Content = ({ data: { loading, error, allNews }}) => {
         </Slider>
       </div>
 
+      <div className="row">
+      <div className="col-md-12" style={{background: 'white'}}>
       <div className="col-md-6 main-content">
         <div className="widget">
           <header className="widget-header">
             <h4 className="title">
-              SPORT
+              Technology
             </h4>
           </header>
             <div className="widget-thumbnail">
@@ -87,7 +88,7 @@ const Content = ({ data: { loading, error, allNews }}) => {
         <div className="widget">
           <header className="widget-header">
             <h4 className="title">
-              Technology
+              health
             </h4>
           </header>
           <div className="widget-thumbnail">
@@ -110,6 +111,8 @@ const Content = ({ data: { loading, error, allNews }}) => {
           </div>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   )
 }

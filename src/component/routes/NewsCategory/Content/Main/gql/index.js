@@ -1,8 +1,7 @@
 module.exports = `
-  mutation($id: String!, $clickCount: Int!) {
-    updateClickCount(id: $id, clickCount: $clickCount) {
+  mutation updateClickCount($newsId: String!) {
+    updateClickCount(newsId: $newsId) {
       id
-      clickCount
     }
   }
 `

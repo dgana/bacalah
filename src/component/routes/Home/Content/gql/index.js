@@ -4,10 +4,6 @@ module.exports = `
       id
       title
       content
-      author {
-        id
-      }
-      isFeatured
       category {
         id
         name

@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
-import categoryListNameQuery from './gql/'
 
 // Category Component
 import Header from '../../common/Header'
@@ -13,7 +10,12 @@ import Breadcrumb from '../../common/Breadcrumb'
 import Content from './Content'
 import SubContent from './SideContent'
 
-class Category extends Component {
+// GraphQL
+import gql from 'graphql-tag'
+import { graphql } from 'react-apollo'
+import categoryListNameQuery from './gql/'
+
+class NewsCategory extends Component {
   render() {
     const { loading, error, categories } = this.props.data
 
@@ -43,4 +45,4 @@ class Category extends Component {
   }
 }
 
-export default graphql(gql(categoryListNameQuery))(Category)
+export default graphql(gql(categoryListNameQuery))(NewsCategory)

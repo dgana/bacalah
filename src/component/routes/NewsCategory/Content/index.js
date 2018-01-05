@@ -12,9 +12,7 @@ const CategoryList = ({ data: {loading, error, categories}, currentId, categoryN
   const catIdx = currentId ? findIndex(categories, ['id', currentId]) : 0
   const category = categories[catIdx]
 
-  console.log(!!category.news[0])
   const latestNews = !!category.news[0] ? category.news[0] : null
-  console.log(latestNews)
 
   return (
     <Main
