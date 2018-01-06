@@ -25,10 +25,7 @@ import { capitalizeFirstLetter } from '../../../util'
 class NewsDetail extends Component {
   render() {
     const { loading, error, news } = this.props.data
-
-    if (loading) return (<p>Loading...</p>)
     if (error) return (<p>{error.message}</p>)
-
     return (
       <div>
         <Header />
@@ -39,7 +36,18 @@ class NewsDetail extends Component {
               <Content currentId={this.props.match.params.newsDetailId} />
             </MainContent>
             <SideContent>
-              <SubContent categoryId={news.category.id} />
+              <div className="widget banner">
+                <header className="widget-header">
+                  <h4 className="title" style={{marginTop: -3}}>
+                    Advertisement
+                  </h4>
+                </header>
+                <img src="../img/banner_250.jpg" alt="Side Banner" />
+              </div>
+              { loading ?
+                <p>Loading...</p> :
+                <SubContent categoryId={news.category.id} />
+              }
             </SideContent>
           </div>
         </ContainerMain>

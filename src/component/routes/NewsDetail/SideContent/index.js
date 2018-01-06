@@ -23,7 +23,6 @@ import { limitString } from '../../../../util'
 const SubContent = (props) => {
 
   const sortedPopularNews = _.sortBy(props.popularNews.newsByCategory, 'clickCount').reverse().slice(0,5)
-  console.log(sortedPopularNews);
 
   return (
     <div>
@@ -41,15 +40,6 @@ const SubContent = (props) => {
           </div>
         </div>
       </div> */}
-
-      <div className="widget banner">
-        <header className="widget-header">
-          <h4 className="title" style={{marginTop: -3}}>
-            Advertisement
-          </h4>
-        </header>
-        <img src="../img/banner_250.jpg" alt="Side Banner" />
-      </div>
 
       <div className="widget">
         <header className="widget-header">
