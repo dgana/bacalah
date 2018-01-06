@@ -3,7 +3,8 @@ module.exports = {
     options: () => ({
       variables: {
         categoryId: "jbpx9e9l"
-      }
+      },
+      notifyOnNetworkStatusChange: true
     }),
     props: (props) => {
       return {

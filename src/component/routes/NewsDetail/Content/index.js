@@ -7,9 +7,16 @@ import Content from './Main'
 import detailNewsQuery from './gql/'
 import config from './gql/config'
 
-const DetailNews = ({ data: { loading, error, news }, currentId}) => {
-  if (loading) return (<p>loading...</p>)
+const DetailNews = ({ data, currentId}) => {
+
+  const { loading, error, news } = data
+
+  console.log(data)
+
+  // if (loading) return (<p>loading...</p>)
+  if (!news) return (<p>loading...</p>)
   if (error) return (<p>{error.message}</p>)
+
   return (
     <Content
       comments = {news.comment.map(item => ({
