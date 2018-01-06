@@ -4,7 +4,7 @@ const SubContent = (props) => (
   <div>
 
 
-      <div className="widget">
+      {/* <div className="widget">
         <header className="widget-header">
           <h4 className="title">
             TRENDING NOW
@@ -23,25 +23,15 @@ const SubContent = (props) => (
             </div>
           </li>
         </ul>
-      </div>
+      </div> */}
 
-      <div className="widget">
+      <div className="widget banner">
         <header className="widget-header">
-          <h4 className="title">
+          <h4 className="title" style={{marginTop: -3}}>
             Advertisement
           </h4>
         </header>
-        <div className="widget-content">
-          <ul className="list list-view">
-            <li><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </a></li>
-            <li><a href="">  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-              deserunt mollit anim id est laborum.</a></li>
-          </ul>
-        </div>
+        <img src="img/banner_600.jpg" alt="Side Banner" style={{width: '80%'}} />
       </div>
 
   </div>

@@ -44,11 +44,11 @@ const SubContent = (props) => {
 
       <div className="widget banner">
         <header className="widget-header">
-          <h4 className="title">
+          <h4 className="title" style={{marginTop: -3}}>
             Advertisement
           </h4>
         </header>
-        <img src="img/banner_250.jpg" alt="" />
+        <img src="../img/banner_250.jpg" alt="Side Banner" />
       </div>
 
       <div className="widget">
