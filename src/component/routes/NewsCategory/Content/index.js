@@ -6,7 +6,7 @@ import Main from './Main'
 import categoryListQuery from './gql/'
 
 const CategoryList = ({ data: {loading, error, categories}, currentId, categoryName}) => {
-  if (loading) return null
+  if (loading) return (<p>Loading...</p>)
   if (error) return <p>{error.message}</p>
 
   const catIdx = currentId ? findIndex(categories, ['id', currentId]) : 0
