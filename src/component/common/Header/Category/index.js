@@ -16,11 +16,9 @@ query {
 const CategoryList = ({ data: { loading, error, categories }}) => {
   if (loading) return (<p>Loading ...</p>)
   if (error) return (<p>{error.message}</p>)
-  return (
-    <ul>
-      { categories.map(category => <li key={category.id}><Link to={`/${category.name.toLowerCase()}`}>{category.name}</Link></li> )}
-    </ul>)
+  return categories.map(category => <li key={category.id}><Link to={`/${category.name.toLowerCase()}`}>{category.name}</Link></li> )
 }
+
 
 const CategoryListWithData = graphql(categoryListQuery)(CategoryList)
 
@@ -47,7 +45,7 @@ class Category extends React.Component {
 
   render() {
     const getMarginTop = this.state.width < 751 ? 12 : 12
-    console.log(getMarginTop, this.state.width)
+
     return (
       <header className="site-header">
         <div className="container">
@@ -76,7 +74,10 @@ class Category extends React.Component {
               id="main-menu"
               className={classNames('menu-wrapper col-md-10 navbar-collapse', { collapse: this.state.collapse })}>
               <ul className="menu nav navbar-nav">
-                <CategoryListWithData />
+                <ul>
+                  <CategoryListWithData />
+                  <li><Link to={'/'}>Tentang Kami</Link></li>
+                </ul>
               </ul>
             </nav>
 
