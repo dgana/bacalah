@@ -1,7 +1,7 @@
 import React from 'react'
 
 const MainAds = () => (
-  <div className="col-md-12 headline">
+  <div className="col-md-12 headline" style={{padding: 0}}>
     <div className="bar-view widget">
       <div className="inner clearfix">
         <div className="col-md-2 bar-title" style={{lineHeight: '100px', height: 132}}>

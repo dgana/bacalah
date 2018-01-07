@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-       <div>
+       <div style={{background: 'rgb(23,179,213)'}}>
         <Route exact path="/" component={Home} />
         <Route exact path="/:categoryId" component={NewsCategory} />
         <Route exact path="/:categoryId/:newsDetailId" component={NewsDetail} />

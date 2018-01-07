@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="container footer-view">
       <div className="row">
         <div className="col-md-6 col-sm-6 copyright">
-          <span>Copyright 2018 © Kabarkepri. </span>
+          <span>COPYRIGHT @PT Media Gemah Ripah </span>
         </div>
         {/* <div className="col-md-6 col-sm-6 footer-link">
           <ul className="menu">

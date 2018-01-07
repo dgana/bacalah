@@ -65,9 +65,9 @@ const Content = (props) => {
           }
         </Slider>
       </div>
-      <div className="row">
+      <div className="row" style={{margin: 0}}>
         <div className="col-md-12" style={{background: 'white'}}>
-          <div className="col-md-6 main-content" style={{padding: '0px 30px'}}>
+          <div className="col-md-6 main-content" style={{padding: '0px 16px'}}>
             <div className="widget">
               <header className="widget-header">
                 <h4 className="title">

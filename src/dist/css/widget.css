@@ -36,15 +36,20 @@ RWD widget
 	background-color: #fff;
 	margin-bottom: 30px;
 	position: relative;
+	border-radius: 4px;
 }
 
 .widget > .inner {
 	padding: 10px
 }
 
+.widget-header {
+	margin-top: 4px;
+}
+
 .widget-header .title {
 	line-height: 1;
-	margin: 0;
+	margin: 3px;
 	padding: 20px;
 	font-size: 14px;
 	border-top: double 4px #0B1013;

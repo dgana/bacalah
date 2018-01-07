@@ -29,7 +29,7 @@ class Category extends React.Component {
     super(props)
     this.state = {
       collapse: false,
-      width: 0
+      width: 1200
     }
   }
 
@@ -46,15 +46,18 @@ class Category extends React.Component {
   }
 
   render() {
+    const getMarginTop = this.state.width < 751 ? 12 : 12
+    console.log(getMarginTop, this.state.width)
     return (
       <header className="site-header">
         <div className="container">
           <div className="row">
-            <div className="col-md-2">
+            <div className="col-md-3">
               <Link to='/'>
-                <h1 className="site-logo title">
-                  kabarkepri
+                <h1 className="site-logo" style={{fontFamily: 'BradleyHand', fontSize: 40, color: 'rgb(244,203,45)', fontWeight: 1000}}>
+                  Bacalah
                 </h1>
+                <p style={{color: 'rgb(30,30,30)'}}>Informasi di tangan anda. maka bacalah...</p>
               </Link>
               <button
                 onClick={() => this.setState(prevState => ({ collapse: prevState.collapse ? false : true }))}
@@ -69,7 +72,7 @@ class Category extends React.Component {
               </button>
             </div>
             <nav
-              style={{marginTop: this.state.width < 751 ? 12 : 0}}
+              style={{marginTop: getMarginTop}}
               id="main-menu"
               className={classNames('menu-wrapper col-md-10 navbar-collapse', { collapse: this.state.collapse })}>
               <ul className="menu nav navbar-nav">

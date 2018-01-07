@@ -92,7 +92,7 @@ blockquote:after{
 }
 
 .margin-top-10 { margin-top: 10px }
-.margin-top-20 { margin-top: 20px }
+.margin-top-20 { margin-top: 20px; padding: 12px; }
 .margin-top-30 { margin-top: 30px }
 .margin-top-40 { margin-top: 40px }
 
@@ -579,4 +579,28 @@ blockquote:after{
 
 #p_wrap {
   white-space: pre-line;
+}
+
+ol.breadcrumb li {
+  color: rgb(30,30,30) !important;
+}
+
+ol.breadcrumb li a, .breadcrumb>li+li:before {
+  color: rgb(240,240,240) !important;
+}
+
+header.site-header {
+  padding-bottom: 8px;
+}
+
+/*
+ * Block Custom: Font Face
+ * -----------
+ */
+
+@font-face {
+  font-family: BradleyHand;
+  src: url("../fonts/Bradley_Hand_ITC_TT.ttf");
+  font-weight: 300;
+  font-style: normal;
 }

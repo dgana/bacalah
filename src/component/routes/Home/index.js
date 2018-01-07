@@ -14,14 +14,16 @@ class Home extends Component {
     return (
       <div>
         <Header />
-        <ContainerMain MainAds>
-          <MainContent>
-            <Content />
-          </MainContent>
-          <SideContent>
-            <SubContent />
-          </SideContent>
-        </ContainerMain>
+          <ContainerMain MainAds>
+            <div className="post-container container">
+              <MainContent>
+                <Content />
+              </MainContent>
+              <SideContent>
+                <SubContent />
+              </SideContent>
+            </div>
+          </ContainerMain>
         <Footer />
       </div>
     )
