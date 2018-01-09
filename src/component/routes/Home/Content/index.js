@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 import { allNewsQuery } from './gql/'
+import { allNewsConfig } from './gql/config'
 
 // Plugin Dependencies
 import Slider from 'react-slick'
@@ -138,4 +139,4 @@ const Content = (props) => {
   )
 }
 
-export default graphql(gql(allNewsQuery))(Content)
+export default graphql(gql(allNewsQuery), allNewsConfig)(Content)

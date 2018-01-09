@@ -3,6 +3,12 @@ import React from 'react'
 // Plugin Dependencies
 import Modal from 'react-bootstrap-modal'
 
+// GraphQL
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
+import { registerMutation } from './gql/'
+import { registerConfig } from './gql/config'
+
 class Topbar extends React.Component {
   constructor(props) {
     super(props)
@@ -15,7 +21,7 @@ class Topbar extends React.Component {
         email: '',
         firstName: '',
         lastName: '',
-        isAuthor: false
+        isAuthor: true
       },
       formLogin: {
         username: '',
@@ -30,6 +36,8 @@ class Topbar extends React.Component {
 
   _saveAndCloseRegister = () => {
     this.setState({ openRegister: false })
+    console.log(this.props.submit)
+    this.props.submit(this.state.formRegister)
   }
 
   _handleFormChangeRegister = (type, value) => {
@@ -58,6 +66,7 @@ class Topbar extends React.Component {
 
   render() {
     const { formRegister, formLogin } = this.state
+
     return (
       <div>
         <Modal
@@ -199,4 +208,6 @@ class Topbar extends React.Component {
   }
 }
 
-export default Topbar
+export default compose(
+  graphql(gql(registerMutation), registerConfig)
+)(Topbar)
