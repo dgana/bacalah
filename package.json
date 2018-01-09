@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-cache-persist": "^0.1.1",
     "apollo-client-preset": "^1.0.5",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",

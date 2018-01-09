@@ -36,7 +36,6 @@ class Topbar extends React.Component {
 
   _saveAndCloseRegister = () => {
     this.setState({ openRegister: false })
-    console.log(this.props.submit)
     this.props.submit(this.state.formRegister)
   }
 
@@ -66,7 +65,7 @@ class Topbar extends React.Component {
 
   render() {
     const { formRegister, formLogin } = this.state
-
+    console.log(this.props)
     return (
       <div>
         <Modal

@@ -52,7 +52,7 @@ class Category extends React.Component {
     const getCategoryPadding = this.state.width < 1200 ? '6px' : '0px 15px'
 
     return (
-      <header className="site-header">
+      <header className="site-header" style={{borderBottom: 'none', background: 'red'}}>
         <div className="container">
           <div className="row">
             <div className="col-md-3">

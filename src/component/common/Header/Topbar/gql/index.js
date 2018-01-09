@@ -7,7 +7,9 @@ module.exports = {
           id
           username
         }
-        errors
+        errors {
+          message
+        }
       }
     }
   `
