@@ -26,7 +26,7 @@ class Category extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      collapse: false,
+      collapse: true,
       width: 1200
     }
   }
@@ -52,12 +52,13 @@ class Category extends React.Component {
           <div className="row">
             <div className="col-md-3">
               <Link to='/'>
-                <h1 className="site-logo" style={{fontFamily: 'BradleyHand', fontSize: 40, color: 'rgb(244,203,45)', fontWeight: 1000}}>
-                  Bacalah
+                <h1 className="site-logo" style={{fontFamily: 'AmericanTypewriter', fontSize: 50, color: 'rgb(244,203,45)', fontWeight: 1000}}>
+                  Bacalah.co
                 </h1>
-                <p style={{color: 'rgb(30,30,30)'}}>Informasi di tangan anda. maka bacalah...</p>
+                <p style={{fontFamily: 'BradleyHand', color: 'rgb(30,30,30)', fontSize: 14}}>Informasi di tangan anda, maka bacalah...</p>
               </Link>
               <button
+                style={{position: 'absolute', top: 20, right: 20}}
                 onClick={() => this.setState(prevState => ({ collapse: prevState.collapse ? false : true }))}
                 type="button"
                 className="navbar-toggle"
@@ -72,7 +73,7 @@ class Category extends React.Component {
             <nav
               style={{marginTop: getMarginTop}}
               id="main-menu"
-              className={classNames('menu-wrapper col-md-10 navbar-collapse', { collapse: this.state.collapse })}>
+              className={classNames('menu-wrapper col-md-9 navbar-collapse', { collapse: this.state.collapse })}>
               <ul className="menu nav navbar-nav">
                 <ul>
                   <CategoryListWithData />

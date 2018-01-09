@@ -161,11 +161,12 @@ blockquote:after{
 }
 
 .menu li a {
-	padding: 10px 20px;
+	padding: 10px 15px;
 	font-weight: 700;
 	text-transform: uppercase;
 	display: block;
 	color: #000;
+  font-size: 12px;
 }
 
 .nav .open>a,
@@ -601,6 +602,13 @@ header.site-header {
 @font-face {
   font-family: BradleyHand;
   src: url("../fonts/Bradley_Hand_ITC_TT.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: AmericanTypewriter;
+  src: url("../fonts/American Typewriter Condensed Bold.ttf");
   font-weight: 300;
   font-style: normal;
 }
