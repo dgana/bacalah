@@ -13,25 +13,28 @@ query {
 }
 `
 
-const CategoryList = ({ data: { loading, error, categories }}) => {
+const CategoryList = ({ data, padding }) => {
+  const { loading, error, categories } = data
   if (loading) return (<p>Loading ...</p>)
   if (error) return (<p>{error.message}</p>)
-  return categories.map(category => <li key={category.id}><Link to={`/${category.name.toLowerCase()}`}>{category.name}</Link></li> )
+  return categories.map(category => (
+    <li key={category.id}>
+      <Link to={`/${category.name.toLowerCase()}`} style={{padding}}>{category.name}</Link>
+    </li>
+  ))
 }
-
-
-const CategoryListWithData = graphql(categoryListQuery)(CategoryList)
 
 class Category extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       collapse: true,
-      width: 1200
+      width: 0
     }
   }
 
   componentDidMount() {
+    this._updateWindowDimensions()
     window.addEventListener('resize', this._updateWindowDimensions)
   }
 
@@ -44,7 +47,9 @@ class Category extends React.Component {
   }
 
   render() {
-    const getMarginTop = this.state.width < 751 ? 12 : 12
+    const marginTop = this.state.width < 751 ? 0 : 24
+    const paddingTop = this.state.width < 1200 ? 12 : 0
+    const getCategoryPadding = this.state.width < 1200 ? '6px' : '0px 15px'
 
     return (
       <header className="site-header">
@@ -71,17 +76,16 @@ class Category extends React.Component {
               </button>
             </div>
             <nav
-              style={{marginTop: getMarginTop}}
+              style={{marginTop, paddingTop}}
               id="main-menu"
               className={classNames('menu-wrapper col-md-9 navbar-collapse', { collapse: this.state.collapse })}>
               <ul className="menu nav navbar-nav">
                 <ul>
-                  <CategoryListWithData />
-                  <li><Link to={'/'}>Tentang Kami</Link></li>
+                  <CategoryList data={this.props.data} padding={getCategoryPadding} />
+                  <li><Link to={'/'} style={{padding: getCategoryPadding}}>Tentang Kami</Link></li>
                 </ul>
               </ul>
             </nav>
-
           </div>
         </div>
       </header>
@@ -89,4 +93,4 @@ class Category extends React.Component {
   }
 }
 
-export default Category
+export default graphql(categoryListQuery)(Category)

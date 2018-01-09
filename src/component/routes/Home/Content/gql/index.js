@@ -1,6 +1,6 @@
 module.exports = {
   allNewsQuery: `
-    query($categoryId:String!){
+    query{
       allNews{
         id
         title
@@ -18,46 +18,28 @@ module.exports = {
         }
         createdAt
       },
-      newsByCategory(categoryId:$categoryId) {
+      categories{
         id
-        title
-        content
-        clickCount
-        category {
+        name
+        news {
           id
-          name
+          title
+          content
+          clickCount
+          category {
+            id
+            name
+          }
+          comment {
+            id
+          }
+          pictures {
+            id
+            path
+          }
+          createdAt
         }
-        comment {
-          id
-        }
-        pictures {
-          id
-          path
-        }
-        createdAt
       }
-    }
-  `,
-  categoriesQuery: `
-    query($categoryId:String!){
-      newsByCategory(categoryId:$categoryId) {
-        id
-        title
-        content
-        clickCount
-        category {
-          id
-          name
-        }
-        comment {
-          id
-        }
-        pictures {
-          id
-          path
-        }
-        createdAt
-      }
-    }
+    }  
   `
 }

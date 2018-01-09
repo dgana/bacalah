@@ -1,13 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-// images
-import post1 from '../../../../dist/img/aside_post_1.jpg'
-import post2 from '../../../../dist/img/aside_post_2.jpg'
-import post3 from '../../../../dist/img/aside_post_3.jpg'
-import post4 from '../../../../dist/img/aside_post_4.jpg'
-import post5 from '../../../../dist/img/aside_post_5.jpg'
-
 // GraphQL
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'

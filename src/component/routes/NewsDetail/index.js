@@ -16,12 +16,6 @@ import gql from 'graphql-tag'
 import query from './gql/'
 import config from './gql/config'
 
-// Plugin Dependencies
-import _ from 'lodash'
-
-// Utility
-import { capitalizeFirstLetter } from '../../../util'
-
 class NewsDetail extends Component {
   render() {
     const { loading, error, news } = this.props.data
