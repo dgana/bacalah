@@ -25,6 +25,39 @@ const detailNewsQuery = `
       id
       comment{
         id
+        replies{
+          id
+        }
+      }
+    }
+  }
+`
+
+const commentsQuery = `
+  query($news:String!){
+    comments(news:$news) {
+      id
+      user {
+        id
+      }
+      replies {
+        id
+        user {
+          id
+        }
+      }
+    }
+  }
+`
+
+const addReplyMutation = `
+  mutation addReply($isLogin:Boolean!, $userId:String, $content:String!, $commentId:String!){
+    addReply(isLogin:$isLogin, userId:$userId, content:$content, commentId:$commentId){
+      id,
+      content
+      user{
+        id
+        username
       }
     }
   }
@@ -32,3 +65,5 @@ const detailNewsQuery = `
 
 module.exports.addCommentMutation = addCommentMutation
 module.exports.detailNewsQuery = detailNewsQuery
+module.exports.commentsQuery = commentsQuery
+module.exports.addReplyMutation = addReplyMutation

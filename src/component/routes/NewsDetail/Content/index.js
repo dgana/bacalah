@@ -24,7 +24,7 @@ const DetailNews = ({ data, currentId }) => {
           date: new Date() + "",
           content: replies.content
         })),
-        id: item.id,
+        commentId: item.id,
         author: item.user.username,
         date: new Date() + "",
         content: item.content
