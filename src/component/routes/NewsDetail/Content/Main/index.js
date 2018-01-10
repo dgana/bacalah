@@ -143,19 +143,14 @@ class NewsDetail extends React.Component {
 }
 
 const getQuery = gql`
-  query($id:String!){
-    news(id:$id){
-      id,
-      comment{
-        id
-        content
-        user{
-          id
-          username
-        }
-      }
+query detailNewsQuery($id:String!){
+  news(id:$id){
+    id
+    comment{
+      id
     }
   }
+}
 `
 
 const query = gql`
@@ -166,6 +161,14 @@ const query = gql`
       user{
         id
         username
+      }
+      replies{
+        id
+        content
+        user{
+          id
+          username
+        }
       }
     }
   }
@@ -193,11 +196,11 @@ export default graphql(query, {
       //     __typename: 'Comment',
       //   },
       // },
-      // update: (store, { data: { addComment } }) => {
-      //   const data = store.readQuery({ query: getQuery, variables: { id: newsId } })
-      //   data.news.comment.push(addComment)
-      //   store.writeQuery({ query: getQuery, variables: { id: newsId }, data })
-      // }
+      update: (store, { data: { addComment } }) => {
+        const data = store.readQuery({ query: getQuery, variables: { id: newsId } })
+        data.news.comment.push(addComment)
+        store.writeQuery({ query: getQuery, variables: { id: newsId }, data })
+      }
     })
   })
 })(NewsDetail)
