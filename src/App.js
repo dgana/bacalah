@@ -33,9 +33,9 @@ const isAuthenticated = () => {
   // } catch (err) {
   //   return false
   // }
-  if (!token) {
-    return false
-  }
+  // if (!token) {
+  //   return false
+  // }
   return true
 }
 

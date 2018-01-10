@@ -37,10 +37,6 @@ class Topbar extends React.Component {
     this.setState({ openRegister: false })
   }
 
-  componentDidMount() {
-    console.log(decode(localStorage.getItem('bacalahtoken')))
-  }
-
   _saveAndCloseRegister = () => {
     this.props.submit(this.state.formRegister)
     .then(res => {
@@ -84,6 +80,11 @@ class Topbar extends React.Component {
       [type]: value
     }
     this.setState({ formLogin: newForm })
+  }
+
+  _logOut = () => {
+    localStorage.clear()
+    window.location.reload()
   }
 
   render() {
@@ -221,6 +222,9 @@ class Topbar extends React.Component {
                 <ul className="social-icon-list menu top-bar-menu">
                   <li style={{marginTop: 3, fontSize: 11}}>
                     welcome {decode(localStorage.getItem('bacalahtoken')).user.username}
+                  </li>
+                  <li onClick={() => this._logOut()} style={{marginTop: 3, fontSize: 11, cursor: 'pointer', marginLeft: 16  }}>
+                    Log Out
                   </li>
                 </ul> : null
               }
