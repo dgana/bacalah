@@ -9,6 +9,7 @@ import SideContent from '../../common/SideContent'
 import Breadcrumb from '../../common/Breadcrumb'
 import Content from './Content'
 import SubContent from './SideContent'
+import NotFound from '../NotFound'
 
 // GraphQL
 import gql from 'graphql-tag'

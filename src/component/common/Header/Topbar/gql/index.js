@@ -7,6 +7,8 @@ module.exports = {
           id
           username
         }
+        token
+        refreshToken
         errors {
           message
         }

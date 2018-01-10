@@ -1,5 +1,5 @@
 /*
-Layout & content 
+Layout & content
 Header
 Footer
 Banner
@@ -63,7 +63,7 @@ RWD class
 
 .nav-topbar {
 	background-color: #0B1013;
-	padding: 0;
+	padding: 2px;
 }
 
 .nav-topbar a,

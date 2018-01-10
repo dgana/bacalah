@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 // Plugin Dependencies
 import Modal from 'react-bootstrap-modal'
+import decode from 'jwt-decode'
 
 // GraphQL
 import { graphql, compose } from 'react-apollo'
@@ -35,19 +37,27 @@ class Topbar extends React.Component {
     this.setState({ openRegister: false })
   }
 
+  componentDidMount() {
+    console.log(decode(localStorage.getItem('bacalahtoken')))
+  }
+
   _saveAndCloseRegister = () => {
     this.props.submit(this.state.formRegister)
     .then(res => {
       const errors = res.data.addUser.errors
-      const user = res.data.addUser.user
+      const data = res.data.addUser
       if (errors) {
         if (errors[0].message === "username must be unique") {
           this.setState({ usernameIsUnique: true })
           setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
-        } else {
-          this.setState({ openRegister: false })
-          console.log(user)
         }
+      } else {
+        localStorage.setItem('bacalahtoken', data.token)
+        localStorage.setItem('bacalahrefreshToken', data.refreshToken)
+        this.setState({ openRegister: false })
+
+        // console.log(decode(data.token), decode(data.refreshToken))
+        // console.log(res, data.user)
       }
     })
   }
@@ -196,13 +206,25 @@ class Topbar extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-md-6 col-sm-6">
-                <ul className="top-link menu top-bar-menu">
-                  <li style={{marginRight: 12, cursor: 'pointer'}} onClick={() => this.setState({ openRegister: true })}>Register</li>
-                  <li style={{marginRight: 12, cursor: 'pointer'}} onClick={() => this.setState({ openLogin: true })}>Login</li>
-                  <li style={{marginRight: 12, cursor: 'pointer'}}>Advertisement</li>
-                </ul>
+                { localStorage.getItem('bacalahtoken') ?
+                  <ul className="top-link menu top-bar-menu">
+                    <li style={{marginRight: 12, cursor: 'pointer'}}><Link style={{fontSize: 9 }} to="/create-news">Create News</Link></li>
+                    {/* <li style={{marginRight: 12, cursor: 'pointer'}}>Advertisement</li> */}
+                  </ul> :
+                  <ul className="top-link menu top-bar-menu">
+                    <li style={{marginRight: 12, cursor: 'pointer'}} onClick={() => this.setState({ openRegister: true })}>Register</li>
+                    <li style={{marginRight: 12, cursor: 'pointer'}} onClick={() => this.setState({ openLogin: true })}>Login</li>
+                  </ul>
+                }
               </div>
-              <div className="col-md-6 col-sm-6" style={{marginTop: 4}}>
+              { localStorage.getItem('bacalahtoken') ?
+                <ul className="social-icon-list menu top-bar-menu">
+                  <li style={{marginTop: 3, fontSize: 11}}>
+                    welcome {decode(localStorage.getItem('bacalahtoken')).user.username}
+                  </li>
+                </ul> : null
+              }
+              {/* <div className="col-md-6 col-sm-6" style={{marginTop: 4}}>
                 <ul className="social-icon-list menu top-bar-menu">
                   <li>
                     <form id="search-form" className="form-search form-horizontal">
@@ -213,7 +235,7 @@ class Topbar extends React.Component {
                     </form>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
