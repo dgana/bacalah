@@ -69,6 +69,7 @@ class NewsDetail extends React.Component {
         this.setState({
           addedComment: res.data.addComment
         })
+        console.log(res)
       })
     }
   }
@@ -182,22 +183,12 @@ export default graphql(query, {
 
       // Masih sering error writeQuery //
 
-      // optimisticResponse: {
-      //   addComment: {
-      //     id: Math.round(Math.random() * -1000000),
-      //     content,
-      //     user: {
-      //       id: Math.round(Math.random() * -1000000),
-      //       username: 'Someone'
-      //     },
-      //     __typename: 'Comment',
-      //   },
-      // },
-      // update: (store, { data: { addComment } }) => {
-      //   const data = store.readQuery({ query: getQuery, variables: { id: newsId } })
-      //   data.news.comment.push(addComment)
-      //   store.writeQuery({ query: getQuery, variables: { id: newsId }, data })
-      // }
+      update: (store, { data: { addComment } }) => {
+        const data = store.readQuery({ query: getQuery, variables: { id: newsId } })
+        data.news.comment.push(addComment)
+        console.log(data)
+        store.writeQuery({ query: getQuery, variables: { id: newsId }, data })
+      }
     })
   })
 })(NewsDetail)
