@@ -1,17 +1,11 @@
 module.exports = `
-  query($categoryId:String!){
-    newsByCategory(categoryId:$categoryId) {
-      id
-      title
-      pictures {
-        id
-        path
-      }
+  mutation addComment($isLogin:Boolean!, $userId:String, $content:String!, $newsId:String!){
+    addComment(isLogin:$isLogin, userId:$userId, content:$content, newsId:$newsId){
+      id,
       content
-      clickCount
-      category {
+      user{
         id
-        name
+        username
       }
     }
   }

@@ -26,7 +26,8 @@ class Topbar extends React.Component {
       formLogin: {
         username: '',
         password: ''
-      }
+      },
+      usernameIsUnique: false
     }
   }
 
@@ -35,8 +36,20 @@ class Topbar extends React.Component {
   }
 
   _saveAndCloseRegister = () => {
-    this.setState({ openRegister: false })
     this.props.submit(this.state.formRegister)
+    .then(res => {
+      const errors = res.data.addUser.errors
+      const user = res.data.addUser.user
+      if (errors) {
+        if (errors[0].message === "username must be unique") {
+          this.setState({ usernameIsUnique: true })
+          setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
+        } else {
+          this.setState({ openRegister: false })
+          console.log(user)
+        }
+      }
+    })
   }
 
   _handleFormChangeRegister = (type, value) => {
@@ -64,8 +77,7 @@ class Topbar extends React.Component {
   }
 
   render() {
-    const { formRegister, formLogin } = this.state
-    console.log(this.props)
+    const { formRegister, formLogin, usernameIsUnique } = this.state
     return (
       <div>
         <Modal
@@ -79,7 +91,10 @@ class Topbar extends React.Component {
             <div className="row">
               <div className="col-md-12" style={{padding: '0px 30px'}}>
                 <div className="form-group">
-                  <label>Username</label>
+                  <label style={{width: '100%'}}>
+                    Username
+                      <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: usernameIsUnique ? 1 : 0, visibility: usernameIsUnique ? 'visible' : 'hidden'}}>Nama user sudah terdaftar</span>
+                  </label>
                   <input
                     type="text"
                     name="username"

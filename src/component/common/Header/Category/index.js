@@ -82,7 +82,7 @@ class Category extends React.Component {
               <ul className="menu nav navbar-nav">
                 <ul>
                   <CategoryList data={this.props.data} padding={getCategoryPadding} />
-                  <li><Link to={'/'} style={{padding: getCategoryPadding}}>Tentang Kami</Link></li>
+                  {/* <li><Link to={'/'} style={{padding: getCategoryPadding}}>Tentang Kami</Link></li> */}
                 </ul>
               </ul>
             </nav>

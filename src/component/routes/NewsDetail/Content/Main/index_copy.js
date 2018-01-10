@@ -1,8 +1,8 @@
 import React from 'react'
 
 // GraphQL
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+// import { graphql } from 'react-apollo'
+// import gql from 'graphql-tag'
 // import query from './gql/'
 // import config from './gql/config'
 
@@ -48,9 +48,7 @@ class NewsDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: '',
-      addedComment: Object,
-      commentVal: false
+      comment: ''
     }
   }
 
@@ -58,25 +56,8 @@ class NewsDetail extends React.Component {
     this.setState({ [type]: value })
   }
 
-  _handleSubmitComment = (newsId) => {
-    if (this.state.comment.length < 8) {
-      this.setState({ commentVal: true })
-      setTimeout(() => this.setState({ commentVal: false }), 5000)
-    } else {
-      this.props.submit(false, this.state.comment, newsId)
-      .then(res => {
-        this.setState({ comment: '' })
-        this.setState({
-          addedComment: res.data.addComment
-        })
-      })
-    }
-  }
-
   render() {
-    const { commentVal, addedComment } = this.state
-    const { newsId, title, author, date, commentCount, picture, content, comments } = this.props
-
+    const { title, author, date, commentCount, picture, content, comments } = this.props
     return (
       <div>
         <div className="post clearfix">
@@ -94,6 +75,47 @@ class NewsDetail extends React.Component {
           <p id="p_wrap">{content}</p>
         </div>
 
+        {/* <div className="related-post margin-top-20 clearfix">
+         <header className="widget-header">
+            <h4 className="title">
+              We recommend
+            </h4>
+          </header>
+
+        <div className="post col-md-3 col-sm-3 col-xs-12">
+          <img src="img/post_1.jpg" alt="" className="post-thumbnail" />
+          <div className="title">
+            <a>Gay waitress loses job after investigation into whether customers denied tip.
+            </a>
+          </div>
+        </div>
+
+        <div className="post col-md-3 col-sm-3 col-xs-12">
+          <img src="img/post_2.jpg" alt="" className="post-thumbnail" />
+          <div className="title">
+            <a>Can wind towers take the heat off UAE's air-con addiction?
+            </a>
+          </div>
+        </div>
+
+        <div className="post col-md-3 col-sm-3 col-xs-12">
+          <img src="img/post_3.jpg" alt="" className="post-thumbnail" />
+          <div className="title">
+            <a>Shia LaBeouf offers cloudy plagiarism apology
+            </a>
+          </div>
+        </div>
+
+        <div className="post col-md-3 col-sm-3 col-xs-12">
+          <img src="img/post_4.jpg" alt="" className="post-thumbnail" />
+          <div className="title">
+            <a>Advances in Metastatic Melanoma
+            </a>
+          </div>
+        </div>
+
+        </div> */}
+
         <div id="comment-view" className="comment clearfix">
           <header className="widget-header">
             <h4 className="title">
@@ -101,26 +123,26 @@ class NewsDetail extends React.Component {
             </h4>
           </header>
           <ul className="list">
-            { comments.length === 0 ?
-              <p style={{marginTop: 16 }}>Belum ada komentar</p> :
-              comments.map(comment)
-            }
+            {comments.map(comment)}
           </ul>
+
+          {/* <div className="load-more cleafix" data-role="more">
+            <a href="" data-action="more-posts" className="btn col-md-12">Load more comments</a>
+          </div> */}
+
         </div>
 
-        <div id="reply-view" className="reply clearfix margin-top-20" style={{padding: 0}}>
+        <div id="reply-view" className="reply clearfix margin-top-20">
           <header className="widget-header">
             <h4 className="title">
               LEAVE A REPLY
             </h4>
           </header>
-          <div style={{marginTop: 8}}>
-            <div className="col-md-12">
+          <div className="margin-top-20">
+            <div className="col-md-12" style={{padding: 0}}>
               <div className="form-group">
                 <label htmlFor="comment_message" className="required sr-only">Your comment <span>(required):</span></label>
-                <p style={{color: 'red', transition: '0.6s', opacity: commentVal ? 1 : 0, visibility: commentVal ? 'visible' : 'hidden'}}>Komentar harus lebih dari 8 karakter</p>
                 <textarea
-                  value={this.state.comment}
                   onChange={(e) => this._handleCommentChange('comment', e.target.value)}
                   name="comment"
                   id="comment-message"
@@ -133,7 +155,7 @@ class NewsDetail extends React.Component {
               </div>
             </div>
             <div className="col-md-12">
-              <input onClick={() => this._handleSubmitComment(newsId)} type="submit" value="Post Comment" id="submit-comment" className="btn pull-right" />
+              <input type="submit" value="Post Comment" id="submit-comment" className="btn pull-right" />
             </div>
           </div>
         </div>
@@ -142,62 +164,4 @@ class NewsDetail extends React.Component {
   }
 }
 
-const getQuery = gql`
-  query($id:String!){
-    news(id:$id){
-      id,
-      comment{
-        id
-        content
-        user{
-          id
-          username
-        }
-      }
-    }
-  }
-`
-
-const query = gql`
-  mutation addComment($isLogin:Boolean!, $userId:String, $content:String!, $newsId:String!){
-    addComment(isLogin:$isLogin, userId:$userId, content:$content, newsId:$newsId){
-      id,
-      content
-      user{
-        id
-        username
-      }
-    }
-  }
-`
-
-export default graphql(query, {
-  props: ({ mutate, newsId }) => ({
-    submit: (isLogin, content, newsId) => mutate({
-      variables: {
-        isLogin,
-        content,
-        newsId
-      },
-
-      // Masih sering error writeQuery //
-
-      // optimisticResponse: {
-      //   addComment: {
-      //     id: Math.round(Math.random() * -1000000),
-      //     content,
-      //     user: {
-      //       id: Math.round(Math.random() * -1000000),
-      //       username: 'Someone'
-      //     },
-      //     __typename: 'Comment',
-      //   },
-      // },
-      // update: (store, { data: { addComment } }) => {
-      //   const data = store.readQuery({ query: getQuery, variables: { id: newsId } })
-      //   data.news.comment.push(addComment)
-      //   store.writeQuery({ query: getQuery, variables: { id: newsId }, data })
-      // }
-    })
-  })
-})(NewsDetail)
+export default NewsDetail

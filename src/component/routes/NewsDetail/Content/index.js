@@ -16,7 +16,8 @@ const DetailNews = ({ data, currentId }) => {
 
   return (
     <Content
-      comments = {news.comment.map(item => ({
+      newsId={news.id}
+      comments={news.comment.map(item => ({
         replies: item.replies.map(replies => ({
           id: replies.id,
           author: replies.user.username,
@@ -28,6 +29,7 @@ const DetailNews = ({ data, currentId }) => {
         date: new Date() + "",
         content: item.content
       }))}
+      currentId={currentId}
       title={news.title}
       author={news.author.username}
       date={new Date()+""}
