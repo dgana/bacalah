@@ -53,7 +53,6 @@ class NewsDetail extends React.Component {
       this.setState({ replyVal: true })
       setTimeout(() => this.setState({ replyVal: false }), 5000)
     } else {
-      alert("MACUK CINI")
       this.props.submitReply(false, this.state.reply.comment, this.state.reply.id)
       .then(res => {
         this.setState({
