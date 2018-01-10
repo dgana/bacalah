@@ -1,10 +1,13 @@
 import React from 'react'
 
 // GraphQL
-import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-// import query from './gql/'
+import { graphql } from 'react-apollo'
+import { detailNewsQuery, addCommentMutation } from './gql/'
 // import config from './gql/config'
+
+// Utility
+import { newsShortDate } from '../../../../../util'
 
 const comment = ({replies, author, date, content, id}) => (
   <li key={id} className="media">
@@ -12,7 +15,7 @@ const comment = ({replies, author, date, content, id}) => (
       <img src="img/avatar32.jpg" alt="" className="avatar" />
     </a>
     <div className="media-body">
-      <a href="" className="media-heading">{author} <span data-role="relative-time" className="meta time-ago">12 jan</span></a>
+      <a href="" className="media-heading">{author} <span data-role="relative-time" className="meta time-ago">{newsShortDate(date)}</span></a>
       <p>{content}</p>
       <footer className="comment-item-footer">
         <ul className="list-inline">
@@ -33,7 +36,7 @@ const reply = ({author, date, content, id}) => (
       <img src="img/avatar32.jpg" alt="" className="avatar" />
     </a>
     <div className="media-body">
-      <a href="" className="media-heading">{author} <span data-role="relative-time" className="meta time-ago">{date}</span></a>
+      <a href="" className="media-heading">{author} <span data-role="relative-time" className="meta time-ago">{newsShortDate(date)}</span></a>
       <p>{content}</p>
       <footer className="comment-item-footer">
         <ul className="list-inline">
@@ -143,36 +146,7 @@ class NewsDetail extends React.Component {
   }
 }
 
-const getQuery = gql`
-  query($id:String!){
-    news(id:$id){
-      id,
-      comment{
-        id
-        content
-        user{
-          id
-          username
-        }
-      }
-    }
-  }
-`
-
-const query = gql`
-  mutation addComment($isLogin:Boolean!, $userId:String, $content:String!, $newsId:String!){
-    addComment(isLogin:$isLogin, userId:$userId, content:$content, newsId:$newsId){
-      id,
-      content
-      user{
-        id
-        username
-      }
-    }
-  }
-`
-
-export default graphql(query, {
+export default graphql(gql(addCommentMutation), {
   props: ({ mutate, newsId }) => ({
     submit: (isLogin, content, newsId) => mutate({
       variables: {
@@ -180,14 +154,11 @@ export default graphql(query, {
         content,
         newsId
       },
-
-      // Masih sering error writeQuery //
-
       update: (store, { data: { addComment } }) => {
-        const data = store.readQuery({ query: getQuery, variables: { id: newsId } })
+        const data = store.readQuery({ query: gql(detailNewsQuery), variables: { id: newsId } })
         data.news.comment.push(addComment)
         console.log(data)
-        store.writeQuery({ query: getQuery, variables: { id: newsId }, data })
+        store.writeQuery({ query: gql(detailNewsQuery), variables: { id: newsId }, data })
       }
     })
   })
