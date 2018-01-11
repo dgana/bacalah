@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const SideContent = (props) => (
-  <div>BAAA</div>
+  <div></div>
 )
 
 export default SideContent

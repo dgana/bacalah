@@ -21,6 +21,8 @@ import "slick-carousel/slick/slick-theme.css"
 import 'react-bootstrap-modal/lib/css/rbm-patch.css'
 // import 'bootstrap/dist/js/bootstrap.min.js'
 
+import 'react-select/dist/react-select.css'
+
 const isAuthenticated = () => {
   const token = localStorage.getItem('bacalahtoken')
   const refreshToken = localStorage.getItem('bacalahrefreshToken')
@@ -61,6 +63,7 @@ class App extends Component {
     return (
       <Router>
         <div style={{background: 'rgb(23,179,213)'}}>
+          <PrivateRoute exact path="/create-news" component={CreateNews} />
           <Route exact path="/" component={Home} />
           <Route exact path="/news" component={NewsCategory} />
           <Route exact path="/cakap-cakap" component={NewsCategory} />
@@ -70,8 +73,7 @@ class App extends Component {
           <Route exact path="/khazanah" component={NewsCategory} />
           <Route exact path="/hankam" component={NewsCategory} />
           <Route exact path="/:categoryId/:newsDetailId" component={NewsDetail} />
-          <PrivateRoute exact path="/create-news" component={CreateNews} />
-          <Route component={NotFound} />
+          {/* <Route component={NotFound} /> */}
         </div>
       </Router>
     )

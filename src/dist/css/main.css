@@ -595,6 +595,69 @@ header.site-header {
 }
 
 /*
+ * Block Custom: Dropzone
+ * -----------
+ */
+
+.dropzone {
+  display: inline-block;
+  border-width: 1px;
+  border-style: dashed;
+  /*border-color: #979797;*/
+  border-color: rgb(200,200,200);
+  width: 100%;
+  /*cursor: pointer;*/
+  height: 150px;
+  border-radius: 8px;
+}
+
+.dropzone-width {
+  width: 35%;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+}
+
+.dropzone-box-add {
+  display: flex;
+  justify-content: center;
+  line-height: 150px;
+  cursor: pointer;
+}
+
+.dropzone-img {
+  max-width: 90%;
+  max-height: 90%;
+  position:absolute;
+  padding-top: 15px;
+  top:0;
+  bottom:0;
+  left: 0;
+  right: 0;
+  margin:auto;
+  display: inline-block;
+}
+
+.dropzone-square {
+  margin-right: 15px;
+  margin-bottom: 15px;
+  height: 125px;
+  width: 20%;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.dropzone-square-sm {
+  margin-right: 15px;
+  margin-bottom: 15px;
+  height: 80px;
+  width: 13%;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+/*
  * Block Custom: Font Face
  * -----------
  */
