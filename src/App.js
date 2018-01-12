@@ -6,6 +6,7 @@ import Home from './component/routes/Home'
 import NewsCategory from './component/routes/NewsCategory'
 import NewsDetail from './component/routes/NewsDetail'
 import CreateNews from './component/routes/CreateNews'
+import PedomanMediaSiber from './component/routes/PedomanMediaSiber'
 import NotFound from './component/routes/NotFound'
 
 import './dist/css/bootstrap.min.css'
@@ -72,7 +73,9 @@ class App extends Component {
           <Route exact path="/politik" component={NewsCategory} />
           <Route exact path="/khazanah" component={NewsCategory} />
           <Route exact path="/hankam" component={NewsCategory} />
+          <Route exact path="/pedoman-media-siber" component={PedomanMediaSiber} />
           <Route exact path="/:categoryId/:newsDetailId" component={NewsDetail} />
+          
           {/* <Route component={NotFound} /> */}
         </div>
       </Router>

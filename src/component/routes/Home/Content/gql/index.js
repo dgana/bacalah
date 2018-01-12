@@ -5,6 +5,11 @@ module.exports = {
         id
         title
         content
+        author{
+          id
+        }
+        isFeatured
+        clickCount
         category {
           id
           name
@@ -40,6 +45,6 @@ module.exports = {
           createdAt
         }
       }
-    }  
+    }
   `
 }

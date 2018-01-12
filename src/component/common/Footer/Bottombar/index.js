@@ -35,7 +35,7 @@ class Footer extends React.Component {
                 <div className="col-md-6 col-sm-6 footer-link">
                   <ul className="menu">
                     <li><Link to={"/"}>TENTANG KAMI</Link></li>
-                    <li>PEDOMAN MEDIA SIBER</li>
+                    <li><Link to={"/pedoman-media-siber"}>PEDOMAN MEDIA SIBER</Link></li>
                   </ul>
                 </div>
                 <div className="col-md-6 col-sm-6 copyright">
@@ -49,7 +49,7 @@ class Footer extends React.Component {
                 <div className="col-md-6 col-sm-6 footer-link">
                   <ul className="menu">
                     <li><Link to={"/"}>TENTANG KAMI</Link></li>
-                    <li>PEDOMAN MEDIA SIBER</li>
+                    <li><Link to={"/pedoman-media-siber"}>PEDOMAN MEDIA SIBER</Link></li>
                   </ul>
                 </div>
               </div>

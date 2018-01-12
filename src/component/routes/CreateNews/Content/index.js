@@ -7,7 +7,7 @@ import ReactTooltip from 'react-tooltip'
 import decode from 'jwt-decode'
 
 // GraphQL
-import { categoriesQuery, addNewsMutation } from './gql/'
+import { categoriesQuery, addNewsMutation, allNewsQuery } from './gql/'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -85,7 +85,6 @@ class Content extends Component {
     } else {
       this.props.submitAddNews(form)
       .then(res => {
-        console.log(res)
         this.setState({
           form: {
             userId: '',
@@ -102,20 +101,24 @@ class Content extends Component {
   }
 
   componentDidMount() {
-    const user = decode(localStorage.getItem('bacalahtoken'))
-    console.log(user)
+    const data = decode(localStorage.getItem('bacalahtoken'))
+    this.setState(prevState => ({
+      form: {
+        ...prevState.form,
+        userId: data.user.id
+      }
+    }))
   }
 
   render() {
     const { loading, error, categories } =  this.props.data
-    const { titleVal, contentVal } = this.state
+    const { titleVal, contentVal, form } = this.state
 
     // if (loading) return (<p>Loading...</p>)
     if (error) return (<p>{error.message}</p>)
 
     const categoryOptions = categories ? categories.map(item => ({ value: item.id, label: item.name })) : [{ value: 'jbpx9e9l', label: 'News' }]
 
-    const { form } = this.state
     return (
       <div>
         <h3 style={{marginTop: 0, marginBottom: 0 }}>Tambah Berita</h3>
@@ -212,11 +215,10 @@ export default compose(
           picturePath: form.picturePath
         },
         update: (store, { data: { addNews } }) => {
-          console.log(addNews)
-          // const data = store.readQuery({ query: gql(detailNewsQuery), variables: { id: ownProps.newsId } })
-          // const getCommentIndex = data.news.comment.findIndex(item => item.id === commentId)
-          // data.news.comment[getCommentIndex].replies.push(addNews)
-          // store.writeQuery({ query: gql(detailNewsQuery), variables: { id: ownProps.newsId }, data })
+          const data = store.readQuery({ query: gql(allNewsQuery) })
+          console.log(addNews, data)
+          data.allNews.push(addNews)
+          store.writeQuery({ query: gql(allNewsQuery), data })
         }
       })
     })
