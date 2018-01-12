@@ -101,7 +101,7 @@ class Content extends Component {
   }
 
   componentDidMount() {
-    const data = localStorage.getItem('bacalahuser')
+    const data = JSON.parse(localStorage.getItem('bacalahuser'))
     if (data) {
       this.setState(prevState => ({
         form: {

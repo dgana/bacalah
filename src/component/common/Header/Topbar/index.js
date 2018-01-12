@@ -8,8 +8,8 @@ import decode from 'jwt-decode'
 // GraphQL
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-import { registerMutation } from './gql/'
-import { registerConfig } from './gql/config'
+import { registerMutation, loginMutation } from './gql/'
+import { registerConfig, loginConfig } from './gql/config'
 
 class Topbar extends React.Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class Topbar extends React.Component {
     this.state = {
       openRegister: false,
       openLogin: false,
+      registerValid: false,
       formRegister: {
         username: '',
         password: '',
@@ -26,7 +27,7 @@ class Topbar extends React.Component {
         isAuthor: true
       },
       formLogin: {
-        username: '',
+        email: '',
         password: ''
       },
       usernameIsUnique: false,
@@ -39,26 +40,33 @@ class Topbar extends React.Component {
   }
 
   _saveAndCloseRegister = () => {
-    this.props.submit(this.state.formRegister)
-    .then(res => {
-      const errors = res.data.addUser.errors
-      const data = res.data.addUser
-      if (errors) {
-        console.log(errors);
-        if (errors[0].message === "username must be unique") {
-          this.setState({ usernameIsUnique: true })
-          setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
-        } else if (errors[0].message === "email must be unique") {
-          this.setState({ emailIsUnique: true })
-          setTimeout(() => this.setState({ emailIsUnique: false }), 5000)
+    const { username, password, email, firstName, lastName } = this.state.formRegister
+    if (username && password && email && firstName && lastName) {
+      this.props.submit(this.state.formRegister)
+      .then(res => {
+        const errors = res.data.addUser.errors
+        const data = res.data.addUser
+        if (errors) {
+          console.log(errors);
+          if (errors[0].message === "username must be unique") {
+            this.setState({ usernameIsUnique: true })
+            setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
+          } else if (errors[0].message === "email must be unique") {
+            this.setState({ emailIsUnique: true })
+            setTimeout(() => this.setState({ emailIsUnique: false }), 5000)
+          }
+        } else {
+          localStorage.setItem('bacalahtoken', data.token)
+          localStorage.setItem('bacalahrefreshToken', data.refreshToken)
+          localStorage.setItem('bacalahuser', JSON.stringify(decode(data.token)))
+          this.setState({ openRegister: false })
         }
-      } else {
-        localStorage.setItem('bacalahtoken', data.token)
-        localStorage.setItem('bacalahrefreshToken', data.refreshToken)
-        localStorage.setItem('bacalahuser', decode(data.token))
-        this.setState({ openRegister: false })
-      }
-    })
+      })
+    } else {
+      this.setState({ registerValid: true })
+      setTimeout(() => this.setState({ registerValid: false }), 5000)
+    }
+
   }
 
   _handleFormChangeRegister = (type, value) => {
@@ -74,7 +82,26 @@ class Topbar extends React.Component {
   }
 
   _saveAndCloseLogin = () => {
-    this.setState({ openLogin: false })
+    // this.props.submitLogin(this.state.formLogin)
+    // .then(res => {
+    //   const errors = res.data.addUser.errors
+    //   const data = res.data.addUser
+    //   if (errors) {
+    //     console.log(errors);
+    //     if (errors[0].message === "username must be unique") {
+    //       this.setState({ usernameIsUnique: true })
+    //       setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
+    //     } else if (errors[0].message === "email must be unique") {
+    //       this.setState({ emailIsUnique: true })
+    //       setTimeout(() => this.setState({ emailIsUnique: false }), 5000)
+    //     }
+    //   } else {
+    //     localStorage.setItem('bacalahtoken', data.token)
+    //     localStorage.setItem('bacalahrefreshToken', data.refreshToken)
+    //     localStorage.setItem('bacalahuser', decode(data.token))
+    //     this.setState({ openRegister: false })
+    //   }
+    // })
   }
 
   _handleFormChangeLogin = (type, value) => {
@@ -95,7 +122,8 @@ class Topbar extends React.Component {
       formRegister,
       formLogin,
       usernameIsUnique,
-      emailIsUnique
+      emailIsUnique,
+      registerValid
     } = this.state
 
     return (
@@ -164,6 +192,7 @@ class Topbar extends React.Component {
                     placeholder="Nama Akhiran"
                     onChange={(e) => this._handleFormChangeRegister('lastName', e.target.value)} />
                 </div>
+                <p style={{color: 'red', marginBottom: 0, marginTop: 0, transition: '0.6s', opacity: registerValid ? 1 : 0, visibility: registerValid ? 'visible' : 'hidden'}}>Field tidak boleh ada yang kosong</p>
               </div>
             </div>
           </Modal.Body>
@@ -185,14 +214,14 @@ class Topbar extends React.Component {
             <div className="row">
               <div className="col-md-12" style={{padding: '0px 30px'}}>
                 <div className="form-group">
-                  <label>Username</label>
+                  <label>Email</label>
                   <input
                     type="text"
                     name="username"
                     className="form-control"
-                    value={formLogin.username}
-                    placeholder="Nama User"
-                    onChange={(e) => this._handleFormChangeLogin('username', e.target.value)} />
+                    value={formLogin.email}
+                    placeholder="Email Anda"
+                    onChange={(e) => this._handleFormChangeLogin('email', e.target.value)} />
                 </div>
                 <div className="form-group">
                   <label>Password</label>
@@ -231,7 +260,7 @@ class Topbar extends React.Component {
               { localStorage.getItem('bacalahtoken') ?
                 <ul className="social-icon-list menu top-bar-menu">
                   <li style={{marginTop: 3, fontSize: 11}}>
-                    welcome {decode(localStorage.getItem('bacalahuser')).user.username}
+                    welcome {JSON.parse(localStorage.getItem('bacalahuser')).user.username}
                   </li>
                   <li onClick={() => this._logOut()} style={{marginTop: 3, fontSize: 11, cursor: 'pointer', marginLeft: 16  }}>
                     Log Out
