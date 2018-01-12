@@ -101,13 +101,16 @@ class Content extends Component {
   }
 
   componentDidMount() {
-    const data = decode(localStorage.getItem('bacalahtoken'))
-    this.setState(prevState => ({
-      form: {
-        ...prevState.form,
-        userId: data.user.id
-      }
-    }))
+    const data = localStorage.getItem('bacalahuser')
+    if (data) {
+      this.setState(prevState => ({
+        form: {
+          ...prevState.form,
+          userId: data.user.id
+        }
+      }))
+    }
+
   }
 
   render() {

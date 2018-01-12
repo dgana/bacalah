@@ -29,7 +29,8 @@ class Topbar extends React.Component {
         username: '',
         password: ''
       },
-      usernameIsUnique: false
+      usernameIsUnique: false,
+      emailIsUnique: false
     }
   }
 
@@ -43,17 +44,19 @@ class Topbar extends React.Component {
       const errors = res.data.addUser.errors
       const data = res.data.addUser
       if (errors) {
+        console.log(errors);
         if (errors[0].message === "username must be unique") {
           this.setState({ usernameIsUnique: true })
           setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
+        } else if (errors[0].message === "email must be unique") {
+          this.setState({ emailIsUnique: true })
+          setTimeout(() => this.setState({ emailIsUnique: false }), 5000)
         }
       } else {
         localStorage.setItem('bacalahtoken', data.token)
         localStorage.setItem('bacalahrefreshToken', data.refreshToken)
+        localStorage.setItem('bacalahuser', decode(data.token))
         this.setState({ openRegister: false })
-
-        // console.log(decode(data.token), decode(data.refreshToken))
-        // console.log(res, data.user)
       }
     })
   }
@@ -88,7 +91,13 @@ class Topbar extends React.Component {
   }
 
   render() {
-    const { formRegister, formLogin, usernameIsUnique } = this.state
+    const {
+      formRegister,
+      formLogin,
+      usernameIsUnique,
+      emailIsUnique
+    } = this.state
+
     return (
       <div>
         <Modal
@@ -104,7 +113,7 @@ class Topbar extends React.Component {
                 <div className="form-group">
                   <label style={{width: '100%'}}>
                     Username
-                      <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: usernameIsUnique ? 1 : 0, visibility: usernameIsUnique ? 'visible' : 'hidden'}}>Nama user sudah terdaftar</span>
+                    <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: usernameIsUnique ? 1 : 0, visibility: usernameIsUnique ? 'visible' : 'hidden'}}>Nama user sudah terdaftar</span>
                   </label>
                   <input
                     type="text"
@@ -126,6 +135,7 @@ class Topbar extends React.Component {
                 </div>
                 <div className="form-group">
                   <label>Email</label>
+                  <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: emailIsUnique ? 1 : 0, visibility: emailIsUnique ? 'visible' : 'hidden'}}>Email sudah terdaftar</span>
                   <input
                     type="text"
                     name="email"
@@ -221,7 +231,7 @@ class Topbar extends React.Component {
               { localStorage.getItem('bacalahtoken') ?
                 <ul className="social-icon-list menu top-bar-menu">
                   <li style={{marginTop: 3, fontSize: 11}}>
-                    welcome {decode(localStorage.getItem('bacalahtoken')).user.username}
+                    welcome {decode(localStorage.getItem('bacalahuser')).user.username}
                   </li>
                   <li onClick={() => this._logOut()} style={{marginTop: 3, fontSize: 11, cursor: 'pointer', marginLeft: 16  }}>
                     Log Out

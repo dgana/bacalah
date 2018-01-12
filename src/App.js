@@ -7,7 +7,7 @@ import NewsCategory from './component/routes/NewsCategory'
 import NewsDetail from './component/routes/NewsDetail'
 import CreateNews from './component/routes/CreateNews'
 import PedomanMediaSiber from './component/routes/PedomanMediaSiber'
-import NotFound from './component/routes/NotFound'
+// import NotFound from './component/routes/NotFound'
 
 import './dist/css/bootstrap.min.css'
 import './dist/css/widget.css'
@@ -26,19 +26,10 @@ import 'react-select/dist/react-select.css'
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('bacalahtoken')
-  const refreshToken = localStorage.getItem('bacalahrefreshToken')
-  // try {
-  //   decode(token)
-  //   const { exp } = decode(refreshToken)
-  //   if (Date.now() / 1000 > exp) {
-  //     return false
-  //   }
-  // } catch (err) {
-  //   return false
-  // }
-  // if (!token) {
-  //   return false
-  // }
+  // const refreshToken = localStorage.getItem('bacalahrefreshToken')
+  if (!token) {
+    return false
+  }
   return true
 }
 
@@ -75,7 +66,7 @@ class App extends Component {
           <Route exact path="/hankam" component={NewsCategory} />
           <Route exact path="/pedoman-media-siber" component={PedomanMediaSiber} />
           <Route exact path="/:categoryId/:newsDetailId" component={NewsDetail} />
-          
+
           {/* <Route component={NotFound} /> */}
         </div>
       </Router>
