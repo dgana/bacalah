@@ -31,7 +31,9 @@ class Topbar extends React.Component {
         password: ''
       },
       usernameIsUnique: false,
-      emailIsUnique: false
+      emailIsUnique: false,
+      passwordVal: false,
+      emailVal: false
     }
   }
 
@@ -82,26 +84,26 @@ class Topbar extends React.Component {
   }
 
   _saveAndCloseLogin = () => {
-    // this.props.submitLogin(this.state.formLogin)
-    // .then(res => {
-    //   const errors = res.data.addUser.errors
-    //   const data = res.data.addUser
-    //   if (errors) {
-    //     console.log(errors);
-    //     if (errors[0].message === "username must be unique") {
-    //       this.setState({ usernameIsUnique: true })
-    //       setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
-    //     } else if (errors[0].message === "email must be unique") {
-    //       this.setState({ emailIsUnique: true })
-    //       setTimeout(() => this.setState({ emailIsUnique: false }), 5000)
-    //     }
-    //   } else {
-    //     localStorage.setItem('bacalahtoken', data.token)
-    //     localStorage.setItem('bacalahrefreshToken', data.refreshToken)
-    //     localStorage.setItem('bacalahuser', decode(data.token))
-    //     this.setState({ openRegister: false })
-    //   }
-    // })
+    this.props.submitLogin(this.state.formLogin)
+    .then(res => {
+      const errors = res.data.login.errors
+      const data = res.data.login
+      if (errors) {
+        console.log(errors);
+        if (errors[0].message === "Wrong password") {
+          this.setState({ passwordVal: true })
+          setTimeout(() => this.setState({ passwordVal: false }), 5000)
+        } else if (errors[0].message === "Wrong email") {
+          this.setState({ emailVal: true })
+          setTimeout(() => this.setState({ emailVal: false }), 5000)
+        }
+      } else {
+        localStorage.setItem('bacalahtoken', data.token)
+        localStorage.setItem('bacalahrefreshToken', data.refreshToken)
+        localStorage.setItem('bacalahuser', JSON.stringify(decode(data.token)))
+        this.setState({ openLogin: false })
+      }
+    })
   }
 
   _handleFormChangeLogin = (type, value) => {
@@ -123,7 +125,9 @@ class Topbar extends React.Component {
       formLogin,
       usernameIsUnique,
       emailIsUnique,
-      registerValid
+      registerValid,
+      passwordVal,
+      emailVal
     } = this.state
 
     return (
@@ -158,7 +162,7 @@ class Topbar extends React.Component {
                       name="password"
                       className="form-control"
                       value={formRegister.password}
-                      placeholder="Minimal 6 karakter"
+                      placeholder="Password"
                       onChange={(e) => this._handleFormChangeRegister('password', e.target.value)} />
                 </div>
                 <div className="form-group">
@@ -215,6 +219,7 @@ class Topbar extends React.Component {
               <div className="col-md-12" style={{padding: '0px 30px'}}>
                 <div className="form-group">
                   <label>Email</label>
+                  <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: emailVal ? 1 : 0, visibility: emailVal ? 'visible' : 'hidden'}}>Email tidak ditemukan</span>
                   <input
                     type="text"
                     name="username"
@@ -225,12 +230,13 @@ class Topbar extends React.Component {
                 </div>
                 <div className="form-group">
                   <label>Password</label>
+                  <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: passwordVal ? 1 : 0, visibility: passwordVal ? 'visible' : 'hidden'}}>Password salah</span>
                     <input
                       type="password"
                       name="password"
                       className="form-control"
                       value={formLogin.password}
-                      placeholder="Minimal 6 karakter"
+                      placeholder="Password"
                       onChange={(e) => this._handleFormChangeLogin('password', e.target.value)} />
                 </div>
               </div>
@@ -288,5 +294,6 @@ class Topbar extends React.Component {
 }
 
 export default compose(
-  graphql(gql(registerMutation), registerConfig)
+  graphql(gql(registerMutation), registerConfig),
+  graphql(gql(loginMutation), loginConfig)
 )(Topbar)
