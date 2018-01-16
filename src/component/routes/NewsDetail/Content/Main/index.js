@@ -4,6 +4,8 @@ import React from 'react'
 import gql from 'graphql-tag'
 import { graphql, compose } from 'react-apollo'
 import { detailNewsQuery, commentsQuery, addCommentMutation, addReplyMutation } from './gql/'
+import htmlToDraft from 'html-to-draftjs';
+import { EditorState, ContentState } from 'draft-js';
 // import config from './gql/config'
 
 // Utility
@@ -83,9 +85,20 @@ class NewsDetail extends React.Component {
     })
   }
 
+  componentDidMount() {
+    this.refs.LOL.innerHTML = this.props.content + this.refs.LOL.innerHTML
+  }
+
   render() {
     const { commentVal, addedComment, reply, replyVal } = this.state
     const { newsId, title, author, date, commentCount, picture, content, comments } = this.props
+
+    const blocksFromHtml = htmlToDraft(content);
+    const { contentBlocks, entityMap } = blocksFromHtml;
+    const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+    const editorState = EditorState.createWithContent(contentState);
+
+    console.log(editorState);
 
     return (
       <div>
@@ -101,7 +114,10 @@ class NewsDetail extends React.Component {
             </div>
           </header>
           <img src={picture} alt="" className="post-thumbnail" />
-          <p id="p_wrap">{content}</p>
+          <div ref="LOL">
+
+          </div>
+
         </div>
 
         <div id="comment-view" className="comment clearfix">

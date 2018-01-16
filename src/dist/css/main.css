@@ -652,7 +652,7 @@ header.site-header {
 .dropzone-square-sm {
   margin-right: 15px;
   margin-bottom: 15px;
-  height: 80px;
+  /*height: 80px;*/
   width: 13%;
   padding: 5px;
   border-radius: 8px;

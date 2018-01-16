@@ -24,6 +24,8 @@ import 'react-bootstrap-modal/lib/css/rbm-patch.css'
 
 import 'react-select/dist/react-select.css'
 
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 const isAuthenticated = () => {
   const token = localStorage.getItem('bacalahtoken')
   // const refreshToken = localStorage.getItem('bacalahrefreshToken')
