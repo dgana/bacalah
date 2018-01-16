@@ -55,12 +55,12 @@ class Category extends React.Component {
       <header className="site-header" style={{borderBottom: 'none', background: 'red'}}>
         <div className="container">
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-4">
               <Link to='/'>
                 <h1 className="site-logo" style={{fontFamily: 'AmericanTypewriter', fontSize: 50, color: 'rgb(244,203,45)', fontWeight: 1000}}>
                   Bacalah.co
                 </h1>
-                <p style={{fontFamily: 'BradleyHand', color: 'rgb(30,30,30)', fontSize: 14}}>Informasi di tangan anda, maka bacalah...</p>
+                <p style={{fontFamily: 'BradleyHand', color: 'rgb(30,30,30)', fontSize: 16, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
               </Link>
               <button
                 style={{position: 'absolute', top: 20, right: 20}}
@@ -78,7 +78,7 @@ class Category extends React.Component {
             <nav
               style={{marginTop, paddingTop}}
               id="main-menu"
-              className={classNames('menu-wrapper col-md-9 navbar-collapse', { collapse: this.state.collapse })}>
+              className={classNames('menu-wrapper col-md-8 navbar-collapse', { collapse: this.state.collapse })}>
               <ul className="menu nav navbar-nav">
                 <ul>
                   <CategoryList data={this.props.data} padding={getCategoryPadding} />

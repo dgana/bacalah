@@ -5,6 +5,7 @@ import Select from 'react-select'
 import Dropzone from 'react-dropzone'
 import ReactTooltip from 'react-tooltip'
 import decode from 'jwt-decode'
+import axios from 'axios'
 
 // GraphQL
 import { categoriesQuery, addNewsMutation, allNewsQuery } from './gql/'
@@ -30,7 +31,7 @@ class Content extends Component {
         title: '',
         content: '',
         featured: false,
-        picturePath: 'https://1.bp.blogspot.com/-tJRxuq_3KCI/WOrGu_7tTDI/AAAAAAAAAN4/I1P_UZP_7lcNpJRljlqzBzF4ZjhwmHQtwCLcB/s1600/batam.jpg',
+        picturePath: '',
         picture: []
       },
       titleVal: false,
@@ -45,6 +46,28 @@ class Content extends Component {
     }
     this.setState({
       form: newForm
+    })
+    let data = new FormData()
+    data.append('file', imgFiles[0])
+    axios({
+      method: 'post',
+      url: 'https://batam-news.appspot.com/api/uploads/single',
+      data: data,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data; boundary='+data._boundary
+      },
+    })
+    .then(res => {
+      this.setState(prevState => ({
+        form: {
+          ...prevState.form,
+          picturePath: res.data.result
+        }
+      }))
+    })
+    .catch(err => {
+      console.log(err.response)
     })
   }
 

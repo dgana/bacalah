@@ -14,9 +14,9 @@ class Home extends Component {
             <div className="post-container container">
               <div className={`col-md-12`}>
                 <div className="widget">
-                  <h1 style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bolder'}}>PEDOMAN PEMBERITAAN MEDIA SIBER</h1>
+                  <h2 style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bolder', marginTop: 36}}>PEDOMAN PEMBERITAAN MEDIA SIBER</h2>
                   <br /><br />
-                  <div style={{fontSize: 18, lineHeight: '36px'}}>
+                  <div style={{fontSize: 14, lineHeight: '30px'}}>
                     <p>Kemerdekaan berpendapat, kemerdekaan berekspresi, dan kemerdekaan pers adalah hak asasi manusia yang dilindungi Pancasila,
                       Undang-Undang Dasar 1945, dan Deklarasi Universal Hak Asasi Manusia PBB. Keberadaan media siber di Indonesia juga merupakan
                       bagian dari kemerdekaan berpendapat, kemerdekaan berekspresi, dan kemerdekaan pers.
