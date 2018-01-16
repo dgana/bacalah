@@ -192,7 +192,7 @@ class Content extends Component {
             data-for="upload-gambar"
             data-tip="Unggah gambar dimensi 4 : 3"
             data-iscapture="true"
-            style={{height: 130}}
+            style={{height: 200}}
             onDrop={imgFiles => this._onDrop(imgFiles, 'picture')}
             className='dropzone'
             style={{width: '35%'}}
@@ -200,7 +200,7 @@ class Content extends Component {
             multiple={true}>
             { form.picture.length !== 0 ?
               form.picture.map((file, index) => (
-              <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%', height: 130}}>
+              <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%', height: 200}}>
                 <img className="dropzone-img" src={file.preview} alt="dropzone" />
                 { /*<div style={closeStyle} onClick={() => this._onDeletePhoto(index,'picture')}>
                     <i className="fa fa-times" aria-hidden="true"></i>
