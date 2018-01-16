@@ -43,6 +43,8 @@ const Content = (props) => {
   const popularFirstCategory = _.maxBy(firstCategoryNews[0].news, 'clickCount')
   const popularSecondCategory = _.maxBy(secondCategoryNews[0].news, 'clickCount')
 
+  const reversedNews = allNews.map(item => item)
+
   return (
     <div>
       <div className="widget-thumbnail corousel-wrapper" style={{marginBottom: 12}}>
@@ -52,7 +54,7 @@ const Content = (props) => {
           </h4>
         </header>
         <Slider {...settings}>
-          { allNews.slice(0, 4).map(item => {
+          { reversedNews.reverse().slice(0, 4).map(item => {
               return (
                 <div key={item.id}>
                   <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}><img src={item.pictures[0].path} alt="Feature News" /></Link>

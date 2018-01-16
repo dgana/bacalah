@@ -35,7 +35,8 @@ class Content extends Component {
         picture: []
       },
       titleVal: false,
-      contentVal: false
+      contentVal: false,
+      pictureVal: false
     }
   }
 
@@ -105,6 +106,9 @@ class Content extends Component {
     } else if (content.length < 20) {
       this.setState({ contentVal: true })
       setTimeout(() => this.setState({ contentVal: false }), 5000)
+    } else if (picturePath.length === 0) {
+      this.setState({ pictureVal: true })
+      setTimeout(() => this.setState({ pictureVal: false }), 5000)
     } else {
       this.props.submitAddNews(form)
       .then(res => {
@@ -115,7 +119,7 @@ class Content extends Component {
             title: '',
             content: '',
             featured: false,
-            picturePath: 'https://1.bp.blogspot.com/-tJRxuq_3KCI/WOrGu_7tTDI/AAAAAAAAAN4/I1P_UZP_7lcNpJRljlqzBzF4ZjhwmHQtwCLcB/s1600/batam.jpg',
+            picturePath: '',
             picture: []
           }
         })
@@ -137,8 +141,8 @@ class Content extends Component {
   }
 
   render() {
-    const { loading, error, categories } =  this.props.data
-    const { titleVal, contentVal, form } = this.state
+    const { loading, error, categories } = this.props.data
+    const { titleVal, contentVal, form, pictureVal } = this.state
 
     // if (loading) return (<p>Loading...</p>)
     if (error) return (<p>{error.message}</p>)
@@ -185,6 +189,7 @@ class Content extends Component {
             onChange={this._handleOnChange}>
           </textarea>
         </div>
+        <p style={{color: 'red', transition: '0.6s', marginBottom: 0, opacity: pictureVal ? 1 : 0, visibility: pictureVal ? 'visible' : 'hidden'}}>Foto tidak boleh kosong</p>
         <ReactTooltip id="upload-gambar" place={"bottom"} />
         <div className="form-group">
           <label style={{display: 'block'}}>Upload Gambar</label>
@@ -228,6 +233,7 @@ class Content extends Component {
 }
 
 export default compose(
+  graphql(gql(allNewsQuery)),
   graphql(gql(categoriesQuery)),
   graphql(gql(addNewsMutation), {
     props: ({ mutate, ownProps }) => ({

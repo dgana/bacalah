@@ -1,4 +1,29 @@
 module.exports = {
+  allNewsQuery: `
+    query{
+      allNews {
+        id
+        title
+        content
+        author{
+          id
+        }
+        isFeatured
+        clickCount
+        createdAt
+        category{
+          id
+        }
+        pictures{
+          id
+          path
+        }
+        comment{
+          id
+        }
+      }
+    }
+  `,
   categoriesQuery: `
     query{
       categories {

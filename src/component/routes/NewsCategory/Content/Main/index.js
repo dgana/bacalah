@@ -58,7 +58,7 @@ class Main extends React.Component {
       <div className="post clearfix">
         <header className="page-header">
           <div className="page-title">
-            <h2 className="title">{capitalizeFirstLetter(categoryName)}</h2>
+            <h2 className="title" style={{fontSize: 26}}>{capitalizeFirstLetter(categoryName)}</h2>
           </div>
         </header>
         <div className="margin-bottom-10">
@@ -77,7 +77,7 @@ class Main extends React.Component {
               </Link>
             </div>
             <div className="col-inner">
-               <h4 className="title">
+               <h4 className="title" style={{fontSize: 20}}>
                  <Link key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>{latestNews.title}</Link>
                </h4>
                <p>{limitString(latestNews.content, 500)}</p>
