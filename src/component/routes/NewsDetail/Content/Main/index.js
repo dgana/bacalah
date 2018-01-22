@@ -86,7 +86,7 @@ class NewsDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.refs.LOL.innerHTML = this.props.content + this.refs.LOL.innerHTML
+    this.refs.contentRefs.innerHTML = this.props.content + this.refs.contentRefs.innerHTML
   }
 
   render() {
@@ -114,10 +114,9 @@ class NewsDetail extends React.Component {
             </div>
           </header>
           <img src={picture} alt="" className="post-thumbnail" />
-          <div ref="LOL">
+          <div ref="contentRefs">
 
           </div>
-
         </div>
 
         <div id="comment-view" className="comment clearfix">

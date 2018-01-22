@@ -9,8 +9,9 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
 import client from './apollo'
 
+// nama url menjadi https://batam-news.appspot.com/graphql/ bukan https://batam-news.appspot.com/graphiql/
 new ApolloClient({
-  link: new HttpLink({ uri: `https://batam-news.appspot.com/graphql` }),
+  link: new HttpLink({ uri: `https://batam-news.appspot.com/graphql/` }),
   cache: new InMemoryCache()
 })
 
@@ -20,4 +21,4 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById('root')
 )
-registerServiceWorker()
+// registerServiceWorker()

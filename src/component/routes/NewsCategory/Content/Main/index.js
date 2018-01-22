@@ -19,27 +19,39 @@ const category = ({ id, name }) => (
   </Link>
 )
 
-const detailNews = ({ categoryName, currentId, id, path, title, content, createdAt, commentCount, submit }) => {
-  return (
-    <div key={id} className="list-item clearfix">
-      <div className="list-thumbnail col-md-4">
-        <Link onClick={() => submit(id)} key={`catdet-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}><img src={path} alt="no-pic" /></Link>
+class DetailNews extends React.Component {
+  componentDidMount() {
+    this.refs.contentRefs.innerHTML = limitString(this.props.news.content, 350) + this.refs.contentRefs.innerHTML
+  }
+
+  render() {
+    const { categoryName, currentId, id, path, title, content, createdAt, commentCount, submit } = this.props.news
+    return (
+      <div key={id} className="list-item clearfix">
+        <div className="list-thumbnail col-md-4">
+          <Link onClick={() => submit(id)} key={`catdet-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}><img src={path} alt="no-pic" /></Link>
+        </div>
+        <div className="list-inner col-md-8">
+          <h4 className="title">
+            <Link onClick={() => submit(id)} key={`catdet2-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}>{title}</Link>
+          </h4>
+          <div className="meta-wrapper">
+             <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
+             <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
+           </div>
+           <div ref="contentRefs"></div>
+        </div>
       </div>
-      <div className="list-inner col-md-8">
-        <h4 className="title">
-          <Link onClick={() => submit(id)} key={`catdet2-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}>{title}</Link>
-        </h4>
-        <div className="meta-wrapper">
-           <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
-           <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
-         </div>
-        <p>{limitString(content, 350)}</p>
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 class Main extends React.Component {
+  componentDidMount() {
+    if(this.props.latestNews) {
+      this.refs.contentRefs.innerHTML = limitString(this.props.latestNews.content, 350) + this.refs.contentRefs.innerHTML
+    }
+  }
 
   render() {
     const { categories, latestNews, news, categoryName, submit, loading, error } = this.props
@@ -80,13 +92,19 @@ class Main extends React.Component {
                <h4 className="title" style={{fontSize: 20}}>
                  <Link key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>{latestNews.title}</Link>
                </h4>
-               <p>{limitString(latestNews.content, 500)}</p>
+              <div ref="contentRefs"></div>
              </div>
           </div> : null
         }
         <div className="post margin-top-20 clearfix">
           <div className="row">
-            {news2.map(detailNews)}
+            { news2.length !== 0 ?
+              news2.map(item => {
+                return (
+                  <DetailNews news={item} />
+                )
+              }) : null
+            }
           </div>
 
           {/* <Pagination /> */}

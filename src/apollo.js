@@ -58,6 +58,6 @@ import { HttpLink } from 'apollo-link-http'
 // );
 
 export default new ApolloClient({
-  link: new HttpLink({ uri: `https://batam-news.appspot.com/graphql` }),
+  link: new HttpLink({ uri: `https://batam-news.appspot.com/graphql/` }),
   cache: new InMemoryCache()
 })

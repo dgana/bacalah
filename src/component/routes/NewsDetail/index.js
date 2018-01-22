@@ -40,7 +40,8 @@ class NewsDetail extends Component {
               </div>
               { loading ?
                 <p>Loading...</p> :
-                <SubContent categoryId={news.category.id} />
+                news ?
+                <SubContent categoryId={news.category.id} /> : null
               }
             </SideContent>
           </div>

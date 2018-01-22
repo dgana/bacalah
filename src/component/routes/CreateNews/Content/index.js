@@ -10,9 +10,11 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
+import { Tabs, Tab } from 'react-bootstrap-tabs'
 
 // GraphQL
-import { categoriesQuery, addNewsMutation, allNewsQuery } from './gql/'
+import { categoriesQuery, addNewsMutation, allNewsQuery, registerMutation } from './gql/'
+import { registerConfig } from './gql/config'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 
@@ -35,18 +37,46 @@ class Content extends Component {
     this.state = {
       form: {
         userId: '',
-        categoryId: '',
+        categoryId: 'jbpx9e9l',
         title: '',
         content: '',
         featured: false,
         picturePath: '',
         picture: []
       },
+      formRegister: {
+        username: '',
+        password: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+        isAdmin: true
+      },
+      registerValid: false,
+      usernameIsUnique: false,
+      emailIsUnique: false,
+      selected: 0,
       titleVal: false,
       contentVal: false,
       pictureVal: false,
       editorState: EditorState.createEmpty(),
     }
+  }
+
+  _reactTab = (index, label) => {
+    if (index === 0) {
+      this.setState({ selected: 0 })
+    } else {
+      this.setState({ selected: 1 })
+    }
+  }
+
+  _handleFormChangeRegister = (type, value) => {
+    const newForm = {
+      ...this.state.formRegister,
+      [type]: value
+    }
+    this.setState({ formRegister: newForm })
   }
 
   onEditorStateChange = (editorState) => {
@@ -123,7 +153,7 @@ class Content extends Component {
       ...form,
       content
     }
-    
+
     if (title.length === 0) {
       this.setState({ titleVal: true })
       setTimeout(() => this.setState({ titleVal: false }), 5000)
@@ -136,6 +166,7 @@ class Content extends Component {
     }  else {
       this.props.submitAddNews(newForm)
       .then(res => {
+        console.log(res)
         this.setState({
           form: {
             userId: '',
@@ -145,7 +176,8 @@ class Content extends Component {
             featured: false,
             picturePath: '',
             picture: []
-          }
+          },
+          editorState: EditorState.createEmpty()
         })
       })
     }
@@ -161,12 +193,64 @@ class Content extends Component {
         }
       }))
     }
+  }
+
+  _saveAndCloseRegister = () => {
+    const { username, password, email, firstName, lastName, isAdmin } = this.state.formRegister
+    if (username && password && email && firstName && lastName) {
+      this.props.submitRegister(this.state.form.userId, username, password, email, firstName, lastName, isAdmin)
+      .then(res => {
+        const errors = res.data.addUser.errors
+        const data = res.data.addUser
+        if (errors) {
+          console.log(errors);
+          if (errors[0].message === "username must be unique") {
+            this.setState({ usernameIsUnique: true })
+            setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
+          } else if (errors[0].message === "email must be unique") {
+            this.setState({ emailIsUnique: true })
+            setTimeout(() => this.setState({ emailIsUnique: false }), 5000)
+          }
+        } else {
+          alert('Register Berhasil')
+          this.setState({
+            formRegister: {
+              username: '',
+              password: '',
+              email: '',
+              firstName: '',
+              lastName: '',
+              isAdmin: true
+            }
+          })
+        }
+      })
+    } else {
+      this.setState({ registerValid: true })
+      setTimeout(() => this.setState({ registerValid: false }), 5000)
+    }
 
   }
 
   render() {
-    const { loading, error, categories } = this.props.data
-    const { titleVal, contentVal, form, pictureVal, editorState } = this.state
+    const {
+      loading,
+      error,
+      categories
+    } = this.props.data
+
+    const {
+      titleVal,
+      contentVal,
+      form,
+      pictureVal,
+      editorState,
+      selected,
+      formRegister,
+      usernameIsUnique,
+      emailIsUnique,
+      registerValid
+    } = this.state
 
     // if (loading) return (<p>Loading...</p>)
     if (error) return (<p>{error.message}</p>)
@@ -175,92 +259,162 @@ class Content extends Component {
 
     return (
       <div>
-        <h3 style={{marginTop: 0, marginBottom: 0 }}>Tambah Berita</h3>
-        <hr />
-        { loading ? <p>Loading...</p> :
-          <div className="form-group" style={{width:200}}>
-            <label>Kategori</label>
-            <Select
-              value={form.categoryId || 'jbpx9e9l'}
-              placeholder="Pilih kategori berita"
-              clearable={false}
-              searchable={false}
-              options={categoryOptions}
-              onChange={(e) => this._handleOnSelect(e)} />
-          </div>
-        }
-        <div className="form-group">
-        <label>Judul<span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: titleVal ? 1 : 0, visibility: titleVal ? 'visible' : 'hidden'}}>Judul tidak boleh kosong</span></label>
-        <input
-          name="title"
-          type="text"
-          className="form-control"
-          style={{marginBottom:12, height: 40, borderRadius: 2}}
-          rows="4"
-          value={form.title}
-          placeholder="Masukkan judul berita anda disini"
-          onChange={this._handleOnChange} />
+        <Tabs selected={selected} onSelect={(index, label) => this._reactTab(index, label)}>
+          <Tab
+            headerStyle={{cursor: 'pointer', padding: '6px 24px'}}
+            activeHeaderStyle={{backgroundColor: 'rgba(229, 39, 47, 0.9)', color: 'white', fontFamily: 'Open Sans, sans-serif'}}
+            label="Tambah Berita">
+            <br />
+            { loading ? <p>Loading...</p> :
+              <div className="form-group" style={{width:200}}>
+                <label>Kategori</label>
+                <Select
+                  value={form.categoryId || 'jbpx9e9l'}
+                  placeholder="Pilih kategori berita"
+                  clearable={false}
+                  searchable={false}
+                  options={categoryOptions}
+                  onChange={(e) => this._handleOnSelect(e)} />
+              </div>
+            }
+            <div className="form-group">
+            <label>Judul<span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: titleVal ? 1 : 0, visibility: titleVal ? 'visible' : 'hidden'}}>Judul tidak boleh kosong</span></label>
+            <input
+              name="title"
+              type="text"
+              className="form-control"
+              style={{marginBottom:12, height: 40, borderRadius: 2}}
+              rows="4"
+              value={form.title}
+              placeholder="Masukkan judul berita anda disini"
+              onChange={this._handleOnChange} />
 
-          <ReactTooltip id="upload-gambar" place={"bottom"} />
-          <div className="form-group">
-            <label style={{display: 'block'}}>Upload Gambar Utama  <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: pictureVal ? 1 : 0, visibility: pictureVal ? 'visible' : 'hidden'}}>Gambar utama tidak boleh kosong</span></label>
+              <ReactTooltip id="upload-gambar" place={"bottom"} />
+              <div className="form-group">
+                <label style={{display: 'block'}}>Upload Gambar Utama  <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: pictureVal ? 1 : 0, visibility: pictureVal ? 'visible' : 'hidden'}}>Gambar utama tidak boleh kosong</span></label>
 
-            <Dropzone
-              data-for="upload-gambar"
-              data-tip="Unggah gambar dimensi 4 : 3"
-              data-iscapture="true"
-              // style={{height: 200}}
-              onDrop={imgFiles => this._onDrop(imgFiles, 'picture')}
-              className='dropzone'
-              style={{width: '35%'}}
-              activeClassName='active-dropzone'
-              multiple={true}>
-              { form.picture.length !== 0 ?
-                form.picture.map((file, index) => (
-                <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%'}}>
-                  <img className="dropzone-img" src={file.preview} alt="dropzone" />
-                  { /*<div style={closeStyle} onClick={() => this._onDeletePhoto(index,'picture')}>
-                      <i className="fa fa-times" aria-hidden="true"></i>
-                  </div> */ }
+                <Dropzone
+                  data-for="upload-gambar"
+                  data-tip="Unggah gambar dimensi 4 : 3"
+                  data-iscapture="true"
+                  // style={{height: 200}}
+                  onDrop={imgFiles => this._onDrop(imgFiles, 'picture')}
+                  className='dropzone'
+                  style={{width: '35%'}}
+                  activeClassName='active-dropzone'
+                  multiple={true}>
+                  { form.picture.length !== 0 ?
+                    form.picture.map((file, index) => (
+                    <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%'}}>
+                      <img className="dropzone-img" src={file.preview} alt="dropzone" />
+                      { /*<div style={closeStyle} onClick={() => this._onDeletePhoto(index,'picture')}>
+                          <i className="fa fa-times" aria-hidden="true"></i>
+                      </div> */ }
+                    </div>
+                  )) :
+                  <Dropzone
+                    data-for="upload-icon"
+                    data-tip="Unggah gambar dimensi 4 : 3"
+                    onDrop={imgFiles => this._onDrop(imgFiles,'picture')}
+                    className='dropzone'
+                    activeClassName='active-dropzone'
+                    multiple={true}>
+                    <div className="fa fa-plus fa-2x dropzone-box-add"></div>
+                  </Dropzone>
+                  }
+                </Dropzone>
+              </div>
+              <label style={{marginTop: 12}}>Konten Berita <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: contentVal ? 1 : 0, visibility: contentVal ? 'visible' : 'hidden'}}>Konten tidak boleh kosong</span></label>
+              <Editor
+                wrapperClassName="home-wrapper"
+                editorClassName="home-editor"
+                editorState={editorState}
+                onEditorStateChange={this.onEditorStateChange}
+                toolbar={{
+                  image: { uploadCallback: uploadImageCallBack, alt: { present: true }, previewImage: true },
+                  fontFamily: {
+                    options: ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Roboto', 'Times New Roman', 'Verdana'],
+                  }
+                }}
+                placeholder="Isi konten berita disini...."
+                style={{height: 500}}
+                hashtag={{}}
+              />
+            </div>
+            <div className="col-md-12">
+              <input onClick={() => this._handleAddNews()} type="submit" value="Tambah Berita" className="btn pull-right" />
+            </div>
+          </Tab>
+          <Tab
+            label="Register Admin"
+            headerStyle={{cursor: 'pointer', padding: '6px 24px'}}
+            activeHeaderStyle={{backgroundColor: 'rgba(229, 39, 47, 0.9)', color: 'white', fontFamily: 'Open Sans, sans-serif'}}>
+            <br />
+            <div className="row">
+              <div className="col-md-12" style={{padding: '0px 30px'}}>
+                <div className="form-group">
+                  <label style={{width: '100%'}}>
+                    Username
+                    <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: usernameIsUnique ? 1 : 0, visibility: usernameIsUnique ? 'visible' : 'hidden'}}>Nama user sudah terdaftar</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    className="form-control"
+                    value={formRegister.username}
+                    placeholder="Nama User"
+                    onChange={(e) => this._handleFormChangeRegister('username', e.target.value)} />
                 </div>
-              )) :
-              <Dropzone
-                data-for="upload-icon"
-                data-tip="Unggah gambar dimensi 4 : 3"
-                onDrop={imgFiles => this._onDrop(imgFiles,'picture')}
-                className='dropzone'
-                activeClassName='active-dropzone'
-                multiple={true}>
-                <div className="fa fa-plus fa-2x dropzone-box-add"></div>
-              </Dropzone>
-              }
-            </Dropzone>
-          </div>
-          <label style={{marginTop: 12}}>Konten Berita <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: contentVal ? 1 : 0, visibility: contentVal ? 'visible' : 'hidden'}}>Konten tidak boleh kosong</span></label>
-          <Editor
-            wrapperClassName="home-wrapper"
-            editorClassName="home-editor"
-            editorState={editorState}
-            onEditorStateChange={this.onEditorStateChange}
-            toolbar={{
-              image: { uploadCallback: uploadImageCallBack, alt: { present: true }, previewImage: true },
-              fontFamily: {
-                options: ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Roboto', 'Times New Roman', 'Verdana'],
-              }
-            }}
-            placeholder="Begin typing..."
-            hashtag={{}}
-          />
-          <textarea
-            disabled
-            style={{width:500}}
-            rows={10}
-            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-          />
-        </div>
-        <div className="col-md-12">
-          <input onClick={() => this._handleAddNews()} type="submit" value="Tambah Berita" className="btn pull-right" />
-        </div>
+                <div className="form-group">
+                  <label>Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      className="form-control"
+                      value={formRegister.password}
+                      placeholder="Password"
+                      onChange={(e) => this._handleFormChangeRegister('password', e.target.value)} />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: emailIsUnique ? 1 : 0, visibility: emailIsUnique ? 'visible' : 'hidden'}}>Email sudah terdaftar</span>
+                  <input
+                    type="text"
+                    name="email"
+                    className="form-control"
+                    value={formRegister.email}
+                    placeholder="Tulis Email"
+                    onChange={(e) => this._handleFormChangeRegister('email', e.target.value)} />
+                </div>
+                <div className="form-group">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    className="form-control"
+                    value={formRegister.firstName}
+                    placeholder="Nama Awalan"
+                    onChange={(e) => this._handleFormChangeRegister('firstName', e.target.value)} />
+                </div>
+                <div className="form-group">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    className="form-control"
+                    value={formRegister.lastName}
+                    placeholder="Nama Akhiran"
+                    onChange={(e) => this._handleFormChangeRegister('lastName', e.target.value)} />
+                </div>
+                <p style={{color: 'red', marginBottom: 0, marginTop: 0, transition: '0.6s', opacity: registerValid ? 1 : 0, visibility: registerValid ? 'visible' : 'hidden'}}>Field tidak boleh ada yang kosong</p>
+              </div>
+              <button style={{marginLeft: 30}} className='btn btn-primary' onClick={() => this._saveAndCloseRegister()}>
+                Register
+              </button>
+            </div>
+          </Tab>
+        </Tabs>
+
       </div>
     )
   }
@@ -269,6 +423,21 @@ class Content extends Component {
 export default compose(
   graphql(gql(allNewsQuery)),
   graphql(gql(categoriesQuery)),
+  graphql(gql(registerMutation), {
+    props: ({ mutate, ownProps }) => ({
+      submitRegister: (userId, username, password, email, firstName, lastName, isAdmin) => mutate({
+        variables: {
+          userId,
+          username,
+          password,
+          email,
+          firstName,
+          lastName,
+          isAdmin
+        }
+      })
+    })
+  }),
   graphql(gql(addNewsMutation), {
     props: ({ mutate, ownProps }) => ({
       submitAddNews: (form) => mutate({
@@ -283,8 +452,8 @@ export default compose(
         update: (store, { data: { addNews } }) => {
           const data = store.readQuery({ query: gql(allNewsQuery) })
           console.log(addNews, data)
-          data.allNews.push(addNews)
-          store.writeQuery({ query: gql(allNewsQuery), data })
+          // data.allNews.push(addNews)
+          // store.writeQuery({ query: gql(allNewsQuery), data })
         }
       })
     })

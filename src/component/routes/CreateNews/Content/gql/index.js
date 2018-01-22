@@ -57,27 +57,16 @@ module.exports = {
       }
     }
   `,
-  allNewsQuery: `
-    query{
-      allNews{
-        id
-        title
-        content
-        author{
+  registerMutation: `
+    mutation($userId:String!, $username:String!, $password:String!, $email:String!, $firstName:String!, $lastName:String!, $isAdmin:Boolean!){
+      addUser(userId:$userId, username:$username, password:$password, email:$email, firstName:$firstName, lastName:$lastName, isAdmin:$isAdmin){
+        ok
+        user{
           id
+          username
         }
-        isFeatured
-        clickCount
-        createdAt
-        pictures {
-          id
-          path
-        }
-        category {
-          id
-        }
-        comment {
-          id
+        errors {
+          message
         }
       }
     }

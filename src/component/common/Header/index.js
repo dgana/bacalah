@@ -6,7 +6,7 @@ import Category from './Category'
 
 const Header = (props) => (
   <div>
-    <Topbar />
+    {/* <Topbar /> */}
     <Category />
   </div>
 )

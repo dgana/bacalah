@@ -68,7 +68,7 @@ const Content = (props) => {
                       <span className="meta"><i className="fa fa-calendar"></i>{item.createdAt}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{item.comment.length}</span>
                     </div>
-                    <p className="slider-caption">{limitString(item.content, 500)}</p>
+                    <p className="slider-caption" dangerouslySetInnerHTML={{__html: limitString(item.content, 500)}}></p>
                   </div>
                 </div>
               )
@@ -101,7 +101,7 @@ const Content = (props) => {
                       <span className="meta"><i className="fa fa-calendar"></i>{popularFirstCategory.createdAt}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{popularFirstCategory.comment.length}</span>
                     </div>
-                    <p>{limitString(popularFirstCategory.content, 350)}</p>
+                    <p dangerouslySetInnerHTML={{__html: limitString(popularFirstCategory.content, 350)}}></p>
                   </div>
               </div>
             </div> : null
@@ -129,7 +129,7 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{popularSecondCategory.createdAt}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularSecondCategory.comment.length}</span>
                   </div>
-                  <p>{limitString(popularSecondCategory.content, 350)}</p>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularSecondCategory.content, 350)}}></p>
                 </div>
               </div>
             </div> : null
