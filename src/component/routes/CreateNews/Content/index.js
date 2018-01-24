@@ -11,9 +11,10 @@ import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import { Tabs, Tab } from 'react-bootstrap-tabs'
+import blobUtil from 'blob-util'
 
 // GraphQL
-import { categoriesQuery, addNewsMutation, allNewsQuery, registerMutation } from './gql/'
+import { categoriesQuery, addNewsMutation, allNewsQuery, registerMutation, editNewsMutation } from './gql/'
 import { registerConfig } from './gql/config'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -178,6 +179,81 @@ class Content extends Component {
   _handleOnSelectAllNews = e => {
     const newForm = { ...this.state.formEdit, newsId: e.value }
     this.setState({ formEdit: newForm })
+
+    const getData = this.props.allNews.allNews.filter(item => item.id === e.value)[0]
+    const blocksFromHtml = htmlToDraft(getData.content)
+    const { contentBlocks, entityMap } = blocksFromHtml
+    const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap)
+    const editorState = EditorState.createWithContent(contentState)
+
+    this.setState({
+      formEdit: {
+        newsId: e.value,
+        categoryId: getData.category.id,
+        title: getData.title,
+        content: '',
+        featured: false,
+        picturePath: getData.pictures[0].path,
+        picture: []
+      },
+      editorStateEdit: editorState
+    })
+
+    // fetch(getData.pictures[0].path, {'mode': 'no-cors'})
+    // .then(res => {
+    //   var reader = new FileReader()
+    //   const b = reader.readAsDataURL(getData.pictures[0].path)
+    //   console.log(b);
+    //   file = new File([res],'image', {type: 'img/png', preview: getData.pictures[0].path} )
+    //   console.log([file]);
+    //   this.setState({
+    //     formEdit: {
+    //       newsId: e.value,
+    //       categoryId: getData.category.id,
+    //       title: getData.title,
+    //       content: '',
+    //       featured: false,
+    //       picturePath: getData.pictures[0].path,
+    //       picture: [file]
+    //     },
+    //     editorStateEdit: editorState
+    //   })
+    // })
+
+    // const getPic = getData.pictures[0].path
+    // function srcToFile(src, fileName, mimeType){
+    //     return (fetch(src, {'mode': 'no-cors'})
+    //         .then(function(res){return res.arrayBuffer()})
+    //         .then(function(buf) {
+    //           console.log(buf)
+    //           return new File([buf], fileName, {type:mimeType})
+    //         })
+    //     )
+    // }
+    //
+    //
+    // srcToFile(
+    //     getData.pictures[0].path,
+    //     'image.png',
+    //     'image/png'
+    // )
+    // .then(file => {
+    //   console.log(file);
+    //   this.setState({
+    //     formEdit: {
+    //       newsId: e.value,
+    //       categoryId: getData.category.id,
+    //       title: getData.title,
+    //       content: '',
+    //       featured: false,
+    //       picturePath: getData.pictures[0].path,
+    //       picture: [file]
+    //     },
+    //     editorStateEdit: editorState
+    //   })
+    // })
+
+
   }
 
   _handleOnSelectCategory = e => {
@@ -239,7 +315,6 @@ class Content extends Component {
     }  else {
       this.props.submitAddNews(newForm)
       .then(res => {
-        console.log(res)
         this.setState({
           form: {
             userId: '',
@@ -268,7 +343,9 @@ class Content extends Component {
       content
     }
 
-    if (title.length === 0) {
+    if (formEdit.newsId === "") {
+      alert("Mohon pilih berita yang akan di edit")
+    } else if (title.length === 0) {
       this.setState({ titleValEdit: true })
       setTimeout(() => this.setState({ titleValEdit: false }), 5000)
     } else if (picturePath === "") {
@@ -278,23 +355,22 @@ class Content extends Component {
       this.setState({ contentValEdit: true })
       setTimeout(() => this.setState({ contentValEdit: false }), 5000)
     }  else {
-      alert("LANJUT KE EDIT PROPS")
-      // this.props.submitEditNews(newForm)
-      // .then(res => {
-      //   console.log(res)
-      //   this.setState({
-      //     form: {
-      //       userId: '',
-      //       categoryId: '',
-      //       title: '',
-      //       content: '',
-      //       featured: false,
-      //       picturePath: '',
-      //       picture: []
-      //     },
-      //     editorStateEdit: EditorState.createEmpty()
-      //   })
-      // })
+      // alert("LANJUT KE EDIT PROPS")
+      this.props.submitEditNews(newForm)
+      .then(res => {
+        this.setState({
+          formEdit: {
+            newsId: '',
+            categoryId: '',
+            title: '',
+            content: '',
+            featured: false,
+            picturePath: '',
+            picture: []
+          },
+          editorStateEdit: EditorState.createEmpty()
+        })
+      })
     }
   }
 
@@ -318,7 +394,6 @@ class Content extends Component {
         const errors = res.data.addUser.errors
         const data = res.data.addUser
         if (errors) {
-          console.log(errors);
           if (errors[0].message === "username must be unique") {
             this.setState({ usernameIsUnique: true })
             setTimeout(() => this.setState({ usernameIsUnique: false }), 5000)
@@ -527,6 +602,11 @@ class Content extends Component {
                   style={{width: '35%'}}
                   activeClassName='active-dropzone'
                   multiple={true}>
+                  { formEdit.picture.length === 0 && formEdit.picturePath ?
+                    <div className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%'}}>
+                      <img className="dropzone-img" src={formEdit.picturePath} alt="dropzone" />
+                    </div> : null
+                  }
                   { formEdit.picture.length !== 0 ?
                     formEdit.picture.map((file, index) => (
                     <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%'}}>
@@ -535,7 +615,7 @@ class Content extends Component {
                           <i className="fa fa-times" aria-hidden="true"></i>
                       </div> */ }
                     </div>
-                  )) :
+                  )) : formEdit.picturePath.length === 0 ?
                   <Dropzone
                     data-for="upload-icon"
                     data-tip="Unggah gambar dimensi 4 : 3"
@@ -544,7 +624,7 @@ class Content extends Component {
                     activeClassName='active-dropzone'
                     multiple={true}>
                     <div className="fa fa-plus fa-2x dropzone-box-add"></div>
-                  </Dropzone>
+                  </Dropzone> : null
                   }
                 </Dropzone>
               </div>
@@ -675,7 +755,25 @@ export default compose(
         },
         update: (store, { data: { addNews } }) => {
           const data = store.readQuery({ query: gql(allNewsQuery) })
-          console.log(addNews, data)
+          // data.allNews.push(addNews)
+          // store.writeQuery({ query: gql(allNewsQuery), data })
+        }
+      })
+    })
+  }),
+  graphql(gql(editNewsMutation), {
+    props: ({ mutate, ownProps }) => ({
+      submitEditNews: (form) => mutate({
+        variables: {
+          newsId: form.newsId,
+          CategoryId: form.categoryId,
+          title: form.title,
+          content: form.content,
+          featured: form.featured,
+          picturePath: form.picturePath
+        },
+        update: (store, { data: { editNews } }) => {
+          const data = store.readQuery({ query: gql(allNewsQuery) })
           // data.allNews.push(addNews)
           // store.writeQuery({ query: gql(allNewsQuery), data })
         }

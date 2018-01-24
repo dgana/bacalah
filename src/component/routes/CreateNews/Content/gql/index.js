@@ -70,5 +70,30 @@ module.exports = {
         }
       }
     }
+  `,
+  editNewsMutation: `
+    mutation($newsId:String!,$CategoryId:String,$title:String,$content:String,$featured:Boolean,$picturePath:String){
+      editNews(newsId:$newsId,CategoryId:$CategoryId,title:$title,content:$content,featured:$featured,picturePath:$picturePath){
+        id
+        title
+        content
+        author{
+          id
+        }
+        isFeatured
+        clickCount
+        createdAt
+        category{
+          id
+        }
+        pictures{
+          id
+          path
+        }
+        comment{
+          id
+        }
+      }
+    }
   `
 }
