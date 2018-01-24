@@ -11,7 +11,6 @@ import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import { Tabs, Tab } from 'react-bootstrap-tabs'
-import blobUtil from 'blob-util'
 
 // GraphQL
 import { categoriesQuery, addNewsMutation, allNewsQuery, registerMutation, editNewsMutation } from './gql/'
@@ -459,7 +458,7 @@ class Content extends Component {
     const categoryOptions = categories ? categories.map(item => ({ value: item.id, label: item.name })) : [{ value: 'jbpx9e9l', label: 'News' }]
     const allNewsOptions = allNews ? allNews.map(item => {
       return {
-        value: item.id, label: item.title + ' - Kategori : ' + item.category.name 
+        value: item.id, label: item.title + ' - Kategori : ' + item.category.name
       }
     }) : null
 
