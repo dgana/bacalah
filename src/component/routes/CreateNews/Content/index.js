@@ -457,7 +457,11 @@ class Content extends Component {
     if (error) return (<p>{error.message}</p>)
 
     const categoryOptions = categories ? categories.map(item => ({ value: item.id, label: item.name })) : [{ value: 'jbpx9e9l', label: 'News' }]
-    const allNewsOptions = allNews ? allNews.map(item => ({ value: item.id, label: item.title })) : null
+    const allNewsOptions = allNews ? allNews.map(item => {
+      return {
+        value: item.id, label: item.title + ' - Kategori : ' + item.category.name 
+      }
+    }) : null
 
     return (
       <div>
@@ -553,7 +557,7 @@ class Content extends Component {
             activeHeaderStyle={{backgroundColor: 'rgba(229, 39, 47, 0.9)', color: 'white', fontFamily: 'Open Sans, sans-serif'}}>
             <br />
             { loadingAllNews ? <p>Loading...</p> :
-              <div className="form-group" style={{width:200}}>
+              <div className="form-group" style={{width: '100%'}}>
                 <label>Pilih Berita</label>
                 <Select
                   value={formEdit.newsId}

@@ -13,6 +13,7 @@ module.exports = {
         createdAt
         category{
           id
+          name
         }
         pictures{
           id
