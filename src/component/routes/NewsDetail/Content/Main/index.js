@@ -125,9 +125,8 @@ class NewsDetail extends React.Component {
     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
     const editorState = EditorState.createWithContent(contentState);
 
-    console.log(editorState);
-    const shareUrl = 'http://bacalah.co/news/jcptuc8d'
-    const titleUrl = 'Batam News'
+    const shareUrl = 'http://bacalah.co' + this.props.path
+    const titleUrl = 'Bacalah.co'
     return (
       <div>
         <div className="post clearfix">

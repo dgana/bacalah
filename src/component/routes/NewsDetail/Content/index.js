@@ -7,7 +7,7 @@ import Content from './Main'
 import detailNewsQuery from './gql/'
 import config from './gql/config'
 
-const DetailNews = ({ data, currentId }) => {
+const DetailNews = ({ data, currentId, path }) => {
 
   const { loading, error, news } = data
 
@@ -18,6 +18,7 @@ const DetailNews = ({ data, currentId }) => {
     <div>
     { news ?
       <Content
+        path={path}
         newsId={news.id}
         comments={news.comment.map(item => ({
           replies: item.replies.map(replies => ({
