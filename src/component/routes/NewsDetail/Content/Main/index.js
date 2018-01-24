@@ -5,11 +5,38 @@ import gql from 'graphql-tag'
 import { graphql, compose } from 'react-apollo'
 import { detailNewsQuery, commentsQuery, addCommentMutation, addReplyMutation } from './gql/'
 import htmlToDraft from 'html-to-draftjs';
-import { EditorState, ContentState } from 'draft-js';
+import { EditorState, ContentState } from 'draft-js'
+import {
+  ShareButtons,
+  generateShareIcon,
+  ShareCounts,
+} from 'react-share'
+
 // import config from './gql/config'
 
 // Utility
 import { newsShortDate } from '../../../../../util'
+
+const {
+  FacebookShareButton,
+  GooglePlusShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} = ShareButtons;
+
+// const {
+//   FacebookShareCount,
+//   GooglePlusShareCount,
+//   LinkedinShareCount,
+// } = ShareCounts;
+
+const FacebookIcon = generateShareIcon('facebook')
+const TwitterIcon = generateShareIcon('twitter')
+const GooglePlusIcon = generateShareIcon('google')
+const LinkedinIcon = generateShareIcon('linkedin')
+const WhatsappIcon = generateShareIcon('whatsapp')
+
 
 class NewsDetail extends React.Component {
   constructor(props) {
@@ -99,12 +126,59 @@ class NewsDetail extends React.Component {
     const editorState = EditorState.createWithContent(contentState);
 
     console.log(editorState);
-
+    const shareUrl = 'http://bacalah.co/news/jcptuc8d'
+    const titleUrl = 'Batam News'
     return (
       <div>
         <div className="post clearfix">
           <header className="page-header">
-            <div className="page-title">
+            <FacebookShareButton
+              url={shareUrl}
+              quote={titleUrl}
+              style={{display: 'inline-block', marginRight: 5, cursor: 'pointer'}}
+              className="Demo__some-network__share-button">
+              <FacebookIcon
+                size={40}
+                round />
+            </FacebookShareButton>
+            <TwitterShareButton
+              url={shareUrl}
+              title={title}
+              style={{display: 'inline-block', marginRight: 5, cursor: 'pointer'}}
+              className="Demo__some-network__share-button">
+              <TwitterIcon
+                size={40}
+                round />
+            </TwitterShareButton>
+            <GooglePlusShareButton
+              url={shareUrl}
+              style={{display: 'inline-block', marginRight: 5, cursor: 'pointer'}}
+              className="Demo__some-network__share-button">
+              <GooglePlusIcon
+                size={40}
+                round />
+            </GooglePlusShareButton>
+            <LinkedinShareButton
+              url={shareUrl}
+              title={title}
+              windowWidth={750}
+              windowHeight={600}
+              style={{display: 'inline-block', marginRight: 5, cursor: 'pointer'}}
+              className="Demo__some-network__share-button">
+              <LinkedinIcon
+                size={40}
+                round />
+            </LinkedinShareButton>
+            <WhatsappShareButton
+              url={shareUrl}
+              title={title}
+              separator=":: "
+              style={{display: 'inline-block', cursor: 'pointer'}}
+              className="Demo__some-network__share-button">
+              <WhatsappIcon size={40} round />
+            </WhatsappShareButton>
+
+            <div className="page-title" style={{marginTop: 14}}>
               <h2 className="title">{title}</h2>
               <div className="meta-wrapper">
                 <span className="meta"><i className="fa fa-pencil-square-o"></i>{author}</span>
