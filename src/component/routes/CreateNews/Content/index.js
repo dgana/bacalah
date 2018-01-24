@@ -52,6 +52,15 @@ class Content extends Component {
         lastName: '',
         isAdmin: true
       },
+      formEdit: {
+        newsId: '',
+        categoryId: '',
+        title: '',
+        content: '',
+        featured: false,
+        picturePath: '',
+        picture: []
+      },
       registerValid: false,
       usernameIsUnique: false,
       emailIsUnique: false,
@@ -59,15 +68,21 @@ class Content extends Component {
       titleVal: false,
       contentVal: false,
       pictureVal: false,
+      titleValEdit: false,
+      contentValEdit: false,
+      pictureValEdit: false,
       editorState: EditorState.createEmpty(),
+      editorStateEdit: EditorState.createEmpty(),
     }
   }
 
   _reactTab = (index, label) => {
     if (index === 0) {
       this.setState({ selected: 0 })
-    } else {
+    } else if (index === 1) {
       this.setState({ selected: 1 })
+    } else {
+      this.setState({ selected: 2 })
     }
   }
 
@@ -82,6 +97,12 @@ class Content extends Component {
   onEditorStateChange = (editorState) => {
     this.setState({
       editorState,
+    })
+  }
+
+  onEditorStateChangeEdit = (editorStateEdit) => {
+    this.setState({
+      editorStateEdit,
     })
   }
 
@@ -117,9 +138,51 @@ class Content extends Component {
     })
   }
 
+  _onDropEdit = (imgFiles,key) => {
+    const newForm = {
+     ...this.state.formEdit,
+     [key]: imgFiles
+    }
+    this.setState({
+      formEdit: newForm
+    })
+    let data = new FormData()
+    data.append('file', imgFiles[0])
+    axios({
+      method: 'post',
+      url: 'https://batam-news.appspot.com/api/uploads/single',
+      data: data,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data; boundary='+data._boundary
+      },
+    })
+    .then(res => {
+      this.setState(prevState => ({
+        formEdit: {
+          ...prevState.formEdit,
+          picturePath: res.data.result
+        }
+      }))
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
   _handleOnSelect = e => {
     const newForm = { ...this.state.form, categoryId: e.value }
     this.setState({ form: newForm })
+  }
+
+  _handleOnSelectAllNews = e => {
+    const newForm = { ...this.state.formEdit, newsId: e.value }
+    this.setState({ formEdit: newForm })
+  }
+
+  _handleOnSelectCategory = e => {
+    const newForm = { ...this.state.formEdit, categoryId: e.value }
+    this.setState({ formEdit: newForm })
   }
 
   _handleOnChange = event => {
@@ -129,6 +192,16 @@ class Content extends Component {
     }
     this.setState({
       form: newContent
+    })
+  }
+
+  _handleOnChangeEdit = event => {
+    const newContent = {
+      ...this.state.formEdit,
+      [event.target.name]: event.target.value
+    }
+    this.setState({
+      formEdit: newContent
     })
   }
 
@@ -180,6 +253,48 @@ class Content extends Component {
           editorState: EditorState.createEmpty()
         })
       })
+    }
+  }
+
+  _handleEditNews = () => {
+
+    const { title, picturePath } = this.state.formEdit
+    const { titleValEdit, contentValEdit, formEdit, editorStateEdit } = this.state
+
+    const content = draftToHtml(convertToRaw(editorStateEdit.getCurrentContent()))
+
+    const newForm = {
+      ...formEdit,
+      content
+    }
+
+    if (title.length === 0) {
+      this.setState({ titleValEdit: true })
+      setTimeout(() => this.setState({ titleValEdit: false }), 5000)
+    } else if (picturePath === "") {
+      this.setState({ pictureValEdit: true })
+      setTimeout(() => this.setState({ pictureValEdit: false }), 5000)
+    } else if (content.length < 10) {
+      this.setState({ contentValEdit: true })
+      setTimeout(() => this.setState({ contentValEdit: false }), 5000)
+    }  else {
+      alert("LANJUT KE EDIT PROPS")
+      // this.props.submitEditNews(newForm)
+      // .then(res => {
+      //   console.log(res)
+      //   this.setState({
+      //     form: {
+      //       userId: '',
+      //       categoryId: '',
+      //       title: '',
+      //       content: '',
+      //       featured: false,
+      //       picturePath: '',
+      //       picture: []
+      //     },
+      //     editorStateEdit: EditorState.createEmpty()
+      //   })
+      // })
     }
   }
 
@@ -240,22 +355,34 @@ class Content extends Component {
     } = this.props.data
 
     const {
+      loadingAllNews,
+      errorAllNews,
+      allNews
+    } = this.props.allNews
+
+    const {
       titleVal,
       contentVal,
-      form,
       pictureVal,
+      form,
+      titleValEdit,
+      contentValEdit,
+      pictureValEdit,
       editorState,
+      editorStateEdit,
       selected,
       formRegister,
       usernameIsUnique,
       emailIsUnique,
-      registerValid
+      registerValid,
+      formEdit
     } = this.state
 
     // if (loading) return (<p>Loading...</p>)
     if (error) return (<p>{error.message}</p>)
 
     const categoryOptions = categories ? categories.map(item => ({ value: item.id, label: item.name })) : [{ value: 'jbpx9e9l', label: 'News' }]
+    const allNewsOptions = allNews ? allNews.map(item => ({ value: item.id, label: item.title })) : null
 
     return (
       <div>
@@ -346,6 +473,103 @@ class Content extends Component {
             </div>
           </Tab>
           <Tab
+            label="Edit Berita"
+            headerStyle={{cursor: 'pointer', padding: '6px 24px'}}
+            activeHeaderStyle={{backgroundColor: 'rgba(229, 39, 47, 0.9)', color: 'white', fontFamily: 'Open Sans, sans-serif'}}>
+            <br />
+            { loadingAllNews ? <p>Loading...</p> :
+              <div className="form-group" style={{width:200}}>
+                <label>Pilih Berita</label>
+                <Select
+                  value={formEdit.newsId}
+                  placeholder="Pilih berita"
+                  clearable={false}
+                  searchable={false}
+                  options={allNewsOptions}
+                  onChange={(e) => this._handleOnSelectAllNews(e)} />
+              </div>
+            }
+            { loading ? <p>Loading...</p> :
+              <div className="form-group" style={{width:200}}>
+                <label>Kategori</label>
+                <Select
+                  value={formEdit.categoryId || 'jbpx9e9l'}
+                  placeholder="Pilih kategori berita"
+                  clearable={false}
+                  searchable={false}
+                  options={categoryOptions}
+                  onChange={(e) => this._handleOnSelectCategory(e)} />
+              </div>
+            }
+            <div className="form-group">
+            <label>Judul<span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: titleValEdit ? 1 : 0, visibility: titleValEdit ? 'visible' : 'hidden'}}>Judul tidak boleh kosong</span></label>
+            <input
+              name="title"
+              type="text"
+              className="form-control"
+              style={{marginBottom:12, height: 40, borderRadius: 2}}
+              rows="4"
+              value={formEdit.title}
+              placeholder="Masukkan judul berita anda disini"
+              onChange={this._handleOnChangeEdit} />
+
+              <ReactTooltip id="upload-gambar" place={"bottom"} />
+              <div className="form-group">
+                <label style={{display: 'block'}}>Upload Gambar Utama  <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: pictureValEdit ? 1 : 0, visibility: pictureValEdit ? 'visible' : 'hidden'}}>Gambar utama tidak boleh kosong</span></label>
+
+                <Dropzone
+                  data-for="upload-gambar"
+                  data-tip="Unggah gambar dimensi 4 : 3"
+                  data-iscapture="true"
+                  // style={{height: 200}}
+                  onDrop={imgFiles => this._onDropEdit(imgFiles, 'picture')}
+                  className='dropzone'
+                  style={{width: '35%'}}
+                  activeClassName='active-dropzone'
+                  multiple={true}>
+                  { formEdit.picture.length !== 0 ?
+                    formEdit.picture.map((file, index) => (
+                    <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%'}}>
+                      <img className="dropzone-img" src={file.preview} alt="dropzone" />
+                      { /*<div style={closeStyle} onClick={() => this._onDeletePhoto(index,'picture')}>
+                          <i className="fa fa-times" aria-hidden="true"></i>
+                      </div> */ }
+                    </div>
+                  )) :
+                  <Dropzone
+                    data-for="upload-icon"
+                    data-tip="Unggah gambar dimensi 4 : 3"
+                    onDrop={imgFiles => this._onDropEdit(imgFiles,'picture')}
+                    className='dropzone'
+                    activeClassName='active-dropzone'
+                    multiple={true}>
+                    <div className="fa fa-plus fa-2x dropzone-box-add"></div>
+                  </Dropzone>
+                  }
+                </Dropzone>
+              </div>
+              <label style={{marginTop: 12}}>Konten Berita <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: contentValEdit ? 1 : 0, visibility: contentValEdit ? 'visible' : 'hidden'}}>Konten tidak boleh kosong</span></label>
+              <Editor
+                wrapperClassName="home-wrapper"
+                editorClassName="home-editor"
+                editorState={editorStateEdit}
+                onEditorStateChange={this.onEditorStateChangeEdit}
+                toolbar={{
+                  image: { uploadCallback: uploadImageCallBack, alt: { present: true }, previewImage: true },
+                  fontFamily: {
+                    options: ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Roboto', 'Times New Roman', 'Verdana'],
+                  }
+                }}
+                placeholder="Isi konten berita disini...."
+                style={{height: 500}}
+                hashtag={{}}
+              />
+            </div>
+            <div className="col-md-12">
+              <input onClick={() => this._handleEditNews()} type="submit" value="Edit Berita" className="btn pull-right" />
+            </div>
+          </Tab>
+          <Tab
             label="Register Admin"
             headerStyle={{cursor: 'pointer', padding: '6px 24px'}}
             activeHeaderStyle={{backgroundColor: 'rgba(229, 39, 47, 0.9)', color: 'white', fontFamily: 'Open Sans, sans-serif'}}>
@@ -421,7 +645,7 @@ class Content extends Component {
 }
 
 export default compose(
-  graphql(gql(allNewsQuery)),
+  graphql(gql(allNewsQuery), { name: 'allNews' }),
   graphql(gql(categoriesQuery)),
   graphql(gql(registerMutation), {
     props: ({ mutate, ownProps }) => ({
