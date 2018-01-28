@@ -10,6 +10,12 @@ module.exports = {
     let month = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']
     return newsDate.getDate() + ' ' + month[(newsDate.getMonth())] + ' ' +  newsDate.getFullYear()
   },
+  fullDate: date => {
+    let fullDate = new Date(date)
+    let day = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu']
+    let month = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']
+    return day[fullDate.getDay()] + ', ' + fullDate.getDate() + ' ' + month[(fullDate.getMonth())] + ' ' +  fullDate.getFullYear() + ' ' +  fullDate.getHours() + ':' + fullDate.getMinutes()
+  },
   newsShortDate: date => {
     let newsDate = new Date(date)
     let month = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des']

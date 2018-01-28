@@ -12,7 +12,7 @@ import Slider from 'react-slick'
 import _ from 'lodash'
 
 // Utility
-import { limitString } from '../../../../util'
+import { limitString, fullDate } from '../../../../util'
 
 const settings = {
   // dots: true,
@@ -65,7 +65,7 @@ const Content = (props) => {
                       </h3>
                     </Link>
                     <div className="meta-wrapper">
-                      <span className="meta"><i className="fa fa-calendar"></i>{item.createdAt}</span>
+                      <span className="meta"><i className="fa fa-calendar"></i>{fullDate(item.createdAt)}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{item.comment.length}</span>
                     </div>
                     <p className="slider-caption" dangerouslySetInnerHTML={{__html: limitString(item.content, 500)}}></p>
@@ -98,7 +98,7 @@ const Content = (props) => {
                       </Link>
                     </h3>
                     <div className="meta-wrapper">
-                      <span className="meta"><i className="fa fa-calendar"></i>{popularFirstCategory.createdAt}</span>
+                      <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFirstCategory.createdAt)}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{popularFirstCategory.comment.length}</span>
                     </div>
                     <p dangerouslySetInnerHTML={{__html: limitString(popularFirstCategory.content, 350)}}></p>
@@ -126,7 +126,7 @@ const Content = (props) => {
                     </Link>
                   </h3>
                   <div className="meta-wrapper">
-                    <span className="meta"><i className="fa fa-calendar"></i>{popularSecondCategory.createdAt}</span>
+                    <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularSecondCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularSecondCategory.comment.length}</span>
                   </div>
                   <p dangerouslySetInnerHTML={{__html: limitString(popularSecondCategory.content, 350)}}></p>

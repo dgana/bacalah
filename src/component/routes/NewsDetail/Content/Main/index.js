@@ -15,7 +15,7 @@ import {
 // import config from './gql/config'
 
 // Utility
-import { newsShortDate } from '../../../../../util'
+import { newsShortDate, fullDate } from '../../../../../util'
 
 const {
   FacebookShareButton,
@@ -180,8 +180,7 @@ class NewsDetail extends React.Component {
             <div className="page-title" style={{marginTop: 14}}>
               <h2 className="title">{title}</h2>
               <div className="meta-wrapper">
-                <span className="meta"><i className="fa fa-pencil-square-o"></i>{author}</span>
-                <span className="meta"><i className="fa fa-calendar"></i> {date}</span>
+                <span className="meta"><i className="fa fa-calendar"></i> {fullDate(date)}</span>
                 <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>
               </div>
             </div>
