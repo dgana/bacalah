@@ -24,7 +24,7 @@ const SubContent = (props) => {
     <div>
       <div className="widget banner">
         <header className="widget-header">
-          <h4 className="title" style={{marginTop: -3}}>
+          <h4 className="title" style={{marginTop: -3, fontSize: 16}}>
             Advertisement
           </h4>
         </header>
@@ -32,7 +32,7 @@ const SubContent = (props) => {
       </div>
       <div className="widget">
         <header className="widget-header">
-          <h4 className="title">
+          <h4 className="title" style={{fontSize: 16}}>
             MOST POPULAR
           </h4>
         </header>
@@ -44,7 +44,7 @@ const SubContent = (props) => {
                 return (
                   <li key={item.id} className="media">
                     <div className="title margin-bottom-10">
-                      <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}>{item.title}</Link>
+                      <Link style={{fontSize: 22}} to={`/${item.category.name.toLowerCase()}/${item.id}`}>{item.title}</Link>
                     </div>
                     <div className="row">
                       <div className="col-md-6">

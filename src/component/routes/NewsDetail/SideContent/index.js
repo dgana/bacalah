@@ -36,7 +36,7 @@ class SubContent extends React.Component {
 
         <div className="widget">
           <header className="widget-header">
-            <h4 className="title">
+            <h4 className="title" style={{fontSize: 18}}>
               MOST POPULAR
             </h4>
           </header>
@@ -46,7 +46,7 @@ class SubContent extends React.Component {
                 return (
                   <li key={item.id} className="media">
                     <div className="title margin-bottom-10">
-                      <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}>{item.title}</Link>
+                      <Link style={{fontSize: 22}} to={`/${item.category.name.toLowerCase()}/${item.id}`}>{item.title}</Link>
                     </div>
                     <div className="row">
                       <div className="col-md-6">

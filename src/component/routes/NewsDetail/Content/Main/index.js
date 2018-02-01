@@ -178,7 +178,7 @@ class NewsDetail extends React.Component {
             </WhatsappShareButton>
 
             <div className="page-title" style={{marginTop: 14}}>
-              <h2 className="title">{title}</h2>
+              <h2 className="title" style={{fontSize: 28}}>{title}</h2>
               <div className="meta-wrapper">
                 <span className="meta"><i className="fa fa-calendar"></i> {fullDate(date)}</span>
                 <span className="meta"><i className="fa fa-comment-o"></i>{commentCount}</span>

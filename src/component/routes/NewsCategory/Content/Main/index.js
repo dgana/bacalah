@@ -33,7 +33,7 @@ class DetailNews extends React.Component {
         </div>
         <div className="list-inner col-md-8">
           <h4 className="title">
-            <Link onClick={() => submit(id)} key={`catdet2-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}>{title}</Link>
+            <Link style={{fontSize: 26}} onClick={() => submit(id)} key={`catdet2-${id}`} to={`/${categoryName.toLowerCase()}/${id}`}>{title}</Link>
           </h4>
           <div className="meta-wrapper">
              <span className="meta"><i className="fa fa-calendar"></i>{createdAt}</span>
@@ -90,7 +90,7 @@ class Main extends React.Component {
             </div>
             <div className="col-inner">
                <h4 className="title" style={{fontSize: 20}}>
-                 <Link key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>{latestNews.title}</Link>
+                 <Link style={{fontSize: 26}} key={`catdet-${latestNews.id}`} to={`/${categoryName.toLowerCase()}/${latestNews.id}`}>{latestNews.title}</Link>
                </h4>
               <div ref="contentRefs"></div>
              </div>

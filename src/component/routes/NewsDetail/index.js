@@ -34,7 +34,7 @@ class NewsDetail extends Component {
             <SideContent>
               <div className="widget banner">
                 <header className="widget-header">
-                  <h4 className="title" style={{marginTop: -3}}>
+                  <h4 className="title" style={{marginTop: -3, fontSize: 18}}>
                     Advertisement
                   </h4>
                 </header>

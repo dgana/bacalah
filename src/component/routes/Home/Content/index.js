@@ -49,7 +49,7 @@ const Content = (props) => {
     <div>
       <div className="widget-thumbnail corousel-wrapper" style={{marginBottom: 12}}>
         <header className="widget-header">
-          <h4 className="title">
+          <h4 className="title" style={{fontSize: 18}}>
             latest news
           </h4>
         </header>
@@ -82,18 +82,18 @@ const Content = (props) => {
             <div className="col-md-6 main-content" style={{padding: '0px 16px'}}>
               <div className="widget">
                 <header className="widget-header">
-                  <h4 className="title">
+                  <h4 className="title" style={{fontSize: 18}}>
                     {popularFirstCategory.category.name}
                   </h4>
                 </header>
                   <div className="widget-thumbnail">
                     <Link to={`/${popularFirstCategory.category.name.toLowerCase()}/${popularFirstCategory.id}`}>
-                      <img src={popularFirstCategory.pictures[0].path} alt="Technology Popular" />
+                      <img style={{maxHeight: 250}} src={popularFirstCategory.pictures[0].path} alt="Technology Popular" />
                     </Link>
                   </div>
                   <div className="widget-content" style={{padding: 0}}>
-                    <h3 className="title widget-title" style={{fontSize: 20}}>
-                      <Link to={`/${popularFirstCategory.category.name.toLowerCase()}/${popularFirstCategory.id}`}>
+                    <h3 className="title widget-title">
+                      <Link style={{fontSize: 22}} to={`/${popularFirstCategory.category.name.toLowerCase()}/${popularFirstCategory.id}`}>
                         {popularFirstCategory.title}
                       </Link>
                     </h3>
@@ -110,18 +110,18 @@ const Content = (props) => {
             <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
               <div className="widget">
                 <header className="widget-header">
-                  <h4 className="title">
+                  <h4 className="title" style={{fontSize: 18}}>
                     {popularSecondCategory.category.name}
                   </h4>
                 </header>
                 <div className="widget-thumbnail">
                   <Link to={`/${popularSecondCategory.category.name.toLowerCase()}/${popularSecondCategory.id}`}>
-                    <img src={popularSecondCategory.pictures[0].path} alt="Health Popular" />
+                    <img style={{maxHeight: 250}} src={popularSecondCategory.pictures[0].path} alt="Health Popular" />
                   </Link>
                 </div>
                 <div className="widget-content" style={{padding: 0}}>
-                  <h3 className="title widget-title" style={{fontSize: 20}}>
-                    <Link to={`/${popularSecondCategory.category.name.toLowerCase()}/${popularSecondCategory.id}`}>
+                  <h3 className="title widget-title">
+                    <Link style={{fontSize: 22}} to={`/${popularSecondCategory.category.name.toLowerCase()}/${popularSecondCategory.id}`}>
                       {popularSecondCategory.title}
                     </Link>
                   </h3>

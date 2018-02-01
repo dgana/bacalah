@@ -304,7 +304,7 @@ blockquote:after{
 /*content*/
 
 .title {
-  font-size: 20px;
+  font-size: 26px;
 	font-family: 'Oswald', sans-serif;
 	font-weight: 400;
 	color:#000;
@@ -588,11 +588,16 @@ ol.breadcrumb li {
 }
 
 ol.breadcrumb li a, .breadcrumb>li+li:before {
-  color: rgb(240,240,240) !important;
+  color: #2196f3 !important;
 }
 
 header.site-header {
   padding-bottom: 8px;
+}
+
+.site-header {
+  border-top: 10px solid rgba(244, 203, 45, 0.5) !important;
+  /*border-bottom: 3px solid rgba(244, 203, 45, 0.5) !important;*/
 }
 
 /*

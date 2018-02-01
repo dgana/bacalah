@@ -57,7 +57,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div style={{background: 'rgb(23,179,213)'}}>
+        <div style={{background: 'rgb(245,245,245)'}}>
           <PrivateRoute exact path="/create-news" component={CreateNews} />
           <Route exact path="/" component={Home} />
           <Route exact path="/news" component={NewsCategory} />

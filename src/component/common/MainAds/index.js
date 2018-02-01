@@ -8,7 +8,7 @@ const MainAds = () => (
           <div className="title-icon">
             <i className="fa fa-bookmark-o"></i>
           </div>
-          <span className="title">Advertisement</span>
+          <span className="title" style={{fontSize: 18}}>Advertisement</span>
         </div>
         <div className="col-md-10 bar-content bar-link">
           <img src="img/banner_728.png" alt="Main Ads" />
