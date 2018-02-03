@@ -1098,9 +1098,6 @@ header.site-header {
 
 .public-DraftEditor-content[contenteditable=true] {
    -webkit-user-modify: read-write !important;
-   word-wrap: normal;
-   -webkit-line-break: after-white-space !important;
-   /*white-space: nowrap !important;*/
 }
 
 .public-DraftStyleDefault-block {
