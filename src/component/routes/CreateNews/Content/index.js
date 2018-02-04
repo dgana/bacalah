@@ -41,6 +41,7 @@ class Content extends Component {
         title: '',
         content: '',
         featured: false,
+        pictureDetail: '',
         picturePath: '',
         picture: []
       },
@@ -58,6 +59,7 @@ class Content extends Component {
         title: '',
         content: '',
         featured: false,
+        pictureDetail: '',
         picturePath: '',
         picture: []
       },
@@ -193,6 +195,7 @@ class Content extends Component {
         content: '',
         featured: false,
         picturePath: getData.pictures[0].path,
+        pictureDetail: getData.pictureDetail,
         picture: []
       },
       editorStateEdit: editorState
@@ -321,6 +324,7 @@ class Content extends Component {
             title: '',
             content: '',
             featured: false,
+            pictureDetail: '',
             picturePath: '',
             picture: []
           },
@@ -364,6 +368,7 @@ class Content extends Component {
             title: '',
             content: '',
             featured: false,
+            pictureDetail: '',
             picturePath: '',
             picture: []
           },
@@ -529,6 +534,15 @@ class Content extends Component {
                   }
                 </Dropzone>
               </div>
+              <label>Keterangan Foto Utama</label>
+              <input
+                name="pictureDetail"
+                type="text"
+                className="form-control"
+                style={{marginBottom:12, height: 40, borderRadius: 2}}
+                value={form.pictureDetail}
+                placeholder="Masukkan keterangan foto utama disini"
+                onChange={this._handleOnChange} />
               <label style={{marginTop: 12}}>Konten Berita <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: contentVal ? 1 : 0, visibility: contentVal ? 'visible' : 'hidden'}}>Konten tidak boleh kosong</span></label>
               <Editor
                 wrapperClassName="home-wrapper"
@@ -631,6 +645,15 @@ class Content extends Component {
                   }
                 </Dropzone>
               </div>
+              <label>Keterangan Foto Utama</label>
+              <input
+                name="pictureDetail"
+                type="text"
+                className="form-control"
+                style={{marginBottom:12, height: 40, borderRadius: 2}}
+                value={formEdit.pictureDetail}
+                placeholder="Masukkan keterangan foto utama disini"
+                onChange={this._handleOnChangeEdit} />
               <label style={{marginTop: 12}}>Konten Berita <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: contentValEdit ? 1 : 0, visibility: contentValEdit ? 'visible' : 'hidden'}}>Konten tidak boleh kosong</span></label>
               <Editor
                 wrapperClassName="home-wrapper"
@@ -754,6 +777,7 @@ export default compose(
           title: form.title,
           content: form.content,
           featured: form.featured,
+          pictureDetail: form.pictureDetail,
           picturePath: form.picturePath
         },
         update: (store, { data: { addNews } }) => {
@@ -773,6 +797,7 @@ export default compose(
           title: form.title,
           content: form.content,
           featured: form.featured,
+          pictureDetail: form.pictureDetail,
           picturePath: form.picturePath
         },
         update: (store, { data: { editNews } }) => {

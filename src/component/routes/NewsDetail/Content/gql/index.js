@@ -12,6 +12,7 @@ module.exports = `
         id
         path
       }
+      pictureDetail
       comment{
         id
         content

@@ -32,6 +32,7 @@ const DetailNews = ({ data, currentId, path }) => {
           date: new Date() + "",
           content: item.content
         }))}
+        pictureDetail={news.pictureDetail}
         currentId={currentId}
         title={news.title}
         author={news.author.username}

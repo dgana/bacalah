@@ -10,6 +10,7 @@ module.exports = {
         }
         isFeatured
         clickCount
+        pictureDetail
         createdAt
         category{
           id
@@ -34,8 +35,8 @@ module.exports = {
     }
   `,
   addNewsMutation: `
-    mutation($userId:String!,$categoryId:String!,$title:String!,$content:String!,$featured:Boolean!,$picturePath:String){
-      addNews(userId:$userId,categoryId:$categoryId,title:$title,content:$content,featured:$featured,picturePath:$picturePath){
+    mutation($userId:String!,$categoryId:String!,$title:String!,$content:String!,$featured:Boolean!,$pictureDetail:String,$picturePath:String){
+      addNews(userId:$userId,categoryId:$categoryId,title:$title,content:$content,featured:$featured,pictureDetail:$pictureDetail,picturePath:$picturePath){
         id
         title
         content
@@ -44,6 +45,7 @@ module.exports = {
         }
         isFeatured
         clickCount
+        pictureDetail
         createdAt
         category{
           id
@@ -73,8 +75,8 @@ module.exports = {
     }
   `,
   editNewsMutation: `
-    mutation($newsId:String!,$CategoryId:String,$title:String,$content:String,$featured:Boolean,$picturePath:String){
-      editNews(newsId:$newsId,CategoryId:$CategoryId,title:$title,content:$content,featured:$featured,picturePath:$picturePath){
+    mutation($newsId:String!,$CategoryId:String,$title:String,$content:String,$featured:Boolean,$pictureDetail:String,$picturePath:String){
+      editNews(newsId:$newsId,CategoryId:$CategoryId,title:$title,content:$content,featured:$featured,pictureDetail:$pictureDetail,picturePath:$picturePath){
         id
         title
         content
@@ -83,6 +85,7 @@ module.exports = {
         }
         isFeatured
         clickCount
+        pictureDetail
         createdAt
         category{
           id

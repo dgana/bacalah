@@ -118,7 +118,7 @@ class NewsDetail extends React.Component {
 
   render() {
     const { commentVal, addedComment, reply, replyVal } = this.state
-    const { newsId, title, author, date, commentCount, picture, content, comments } = this.props
+    const { newsId, title, author, date, commentCount, picture, content, comments, pictureDetail } = this.props
 
     const blocksFromHtml = htmlToDraft(content);
     const { contentBlocks, entityMap } = blocksFromHtml;
@@ -186,6 +186,7 @@ class NewsDetail extends React.Component {
             </div>
           </header>
           <img src={picture} alt="" className="post-thumbnail" />
+          <p style={{color: "#A1A1A1", margin: '0px 0px 18px'}}>{pictureDetail}</p>
           <div ref="contentRefs">
 
           </div>

@@ -28,6 +28,8 @@ const Content = (props) => {
   if (loading) return (<p>Loading...</p>)
   if (error) return (<p>{error.message}</p>)
 
+  console.log(categories);
+
   const randomNumber1 = Math.floor(Math.random() * (categories.length))
   const firstCategoryNews = categories.slice(randomNumber1, randomNumber1 + 1)
   const slicedCategories = categories.filter((item, index) => {
@@ -37,11 +39,56 @@ const Content = (props) => {
       }
     }
   })
+
   const randomNumber2 = Math.floor(Math.random() * (slicedCategories.length))
   const secondCategoryNews = slicedCategories.slice(randomNumber2, randomNumber2 + 1)
+  const secondSlicedCategories = slicedCategories.filter((item, index) => {
+    if (index !== randomNumber2) {
+      return {
+        ...item
+      }
+    }
+  })
+
+  const randomNumber3 = Math.floor(Math.random() * (secondSlicedCategories.length))
+  const thirdCategoryNews = secondSlicedCategories.slice(randomNumber3, randomNumber3 + 1)
+  const thirdSlicedCategories = secondSlicedCategories.filter((item, index) => {
+    if (index !== randomNumber3) {
+      return {
+        ...item
+      }
+    }
+  })
+
+  const randomNumber4 = Math.floor(Math.random() * (thirdSlicedCategories.length))
+  const fourthCategoryNews = thirdSlicedCategories.slice(randomNumber4, randomNumber4 + 1)
+  const fourthSlicedCategories = thirdSlicedCategories.filter((item, index) => {
+    if (index !== randomNumber4) {
+      return {
+        ...item
+      }
+    }
+  })
+
+  const randomNumber5 = Math.floor(Math.random() * (fourthSlicedCategories.length))
+  const fifthCategoryNews = fourthSlicedCategories.slice(randomNumber5, randomNumber5 + 1)
+  const fifthSlicedCategories = fourthSlicedCategories.filter((item, index) => {
+    if (index !== randomNumber5) {
+      return {
+        ...item
+      }
+    }
+  })
+
+  const randomNumber6 = Math.floor(Math.random() * (fifthSlicedCategories.length))
+  const SixCategoryNews = fifthSlicedCategories.slice(randomNumber6, randomNumber6 + 1)
 
   const popularFirstCategory = _.maxBy(firstCategoryNews[0].news, 'clickCount')
   const popularSecondCategory = _.maxBy(secondCategoryNews[0].news, 'clickCount')
+  const popularThirdCategory = _.maxBy(thirdCategoryNews[0].news, 'clickCount')
+  const popularFourthCategory = _.maxBy(fourthCategoryNews[0].news, 'clickCount')
+  const popularFifthCategory = _.maxBy(fifthCategoryNews[0].news, 'clickCount')
+  const popularSixCategory = _.maxBy(SixCategoryNews[0].news, 'clickCount')
 
   const reversedNews = allNews.map(item => item)
 
@@ -134,7 +181,118 @@ const Content = (props) => {
               </div>
             </div> : null
           }
-
+          { popularThirdCategory ?
+            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+              <div className="widget">
+                <header className="widget-header">
+                  <h4 className="title" style={{fontSize: 18}}>
+                    {popularThirdCategory.category.name}
+                  </h4>
+                </header>
+                <div className="widget-thumbnail">
+                  <Link to={`/${popularThirdCategory.category.name.toLowerCase()}/${popularThirdCategory.id}`}>
+                    <img style={{maxHeight: 250}} src={popularThirdCategory.pictures[0].path} alt="Health Popular" />
+                  </Link>
+                </div>
+                <div className="widget-content" style={{padding: 0}}>
+                  <h3 className="title widget-title">
+                    <Link style={{fontSize: 22}} to={`/${popularThirdCategory.category.name.toLowerCase()}/${popularThirdCategory.id}`}>
+                      {popularThirdCategory.title}
+                    </Link>
+                  </h3>
+                  <div className="meta-wrapper">
+                    <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularThirdCategory.createdAt)}</span>
+                    <span className="meta"><i className="fa fa-comment-o"></i>{popularThirdCategory.comment.length}</span>
+                  </div>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularThirdCategory.content, 350)}}></p>
+                </div>
+              </div>
+            </div> : null
+          }
+          { popularFourthCategory ?
+            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+              <div className="widget">
+                <header className="widget-header">
+                  <h4 className="title" style={{fontSize: 18}}>
+                    {popularFourthCategory.category.name}
+                  </h4>
+                </header>
+                <div className="widget-thumbnail">
+                  <Link to={`/${popularFourthCategory.category.name.toLowerCase()}/${popularFourthCategory.id}`}>
+                    <img style={{maxHeight: 250}} src={popularFourthCategory.pictures[0].path} alt="Health Popular" />
+                  </Link>
+                </div>
+                <div className="widget-content" style={{padding: 0}}>
+                  <h3 className="title widget-title">
+                    <Link style={{fontSize: 22}} to={`/${popularFourthCategory.category.name.toLowerCase()}/${popularFourthCategory.id}`}>
+                      {popularFourthCategory.title}
+                    </Link>
+                  </h3>
+                  <div className="meta-wrapper">
+                    <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFourthCategory.createdAt)}</span>
+                    <span className="meta"><i className="fa fa-comment-o"></i>{popularFourthCategory.comment.length}</span>
+                  </div>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularFourthCategory.content, 350)}}></p>
+                </div>
+              </div>
+            </div> : null
+          }
+          { popularFifthCategory ?
+            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+              <div className="widget">
+                <header className="widget-header">
+                  <h4 className="title" style={{fontSize: 18}}>
+                    {popularFifthCategory.category.name}
+                  </h4>
+                </header>
+                <div className="widget-thumbnail">
+                  <Link to={`/${popularFifthCategory.category.name.toLowerCase()}/${popularFifthCategory.id}`}>
+                    <img style={{maxHeight: 250}} src={popularFifthCategory.pictures[0].path} alt="Health Popular" />
+                  </Link>
+                </div>
+                <div className="widget-content" style={{padding: 0}}>
+                  <h3 className="title widget-title">
+                    <Link style={{fontSize: 22}} to={`/${popularFifthCategory.category.name.toLowerCase()}/${popularFifthCategory.id}`}>
+                      {popularFifthCategory.title}
+                    </Link>
+                  </h3>
+                  <div className="meta-wrapper">
+                    <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFifthCategory.createdAt)}</span>
+                    <span className="meta"><i className="fa fa-comment-o"></i>{popularFifthCategory.comment.length}</span>
+                  </div>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularFifthCategory.content, 350)}}></p>
+                </div>
+              </div>
+            </div> : null
+          }
+          { popularSixCategory ?
+            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+              <div className="widget">
+                <header className="widget-header">
+                  <h4 className="title" style={{fontSize: 18}}>
+                    {popularSixCategory.category.name}
+                  </h4>
+                </header>
+                <div className="widget-thumbnail">
+                  <Link to={`/${popularSixCategory.category.name.toLowerCase()}/${popularSixCategory.id}`}>
+                    <img style={{maxHeight: 250}} src={popularSixCategory.pictures[0].path} alt="Health Popular" />
+                  </Link>
+                </div>
+                <div className="widget-content" style={{padding: 0}}>
+                  <h3 className="title widget-title">
+                    <Link style={{fontSize: 22}} to={`/${popularSixCategory.category.name.toLowerCase()}/${popularSixCategory.id}`}>
+                      {popularSixCategory.title}
+                    </Link>
+                  </h3>
+                  <div className="meta-wrapper">
+                    <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularSixCategory.createdAt)}</span>
+                    <span className="meta"><i className="fa fa-comment-o"></i>{popularSixCategory.comment.length}</span>
+                  </div>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularSixCategory.content, 350)}}></p>
+                </div>
+              </div>
+            </div> : null
+          }
         </div>
       </div>
     </div>
