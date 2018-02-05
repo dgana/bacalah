@@ -28,8 +28,6 @@ const Content = (props) => {
   if (loading) return (<p>Loading...</p>)
   if (error) return (<p>{error.message}</p>)
 
-  console.log(categories);
-
   const randomNumber1 = Math.floor(Math.random() * (categories.length))
   const firstCategoryNews = categories.slice(randomNumber1, randomNumber1 + 1)
   const slicedCategories = categories.filter((item, index) => {
@@ -126,7 +124,7 @@ const Content = (props) => {
       <div className="row" style={{margin: 0}}>
         <div className="col-md-12" style={{background: 'white'}}>
           { popularFirstCategory ?
-            <div className="col-md-6 main-content" style={{padding: '0px 16px'}}>
+            <div className="col-md-6 main-content" style={{padding: '0px 16px', maxHeight: 550, overflow: 'hidden'}}>
               <div className="widget">
                 <header className="widget-header">
                   <h4 className="title" style={{fontSize: 18}}>
@@ -135,7 +133,7 @@ const Content = (props) => {
                 </header>
                   <div className="widget-thumbnail">
                     <Link to={`/${popularFirstCategory.category.name.toLowerCase()}/${popularFirstCategory.id}`}>
-                      <img style={{maxHeight: 250}} src={popularFirstCategory.pictures[0].path} alt="Technology Popular" />
+                      <img style={{maxHeight: 200}} src={popularFirstCategory.pictures[0].path} alt="Technology Popular" />
                     </Link>
                   </div>
                   <div className="widget-content" style={{padding: 0}}>
@@ -148,13 +146,13 @@ const Content = (props) => {
                       <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFirstCategory.createdAt)}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{popularFirstCategory.comment.length}</span>
                     </div>
-                    <p dangerouslySetInnerHTML={{__html: limitString(popularFirstCategory.content, 350)}}></p>
+                    <p dangerouslySetInnerHTML={{__html: limitString(popularFirstCategory.content, 300)}}></p>
                   </div>
               </div>
             </div> : null
           }
           { popularSecondCategory ?
-            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+            <div className="col-md-6 main-content" style={{padding: '0px 14px', maxHeight: 550, overflow: 'hidden'}}>
               <div className="widget">
                 <header className="widget-header">
                   <h4 className="title" style={{fontSize: 18}}>
@@ -163,7 +161,7 @@ const Content = (props) => {
                 </header>
                 <div className="widget-thumbnail">
                   <Link to={`/${popularSecondCategory.category.name.toLowerCase()}/${popularSecondCategory.id}`}>
-                    <img style={{maxHeight: 250}} src={popularSecondCategory.pictures[0].path} alt="Health Popular" />
+                    <img style={{maxHeight: 200}} src={popularSecondCategory.pictures[0].path} alt="Health Popular" />
                   </Link>
                 </div>
                 <div className="widget-content" style={{padding: 0}}>
@@ -176,13 +174,13 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularSecondCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularSecondCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularSecondCategory.content, 350)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularSecondCategory.content, 300)}}></p>
                 </div>
               </div>
             </div> : null
           }
           { popularThirdCategory ?
-            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+            <div className="col-md-6 main-content" style={{padding: '0px 14px', maxHeight: 550, overflow: 'hidden'}}>
               <div className="widget">
                 <header className="widget-header">
                   <h4 className="title" style={{fontSize: 18}}>
@@ -191,7 +189,7 @@ const Content = (props) => {
                 </header>
                 <div className="widget-thumbnail">
                   <Link to={`/${popularThirdCategory.category.name.toLowerCase()}/${popularThirdCategory.id}`}>
-                    <img style={{maxHeight: 250}} src={popularThirdCategory.pictures[0].path} alt="Health Popular" />
+                    <img style={{maxHeight: 200}} src={popularThirdCategory.pictures[0].path} alt="Health Popular" />
                   </Link>
                 </div>
                 <div className="widget-content" style={{padding: 0}}>
@@ -204,13 +202,13 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularThirdCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularThirdCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularThirdCategory.content, 350)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularThirdCategory.content, 300)}}></p>
                 </div>
               </div>
             </div> : null
           }
           { popularFourthCategory ?
-            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+            <div className="col-md-6 main-content" style={{padding: '0px 14px', maxHeight: 550, overflow: 'hidden'}}>
               <div className="widget">
                 <header className="widget-header">
                   <h4 className="title" style={{fontSize: 18}}>
@@ -219,7 +217,7 @@ const Content = (props) => {
                 </header>
                 <div className="widget-thumbnail">
                   <Link to={`/${popularFourthCategory.category.name.toLowerCase()}/${popularFourthCategory.id}`}>
-                    <img style={{maxHeight: 250}} src={popularFourthCategory.pictures[0].path} alt="Health Popular" />
+                    <img style={{maxHeight: 200}} src={popularFourthCategory.pictures[0].path} alt="Health Popular" />
                   </Link>
                 </div>
                 <div className="widget-content" style={{padding: 0}}>
@@ -232,13 +230,13 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFourthCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularFourthCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularFourthCategory.content, 350)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularFourthCategory.content, 300)}}></p>
                 </div>
               </div>
             </div> : null
           }
           { popularFifthCategory ?
-            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+            <div className="col-md-6 main-content" style={{padding: '0px 14px', maxHeight: 550, overflow: 'hidden'}}>
               <div className="widget">
                 <header className="widget-header">
                   <h4 className="title" style={{fontSize: 18}}>
@@ -247,7 +245,7 @@ const Content = (props) => {
                 </header>
                 <div className="widget-thumbnail">
                   <Link to={`/${popularFifthCategory.category.name.toLowerCase()}/${popularFifthCategory.id}`}>
-                    <img style={{maxHeight: 250}} src={popularFifthCategory.pictures[0].path} alt="Health Popular" />
+                    <img style={{maxHeight: 200}} src={popularFifthCategory.pictures[0].path} alt="Health Popular" />
                   </Link>
                 </div>
                 <div className="widget-content" style={{padding: 0}}>
@@ -260,13 +258,13 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFifthCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularFifthCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularFifthCategory.content, 350)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularFifthCategory.content, 300)}}></p>
                 </div>
               </div>
             </div> : null
           }
           { popularSixCategory ?
-            <div className="col-md-6 main-content" style={{padding: '0px 14px'}}>
+            <div className="col-md-6 main-content" style={{padding: '0px 14px', maxHeight: 550, overflow: 'hidden'}}>
               <div className="widget">
                 <header className="widget-header">
                   <h4 className="title" style={{fontSize: 18}}>
@@ -275,7 +273,7 @@ const Content = (props) => {
                 </header>
                 <div className="widget-thumbnail">
                   <Link to={`/${popularSixCategory.category.name.toLowerCase()}/${popularSixCategory.id}`}>
-                    <img style={{maxHeight: 250}} src={popularSixCategory.pictures[0].path} alt="Health Popular" />
+                    <img style={{maxHeight: 200}} src={popularSixCategory.pictures[0].path} alt="Health Popular" />
                   </Link>
                 </div>
                 <div className="widget-content" style={{padding: 0}}>
@@ -288,7 +286,7 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularSixCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularSixCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularSixCategory.content, 350)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: limitString(popularSixCategory.content, 300)}}></p>
                 </div>
               </div>
             </div> : null

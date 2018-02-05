@@ -52,7 +52,7 @@ const SubContent = (props) => {
                           <img src={item.pictures[0].path} alt="Popular News" className="media-object" />
                         </Link>
                       </div>
-                      <div className="col-md-6" style={{paddingLeft: 0}}>
+                      <div className="col-md-6" style={{paddingLeft: 16}}>
                         <p className="small" dangerouslySetInnerHTML={{__html: limitString(item.content, 150)}}></p>
                       </div>
                     </div>
