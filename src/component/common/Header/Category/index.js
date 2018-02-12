@@ -47,21 +47,39 @@ class Category extends React.Component {
   }
 
   render() {
-    const marginTop = this.state.width < 751 ? 0 : 24
+    // const marginTop = this.state.width < 751 ? 0 : 24
+    const marginTop = this.state.width < 1200 ? 8 : 22
     const paddingTop = this.state.width < 1200 ? 12 : 0
     const getCategoryPadding = this.state.width < 1200 ? '6px' : '0px 15px'
+    const { width } = this.state
 
+    const getHeight = width < 768 ? 'auto' : width < 997 ? 200 : 120
+    const getJustify =  width < 768 ? 'left' : width < 997 ? 'center' : 'left'
     return (
-      <header className="site-header" style={{borderBottom: 'none', background: 'rgb(30,30,30)'}}>
+      <header className="site-header" style={{borderBottom: 'none', background: 'rgb(50,50,50)', height: getHeight}}>
         <div className="container">
           <div className="row">
-            <div className="col-md-4">
-              <Link to='/'>
-                <h1 className="site-logo" style={{fontFamily: 'AmericanTypewriter', fontSize: 50, color: 'rgb(244,203,45)', fontWeight: 1000}}>
-                  Bacalah.co
-                </h1>
-                <p style={{fontFamily: 'BradleyHand', color: 'white', fontSize: 16, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
-              </Link>
+            <div className="col-md-4" style={{display: 'flex', justifyContent: getJustify}}>
+              { width < 997 ?
+                <Link to='/'>
+                  <div style={{height: 110, width: 300, background: 'rgb(207,0,0)', padding: '16px 24px', borderRadius: 2}}>
+                    <h1 className="site-logo" style={{fontFamily: 'montserrat', letterSpacing: '1px', fontSize: 45, color: 'rgb(250,250,250)', fontWeight: 1000}}>
+                      Bacalah.co
+                    </h1>
+                    <p style={{fontFamily: 'BradleyHand', display: 'flex', justifyContent: getJustify, color: 'white', fontSize: 13, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
+                  </div>
+                </Link>
+                :
+                <Link to='/'>
+                  <div style={{height: 110, width: 300, background: 'rgb(207,0,0)', position: 'absolute', padding: '16px 24px', display: 'inline-block', borderRadius: 2}}>
+                    <h1 className="site-logo" style={{fontFamily: 'montserrat', letterSpacing: '1px', fontSize: 45, color: 'rgb(250,250,250)', fontWeight: 1000}}>
+                      Bacalah.co
+                    </h1>
+                    <p style={{fontFamily: 'BradleyHand', color: 'white', fontSize: 13, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
+                  </div>
+                </Link>
+              }
+
               <button
                 style={{position: 'absolute', top: 20, right: 20}}
                 onClick={() => this.setState(prevState => ({ collapse: prevState.collapse ? false : true }))}
@@ -82,7 +100,7 @@ class Category extends React.Component {
               <ul className="menu nav navbar-nav">
                 <ul>
                   <CategoryList data={this.props.data} padding={getCategoryPadding} />
-                  {/* <li><Link to={'/'} style={{padding: getCategoryPadding}}>Tentang Kami</Link></li> */}
+                  {/* <li><Link to={'/'} style={{padding: getCategoryPadding, color: 'white'}}>Tentang Kami</Link></li> */}
                 </ul>
               </ul>
             </nav>

@@ -596,6 +596,7 @@ header.site-header {
 }
 
 .site-header {
+  padding: 16px 0px;
   border-top: 10px solid white !important;
   /*border-bottom: 3px solid rgba(244, 203, 45, 0.5) !important;*/
 }

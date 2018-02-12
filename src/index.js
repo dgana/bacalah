@@ -11,7 +11,7 @@ import client from './apollo'
 
 // nama url menjadi https://batam-news.appspot.com/graphql/ bukan https://batam-news.appspot.com/graphiql/
 new ApolloClient({
-  link: new HttpLink({ uri: `https://batam-news.appspot.com/graphql/` }),
+  link: new HttpLink({ uri: `https://inbound-hawk-157511.appspot.com/graphql/` }),
   cache: new InMemoryCache()
 })
 

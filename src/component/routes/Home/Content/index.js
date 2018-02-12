@@ -81,7 +81,7 @@ const Content = (props) => {
   const randomNumber6 = Math.floor(Math.random() * (fifthSlicedCategories.length))
   const SixCategoryNews = fifthSlicedCategories.slice(randomNumber6, randomNumber6 + 1)
 
-  const popularFirstCategory = _.maxBy(firstCategoryNews[0].news, 'clickCount')
+  const popularFirstCategory = firstCategoryNews[0] ? _.maxBy(firstCategoryNews[0].news, 'clickCount') : null
   const popularSecondCategory = _.maxBy(secondCategoryNews[0].news, 'clickCount')
   const popularThirdCategory = _.maxBy(thirdCategoryNews[0].news, 'clickCount')
   const popularFourthCategory = _.maxBy(fourthCategoryNews[0].news, 'clickCount')
