@@ -70,14 +70,15 @@ class Login extends Component {
     return (
       <div className="login-background" style={{height: window.innerHeight}}>
         <div className="login-box" style={{marginTop: '-4%', width: '30%'}}>
-          <div className="login-logo">
-            <h1 className="site-logo" style={{fontFamily: 'AmericanTypewriter', fontSize: 50, color: 'rgb(244,203,45)', fontWeight: 1000, position: 'relative', top: 30}}>
-              Bacalah.co
-            </h1>
-            <p style={{fontFamily: 'BradleyHand', color: 'rgb(30,30,30)', fontSize: 16, fontWeight: 700, position: 'relative', top: 35}}>Informasi di tangan anda, maka bacalah...</p>
+          <div className="login-logo" style={{marginBottom: 0}}>
+            <div style={{height: 115, width: 350, background: 'rgb(207,0,0)', position: 'relative', padding: '0px 24px', display: 'inline-block', borderRadius: 2}}>
+              <h1 className="site-logo" style={{fontFamily: 'montserrat', fontSize: 50, color: 'rgb(250,250,250)', fontWeight: 1000, position: 'relative', top: 16}}>
+                Bacalah.co
+              </h1>
+              <p style={{fontFamily: 'BradleyHand', color: 'white', fontSize: 16, fontWeight: 700, position: 'relative', top: 12}}>Informasi di tangan anda, maka bacalah...</p>
+            </div>
           </div>
           <div className="login-box-body" style={{backgroundColor:'inherit'}}>
-            <p className="login-box-msg"></p>
             <form onSubmit={this.submitLogin}>
               <div className="form-group has-feedback">
                 <span style={{float: 'right', color: 'red', transition: '0.6s', opacity: passwordVal ? 1 : 0, visibility: passwordVal ? 'visible' : 'hidden'}}>Password salah</span>
@@ -90,9 +91,9 @@ class Login extends Component {
                 <input type="password" value={password} name='password' className="form-control" placeholder="Password" onChange={this.handleChange} />
                 {/* <span className="glyphicon glyphicon-lock form-control-feedback" style={{borderLeft: '1px solid rgb(210,210,210)', width:'13%', height:'100%'}}></span> */}
               </div>
-              <div className="row">
+              <div className="row" style={{display:  'flex', justifyContent: 'flex-end'}}>
                 <div className="col-xs-7 col-xs-offset-5">
-                  { !button ? <button type="submit" className="no-border btn btn-primary btn-block btn-flat">Masuk</button> :
+                  { !button ? <button type="submit" style={{background: '#428bca', color: 'white', display: 'flex', justifyContent: 'center'}} className="no-border btn btn-primary btn-block btn-flat">Masuk</button> :
                     <button disabled={true} type="submit" className="no-border btn btn-primary btn-block btn-flat">Harap Tunggu... </button>
                   }
                 </div>
