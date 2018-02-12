@@ -55,7 +55,7 @@ class SubContent extends React.Component {
                         </Link>
                       </div>
                       <div className="col-md-6" style={{paddingLeft: 16}}>
-                        <div dangerouslySetInnerHTML={{__html: limitString(item.content, 150)}}></div>
+                        <div dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(item.content, 150) + '</div>'}}></div>
                       </div>
                     </div>
                   </li>

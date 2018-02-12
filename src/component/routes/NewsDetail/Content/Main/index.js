@@ -113,7 +113,7 @@ class NewsDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.refs.contentRefs.innerHTML = this.props.content + this.refs.contentRefs.innerHTML
+    this.refs.contentRefs.innerHTML = "<div class='content-container'>" + this.props.content + '</div>' + this.refs.contentRefs.innerHTML
   }
 
   render() {

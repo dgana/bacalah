@@ -19,7 +19,7 @@ const CategoryList = ({ data, padding }) => {
   if (error) return (<p>{error.message}</p>)
   return categories.map(category => (
     <li key={category.id}>
-      <Link to={`/${category.name.toLowerCase()}`} style={{padding}}>{category.name}</Link>
+      <Link to={`/${category.name.toLowerCase()}`} style={{padding, color: 'white'}}>{category.name}</Link>
     </li>
   ))
 }
@@ -52,7 +52,7 @@ class Category extends React.Component {
     const getCategoryPadding = this.state.width < 1200 ? '6px' : '0px 15px'
 
     return (
-      <header className="site-header" style={{borderBottom: 'none', background: '#ef5350'}}>
+      <header className="site-header" style={{borderBottom: 'none', background: 'rgb(30,30,30)'}}>
         <div className="container">
           <div className="row">
             <div className="col-md-4">
@@ -60,7 +60,7 @@ class Category extends React.Component {
                 <h1 className="site-logo" style={{fontFamily: 'AmericanTypewriter', fontSize: 50, color: 'rgb(244,203,45)', fontWeight: 1000}}>
                   Bacalah.co
                 </h1>
-                <p style={{fontFamily: 'BradleyHand', color: 'rgb(30,30,30)', fontSize: 16, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
+                <p style={{fontFamily: 'BradleyHand', color: 'white', fontSize: 16, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
               </Link>
               <button
                 style={{position: 'absolute', top: 20, right: 20}}

@@ -596,7 +596,7 @@ header.site-header {
 }
 
 .site-header {
-  border-top: 10px solid rgba(244, 203, 45, 0.5) !important;
+  border-top: 10px solid white !important;
   /*border-bottom: 3px solid rgba(244, 203, 45, 0.5) !important;*/
 }
 
@@ -1098,8 +1098,17 @@ header.site-header {
 
 .public-DraftEditor-content[contenteditable=true] {
    -webkit-user-modify: read-write !important;
+   -moz-user-modify: read-write !important;
 }
 
 .public-DraftStyleDefault-block {
   white-space: normal !important;
+}
+
+.content-container p {
+  font-size: 13px !important;
+}
+
+.content-container span {
+  font-size: 13px !important;
 }

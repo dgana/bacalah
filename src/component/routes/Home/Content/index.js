@@ -113,7 +113,7 @@ const Content = (props) => {
                       <span className="meta"><i className="fa fa-calendar"></i>{fullDate(item.createdAt)}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{item.comment.length}</span>
                     </div>
-                    <p className="slider-caption" dangerouslySetInnerHTML={{__html: limitString(item.content, 500)}}></p>
+                    <p className="slider-caption" dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(item.content, 500) + '</div>'}}></p>
                   </div>
                 </div>
               )
@@ -146,7 +146,7 @@ const Content = (props) => {
                       <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFirstCategory.createdAt)}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{popularFirstCategory.comment.length}</span>
                     </div>
-                    <p dangerouslySetInnerHTML={{__html: limitString(popularFirstCategory.content, 300)}}></p>
+                    <p dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(popularFirstCategory.content, 500) + '</div>'}}></p>
                   </div>
               </div>
             </div> : null
@@ -174,7 +174,7 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularSecondCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularSecondCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularSecondCategory.content, 300)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(popularSecondCategory.content, 500) + '</div>'}}></p>
                 </div>
               </div>
             </div> : null
@@ -202,7 +202,7 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularThirdCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularThirdCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularThirdCategory.content, 300)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(popularThirdCategory.content, 500) + '</div>'}}></p>
                 </div>
               </div>
             </div> : null
@@ -230,7 +230,7 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFourthCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularFourthCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularFourthCategory.content, 300)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(popularFourthCategory.content, 500) + '</div>'}}></p>
                 </div>
               </div>
             </div> : null
@@ -258,7 +258,7 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularFifthCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularFifthCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularFifthCategory.content, 300)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(popularFifthCategory.content, 500) + '</div>'}}></p>
                 </div>
               </div>
             </div> : null
@@ -286,7 +286,7 @@ const Content = (props) => {
                     <span className="meta"><i className="fa fa-calendar"></i>{fullDate(popularSixCategory.createdAt)}</span>
                     <span className="meta"><i className="fa fa-comment-o"></i>{popularSixCategory.comment.length}</span>
                   </div>
-                  <p dangerouslySetInnerHTML={{__html: limitString(popularSixCategory.content, 300)}}></p>
+                  <p dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(popularSixCategory.content, 500) + '</div>'}}></p>
                 </div>
               </div>
             </div> : null

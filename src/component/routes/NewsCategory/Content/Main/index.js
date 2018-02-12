@@ -21,7 +21,7 @@ const category = ({ id, name }) => (
 
 class DetailNews extends React.Component {
   componentDidMount() {
-    this.refs.contentRefs.innerHTML = limitString(this.props.news.content, 350) + this.refs.contentRefs.innerHTML
+    this.refs.contentRefs.innerHTML = "<div class='content-container'>" + limitString(this.props.news.content, 350) + '</div>' + this.refs.contentRefs.innerHTML
   }
 
   render() {
@@ -49,7 +49,7 @@ class DetailNews extends React.Component {
 class Main extends React.Component {
   componentDidMount() {
     if(this.props.latestNews) {
-      this.refs.contentRefs.innerHTML = limitString(this.props.latestNews.content, 350) + this.refs.contentRefs.innerHTML
+      this.refs.contentRefs.innerHTML = "<div class='content-container'>" + limitString(this.props.latestNews.content, 350) + '</div>' + this.refs.contentRefs.innerHTML
     }
   }
 
