@@ -53,7 +53,7 @@ const SubContent = (props) => {
                         </Link>
                       </div>
                       <div className="col-md-6" style={{paddingLeft: 16}}>
-                        <p className="small" dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(item.content, 150) + '</div>'}}></p>
+                        <p className="small" dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(item.content, 200) + '</div>'}}></p>
                       </div>
                     </div>
                   </li>

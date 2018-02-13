@@ -60,7 +60,16 @@ class Category extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-4" style={{display: 'flex', justifyContent: getJustify}}>
-              { width < 997 ?
+              { width < 600 ?
+                <Link to='/'>
+                  <div style={{height: 80, width: 200, background: 'rgb(207,0,0)', padding: '0px 12px', borderRadius: 2}}>
+                    <h1 className="site-logo" style={{fontFamily: 'montserrat', letterSpacing: '1px', fontSize: 32, color: 'rgb(250,250,250)', fontWeight: 1000}}>
+                      Bacalah.co
+                    </h1>
+                    <p style={{fontFamily: 'BradleyHand', display: 'flex', justifyContent: getJustify, color: 'white', fontSize: 10, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
+                  </div>
+                </Link> :
+                width < 997 ?
                 <Link to='/'>
                   <div style={{height: 110, width: 300, background: 'rgb(207,0,0)', padding: '20px 24px', borderRadius: 2}}>
                     <h1 className="site-logo" style={{fontFamily: 'montserrat', letterSpacing: '1px', fontSize: 45, color: 'rgb(250,250,250)', fontWeight: 1000}}>

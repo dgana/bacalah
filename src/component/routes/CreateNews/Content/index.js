@@ -117,21 +117,20 @@ class Content extends Component {
       form: newForm
     })
     let data = new FormData()
-    data.append('file', imgFiles[0])
+    data.append('image', imgFiles[0])
     axios({
       method: 'post',
-      url: 'https://batam-news.appspot.com/api/uploads/single',
+      url: 'https://api.imgur.com/3/image',
       data: data,
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data; boundary='+data._boundary
+        'Authorization': 'Client-ID 8d26ccd12712fca'
       },
     })
     .then(res => {
       this.setState(prevState => ({
         form: {
           ...prevState.form,
-          picturePath: res.data.result
+          picturePath: res.data.data.link
         }
       }))
     })
@@ -149,21 +148,20 @@ class Content extends Component {
       formEdit: newForm
     })
     let data = new FormData()
-    data.append('file', imgFiles[0])
+    data.append('image', imgFiles[0])
     axios({
       method: 'post',
-      url: 'https://batam-news.appspot.com/api/uploads/single',
+      url: 'https://api.imgur.com/3/image',
       data: data,
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data; boundary='+data._boundary
+        'Authorization': 'Client-ID 8d26ccd12712fca'
       },
     })
     .then(res => {
       this.setState(prevState => ({
         formEdit: {
           ...prevState.formEdit,
-          picturePath: res.data.result
+          picturePath: res.data.data.link
         }
       }))
     })
