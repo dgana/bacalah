@@ -62,17 +62,17 @@ class Category extends React.Component {
             <div className="col-md-4" style={{display: 'flex', justifyContent: getJustify}}>
               { width < 600 ?
                 <Link to='/'>
-                  <div style={{height: 80, width: 200, background: 'rgb(207,0,0)', padding: '0px 12px', borderRadius: 2}}>
-                    <h1 className="site-logo" style={{fontFamily: 'montserrat', letterSpacing: '1px', fontSize: 32, color: 'rgb(250,250,250)', fontWeight: 1000}}>
+                  <div style={{height: 55, width: 150, background: 'rgb(207,0,0)', padding: '0px 12px', borderRadius: 2}}>
+                    <h1 className="site-logo" style={{fontFamily: 'bitter', letterSpacing: '-1px', fontSize: 22, color: 'rgb(250,250,250)', fontWeight: 1000}}>
                       Bacalah.co
                     </h1>
-                    <p style={{fontFamily: 'BradleyHand', display: 'flex', justifyContent: getJustify, color: 'white', fontSize: 10, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
+                    <p style={{fontFamily: 'BradleyHand', display: 'flex', justifyContent: getJustify, color: 'white', fontSize: 6, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
                   </div>
                 </Link> :
                 width < 997 ?
                 <Link to='/'>
                   <div style={{height: 110, width: 300, background: 'rgb(207,0,0)', padding: '20px 24px', borderRadius: 2}}>
-                    <h1 className="site-logo" style={{fontFamily: 'montserrat', letterSpacing: '1px', fontSize: 45, color: 'rgb(250,250,250)', fontWeight: 1000}}>
+                    <h1 className="site-logo" style={{fontFamily: 'bitter', letterSpacing: '-1px', fontSize: 42, color: 'rgb(250,250,250)', fontWeight: 1000}}>
                       Bacalah.co
                     </h1>
                     <p style={{fontFamily: 'BradleyHand', display: 'flex', justifyContent: getJustify, color: 'white', fontSize: 13, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>
@@ -81,7 +81,7 @@ class Category extends React.Component {
                 :
                 <Link to='/'>
                   <div style={{height: 110, width: 300, background: 'rgb(207,0,0)', position: 'absolute', padding: '20px 24px', display: 'inline-block', borderRadius: 2}}>
-                    <h1 className="site-logo" style={{fontFamily: 'montserrat', letterSpacing: '1px', fontSize: 45, color: 'rgb(250,250,250)', fontWeight: 1000}}>
+                    <h1 className="site-logo" style={{fontFamily: 'bitter', letterSpacing: '-1px', fontSize: 42, color: 'rgb(250,250,250)', fontWeight: 1000}}>
                       Bacalah.co
                     </h1>
                     <p style={{fontFamily: 'BradleyHand', color: 'white', fontSize: 13, fontWeight: 700}}>Informasi di tangan anda, maka bacalah...</p>

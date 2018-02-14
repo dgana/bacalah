@@ -72,7 +72,7 @@ class Login extends Component {
         <div className="login-box" style={{marginTop: '-4%', width: '30%'}}>
           <div className="login-logo" style={{marginBottom: 0}}>
             <div style={{height: 115, width: 350, background: 'rgb(207,0,0)', position: 'relative', padding: '0px 24px', display: 'inline-block', borderRadius: 2}}>
-              <h1 className="site-logo" style={{fontFamily: 'montserrat', fontSize: 50, color: 'rgb(250,250,250)', fontWeight: 1000, position: 'relative', top: 16}}>
+              <h1 className="site-logo" style={{fontFamily: 'bitter', letterSpacing: '-1px', fontSize: 47, color: 'rgb(250,250,250)', fontWeight: 1000, position: 'relative', top: 16}}>
                 Bacalah.co
               </h1>
               <p style={{fontFamily: 'BradleyHand', color: 'white', fontSize: 16, fontWeight: 700, position: 'relative', top: 12}}>Informasi di tangan anda, maka bacalah...</p>
