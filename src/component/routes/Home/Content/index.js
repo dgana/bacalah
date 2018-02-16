@@ -100,6 +100,9 @@ const Content = (props) => {
         </header>
         <Slider {...settings}>
           { reversedNews.reverse().slice(0, 4).map(item => {
+            const newContent = item.content.replace('<p style="text-align:start;">&nbsp;</p>', '')
+            const newContent2 = newContent.replace('<p>&nbsp;</p>', '')
+            const newContent3 = newContent2.replace('<br>', '')
               return (
                 <div key={item.id}>
                   <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}><img src={item.pictures[0].path} alt="Feature News" /></Link>
@@ -113,7 +116,7 @@ const Content = (props) => {
                       <span className="meta"><i className="fa fa-calendar"></i>{fullDate(item.createdAt)}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{item.comment.length}</span>
                     </div>
-                    <p className="slider-caption" dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(item.content, 500) + '</div>'}}></p>
+                    <p className="slider-caption" dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(newContent3, 500) + '</div>'}}></p>
                   </div>
                 </div>
               )
