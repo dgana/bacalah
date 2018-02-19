@@ -71,7 +71,7 @@ class Category extends React.Component {
                 </Link> :
                 width < 997 ?
                 <Link to='/'>
-                  <div style={{height: 110, width: 300, background: 'rgb(207,0,0)', padding: '20px 24px', borderRadius: 2}}>
+                  <div style={{height: 110, width: 310, background: 'rgb(207,0,0)', padding: '20px 24px', borderRadius: 2}}>
                     <h1 className="site-logo" style={{fontFamily: 'bitter', letterSpacing: '-1px', fontSize: 42, color: 'rgb(250,250,250)', fontWeight: 1000}}>
                       Bacalah.co
                     </h1>
@@ -80,7 +80,7 @@ class Category extends React.Component {
                 </Link>
                 :
                 <Link to='/'>
-                  <div style={{height: 110, width: 300, background: 'rgb(207,0,0)', position: 'absolute', padding: '20px 24px', display: 'inline-block', borderRadius: 2}}>
+                  <div style={{height: 110, width: 310, background: 'rgb(207,0,0)', position: 'absolute', padding: '20px 24px', display: 'inline-block', borderRadius: 2}}>
                     <h1 className="site-logo" style={{fontFamily: 'bitter', letterSpacing: '-1px', fontSize: 42, color: 'rgb(250,250,250)', fontWeight: 1000}}>
                       Bacalah.co
                     </h1>

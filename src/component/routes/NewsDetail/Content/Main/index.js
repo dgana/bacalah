@@ -113,7 +113,15 @@ class NewsDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.refs.contentRefs.innerHTML = "<div class='content-container'>" + this.props.content + '</div>' + this.refs.contentRefs.innerHTML
+    const firstReg = new RegExp(/<p style="text-align:start;">&nbsp;<[/]p>/g)
+    const secondReg = new RegExp(/<p>&nbsp;<[/]p>/g)
+    const thirdReg = new RegExp(/<br>/g)
+    const fourthReg = new RegExp(/<h1>/g)
+    const fifthReg = new RegExp(/<[/]h1>/g)
+
+    const newContent = this.props.content.replace(firstReg, '').replace(secondReg, '').replace(thirdReg, '').replace(fourthReg, '').replace(fifthReg, '')
+
+    this.refs.contentRefs.innerHTML = "<div class='content-container'>" + newContent + '</div>' + this.refs.contentRefs.innerHTML
   }
 
   render() {

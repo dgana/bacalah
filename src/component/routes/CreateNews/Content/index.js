@@ -298,9 +298,19 @@ class Content extends Component {
 
     const content = draftToHtml(convertToRaw(editorState.getCurrentContent()))
 
+    const firstReg = new RegExp(/<p style="text-align:start;">&nbsp;<[/]p>/g)
+    const secondReg = new RegExp(/<p>&nbsp;<[/]p>/g)
+    const thirdReg = new RegExp(/<br>/g)
+    const fourthReg = new RegExp(/<p><[/]p>/g)
+    const fifthReg = new RegExp(/&nbsp;/g)
+    const sixthReg = new RegExp(/<h1>/g)
+    const seventhReg = new RegExp(/<[/]h1>/g)
+
+    const newContent = content.replace(firstReg, '').replace(secondReg, '').replace(thirdReg, '').replace(fourthReg, '').replace(fifthReg, '').replace(sixthReg, '').replace(seventhReg, '')
+
     const newForm = {
       ...form,
-      content
+      newContent
     }
 
     if (title.length === 0) {
@@ -309,7 +319,7 @@ class Content extends Component {
     } else if (picturePath === "") {
       this.setState({ pictureVal: true })
       setTimeout(() => this.setState({ pictureVal: false }), 5000)
-    } else if (content.length < 10) {
+    } else if (newContent.length < 10) {
       this.setState({ contentVal: true })
       setTimeout(() => this.setState({ contentVal: false }), 5000)
     }  else {

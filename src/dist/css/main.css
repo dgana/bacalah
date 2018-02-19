@@ -240,6 +240,7 @@ blockquote:after{
 	list-style-type: none;
 	border-bottom: 1px dotted #C5C5C5;
   max-height: 300px !important;
+  overflow: hidden !important;
 }
 
 .list li:last-child {
@@ -1110,16 +1111,17 @@ header.site-header {
 .content-container p {
   font-size: 13px !important;
   font-family: sans-serif !important;
-  text-align: justify;
+  text-align: justify !important;
   color: rgb(70,70,70) !important;
   line-height: 27px !important;
+  margin-bottom: 16px !important;
 }
 
 .content-container span {
   font-size: 13px !important;
   font-family: sans-serif !important;
-  text-align: justify;
+  text-align: justify !important;
   color: rgb(70,70,70) !important;
   line-height: 27px !important;
-  display: block;
+  /*display: block !important;*/
 }

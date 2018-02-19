@@ -43,6 +43,16 @@ class SubContent extends React.Component {
           <div className="margin-top-20">
             <ul className="media-list list">
               { sortedPopularNews.map(item => {
+
+                const firstReg = new RegExp(/<p style="text-align:start;">&nbsp;<[/]p>/g)
+                const secondReg = new RegExp(/<p>&nbsp;<[/]p>/g)
+                const thirdReg = new RegExp(/<br>/g)
+                const fourthReg = new RegExp(/&nbsp;/g)
+                const fifthReg = new RegExp(/<h1>/g)
+                const sixthReg = new RegExp(/<[/]h1>/g)
+
+                const newContent = item.content.replace(firstReg, '').replace(secondReg, '').replace(thirdReg, '').replace(fourthReg, '').replace(fifthReg, '').replace(sixthReg, '')
+
                 return (
                   <li key={item.id} className="media">
                     <div className="title margin-bottom-10">
@@ -55,7 +65,7 @@ class SubContent extends React.Component {
                         </Link>
                       </div>
                       <div className="col-md-6" style={{paddingLeft: 16}}>
-                        <div dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(item.content, 200) + '</div>'}}></div>
+                        <div dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(newContent, 200) + '</div>'}}></div>
                       </div>
                     </div>
                   </li>

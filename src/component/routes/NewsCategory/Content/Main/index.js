@@ -21,7 +21,16 @@ const category = ({ id, name }) => (
 
 class DetailNews extends React.Component {
   componentDidMount() {
-    this.refs.contentRefs.innerHTML = "<div class='content-container'>" + limitString(this.props.news.content, 350) + '</div>' + this.refs.contentRefs.innerHTML
+    const firstReg = new RegExp(/<p style="text-align:start;">&nbsp;<[/]p>/g)
+    const secondReg = new RegExp(/<p>&nbsp;<[/]p>/g)
+    const thirdReg = new RegExp(/<br>/g)
+    const fourthReg = new RegExp(/&nbsp;/g)
+    const fifthReg = new RegExp(/<h1>/g)
+    const sixthReg = new RegExp(/<[/]h1>/g)
+
+    const newContent = this.props.news.content.replace(firstReg, '').replace(secondReg, '').replace(thirdReg, '').replace(fourthReg, '').replace(fifthReg, '').replace(sixthReg, '')
+
+    this.refs.contentRefs.innerHTML = "<div class='content-container'>" + limitString(newContent, 350) + '</div>' + this.refs.contentRefs.innerHTML
   }
 
   render() {
@@ -49,7 +58,16 @@ class DetailNews extends React.Component {
 class Main extends React.Component {
   componentDidMount() {
     if(this.props.latestNews) {
-      this.refs.contentRefs.innerHTML = "<div class='content-container'>" + limitString(this.props.latestNews.content, 350) + '</div>' + this.refs.contentRefs.innerHTML
+      const firstReg = new RegExp(/<p style="text-align:start;">&nbsp;<[/]p>/g)
+      const secondReg = new RegExp(/<p>&nbsp;<[/]p>/g)
+      const thirdReg = new RegExp(/<br>/g)
+      const fourthReg = new RegExp(/&nbsp;/g)
+      const fifthReg = new RegExp(/<h1>/g)
+      const sixthReg = new RegExp(/<[/]h1>/g)
+
+      const newContent = this.props.latestNews.content.replace(firstReg, '').replace(secondReg, '').replace(thirdReg, '').replace(fourthReg, '').replace(fifthReg, '').replace(sixthReg, '')
+
+      this.refs.contentRefs.innerHTML = "<div class='content-container'>" + limitString(newContent, 350) + '</div>' + this.refs.contentRefs.innerHTML
     }
   }
 

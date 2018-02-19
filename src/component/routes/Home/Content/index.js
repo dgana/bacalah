@@ -28,9 +28,28 @@ const Content = (props) => {
   if (loading) return (<p>Loading...</p>)
   if (error) return (<p>{error.message}</p>)
 
-  const randomNumber1 = Math.floor(Math.random() * (categories.length))
-  const firstCategoryNews = categories.slice(randomNumber1, randomNumber1 + 1)
-  const slicedCategories = categories.filter((item, index) => {
+  const firstReg = new RegExp(/<p style="text-align:start;">&nbsp;<[/]p>/g)
+  const secondReg = new RegExp(/<p>&nbsp;<[/]p>/g)
+  const thirdReg = new RegExp(/<br>/g)
+  const fourthReg = new RegExp(/&nbsp;/g)
+  const fifthReg = new RegExp(/<h1>/g)
+  const sixthReg = new RegExp(/<[/]h1>/g)
+
+  const newCategories = categories.map(item => {
+    return {
+      ...item,
+      news: item.news.map(item2 => {
+        return {
+          ...item2,
+          content: item2.content.replace(firstReg, '').replace(secondReg, '').replace(thirdReg, '').replace(fourthReg, '').replace(fifthReg, '').replace(sixthReg, '')
+        }
+      })
+    }
+  })
+
+  const randomNumber1 = Math.floor(Math.random() * (newCategories.length))
+  const firstCategoryNews = newCategories.slice(randomNumber1, randomNumber1 + 1)
+  const slicedCategories = newCategories.filter((item, index) => {
     if (index !== randomNumber1) {
       return {
         ...item
@@ -100,9 +119,16 @@ const Content = (props) => {
         </header>
         <Slider {...settings}>
           { reversedNews.reverse().slice(0, 4).map(item => {
-            const newContent = item.content.replace('<p style="text-align:start;">&nbsp;</p>', '')
-            const newContent2 = newContent.replace('<p>&nbsp;</p>', '')
-            const newContent3 = newContent2.replace('<br>', '')
+
+            const firstReg = new RegExp(/<p style="text-align:start;">&nbsp;<[/]p>/g)
+            const secondReg = new RegExp(/<p>&nbsp;<[/]p>/g)
+            const thirdReg = new RegExp(/<br>/g)
+            const fourthReg = new RegExp(/&nbsp;/g)
+            const fifthReg = new RegExp(/<h1>/g)
+            const sixthReg = new RegExp(/<[/]h1>/g)
+
+            const newContent = item.content.replace(firstReg, '').replace(secondReg, '').replace(thirdReg, '').replace(fourthReg, '').replace(fifthReg, '').replace(sixthReg, '')
+
               return (
                 <div key={item.id}>
                   <Link to={`/${item.category.name.toLowerCase()}/${item.id}`}><img src={item.pictures[0].path} alt="Feature News" /></Link>
@@ -116,7 +142,7 @@ const Content = (props) => {
                       <span className="meta"><i className="fa fa-calendar"></i>{fullDate(item.createdAt)}</span>
                       <span className="meta"><i className="fa fa-comment-o"></i>{item.comment.length}</span>
                     </div>
-                    <p className="slider-caption" dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(newContent3, 500) + '</div>'}}></p>
+                    <p className="slider-caption" dangerouslySetInnerHTML={{__html: "<div class='content-container'>" + limitString(newContent, 500) + '</div>'}}></p>
                   </div>
                 </div>
               )
