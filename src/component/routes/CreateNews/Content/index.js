@@ -12,6 +12,9 @@ import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import { Tabs, Tab } from 'react-bootstrap-tabs'
 
+import Cropper from 'react-cropper'
+import 'cropperjs/dist/cropper.css'
+
 // GraphQL
 import { categoriesQuery, addNewsMutation, allNewsQuery, registerMutation, editNewsMutation } from './gql/'
 import { registerConfig } from './gql/config'
@@ -63,6 +66,11 @@ class Content extends Component {
         picturePath: '',
         picture: []
       },
+
+      src: '',
+      cropResult: null,
+      selectedPic: 0,
+
       registerValid: false,
       usernameIsUnique: false,
       emailIsUnique: false,
@@ -78,6 +86,11 @@ class Content extends Component {
     }
   }
 
+  _crop = () => {
+    // image in dataUrl
+    console.log(this.refs.cropper.getCroppedCanvas().toDataURL());
+  }
+
   _reactTab = (index, label) => {
     if (index === 0) {
       this.setState({ selected: 0 })
@@ -86,6 +99,10 @@ class Content extends Component {
     } else {
       this.setState({ selected: 2 })
     }
+  }
+
+  _reactTabPic = (index, label) => {
+    this.setState({ selectedPic: index })
   }
 
   _handleFormChangeRegister = (type, value) => {
@@ -118,25 +135,28 @@ class Content extends Component {
     })
     let data = new FormData()
     data.append('image', imgFiles[0])
-    axios({
-      method: 'post',
-      url: 'https://api.imgur.com/3/image',
-      data: data,
-      headers: {
-        'Authorization': 'Client-ID 8d26ccd12712fca'
-      },
-    })
-    .then(res => {
-      this.setState(prevState => ({
-        form: {
-          ...prevState.form,
-          picturePath: res.data.data.link
-        }
-      }))
-    })
-    .catch(err => {
-      console.log(err.response)
-    })
+
+    console.log(imgFiles);
+    console.log(data);
+    // axios({
+    //   method: 'post',
+    //   url: 'https://api.imgur.com/3/image',
+    //   data: data,
+    //   headers: {
+    //     'Authorization': 'Client-ID 8d26ccd12712fca'
+    //   },
+    // })
+    // .then(res => {
+    //   this.setState(prevState => ({
+    //     form: {
+    //       ...prevState.form,
+    //       picturePath: res.data.data.link
+    //     }
+    //   }))
+    // })
+    // .catch(err => {
+    //   console.log(err.response)
+    // })
   }
 
   _onDropEdit = (imgFiles,key) => {
@@ -434,6 +454,66 @@ class Content extends Component {
 
   }
 
+  onChange = (e) => {
+    console.log(e.target.files, e.dataTransfer);
+    e.preventDefault();
+    let files;
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.setState({ src: reader.result });
+    };
+    reader.readAsDataURL(files[0]);
+  }
+
+  cropImage = () => {
+    if (typeof this.cropper.getCroppedCanvas() === 'undefined') {
+      return;
+    }
+    this.setState({
+      cropResult: this.cropper.getCroppedCanvas().toDataURL(),
+    });
+    console.log(this.cropper.getCroppedCanvas());
+
+
+    var blobBin = atob(this.cropper.getCroppedCanvas().toDataURL().split(',')[1]);
+    var array = [];
+    for(var i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i));
+    }
+    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});
+
+
+    var data = new FormData();
+    data.append("image", file);
+
+    console.log(file, data);
+
+    axios({
+      method: 'post',
+      url: 'https://api.imgur.com/3/image',
+      data: data,
+      headers: {
+        'Authorization': 'Client-ID 8d26ccd12712fca'
+      },
+    })
+    .then(res => {
+      this.setState(prevState => ({
+        form: {
+          ...prevState.form,
+          picturePath: res.data.data.link
+        }
+      }))
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
+  }
+
   render() {
     const {
       loading,
@@ -462,7 +542,8 @@ class Content extends Component {
       usernameIsUnique,
       emailIsUnique,
       registerValid,
-      formEdit
+      formEdit,
+      selectedPic
     } = this.state
 
     // if (loading) return (<p>Loading...</p>)
@@ -509,38 +590,62 @@ class Content extends Component {
 
               <ReactTooltip id="upload-gambar" place={"bottom"} />
               <div className="form-group">
-                <label style={{display: 'block'}}>Upload Gambar Utama  <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: pictureVal ? 1 : 0, visibility: pictureVal ? 'visible' : 'hidden'}}>Gambar utama tidak boleh kosong</span></label>
+                <label style={{display: 'block', marginBottom: 12}}>Upload Gambar Utama (Pilih salah simple upload atau crop foto) <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: pictureVal ? 1 : 0, visibility: pictureVal ? 'visible' : 'hidden'}}>Gambar utama tidak boleh kosong</span></label>
 
-                <Dropzone
-                  data-for="upload-gambar"
-                  data-tip="Unggah gambar dimensi 4 : 3"
-                  data-iscapture="true"
-                  // style={{height: 200}}
-                  onDrop={imgFiles => this._onDrop(imgFiles, 'picture')}
-                  className='dropzone'
-                  style={{width: '35%'}}
-                  activeClassName='active-dropzone'
-                  multiple={true}>
-                  { form.picture.length !== 0 ?
-                    form.picture.map((file, index) => (
-                    <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%'}}>
-                      <img className="dropzone-img" src={file.preview} alt="dropzone" />
-                      { /*<div style={closeStyle} onClick={() => this._onDeletePhoto(index,'picture')}>
-                          <i className="fa fa-times" aria-hidden="true"></i>
-                      </div> */ }
-                    </div>
-                  )) :
-                  <Dropzone
-                    data-for="upload-icon"
-                    data-tip="Unggah gambar dimensi 4 : 3"
-                    onDrop={imgFiles => this._onDrop(imgFiles,'picture')}
-                    className='dropzone'
-                    activeClassName='active-dropzone'
-                    multiple={true}>
-                    <div className="fa fa-plus fa-2x dropzone-box-add"></div>
-                  </Dropzone>
-                  }
-                </Dropzone>
+                <Tabs selected={selectedPic} onSelect={(index, label) => this._reactTabPic(index, label)}>
+                  <Tab
+                    headerStyle={{cursor: 'pointer', padding: '4px 16px'}}
+                    activeHeaderStyle={{backgroundColor: 'rgba(200, 200, 200, 0.9)', color: 'rgb(50,50,50)', fontFamily: 'Open Sans, sans-serif'}}
+                    label="Simple upload">
+                    <Dropzone
+                      data-for="upload-gambar"
+                      data-tip="Unggah gambar dimensi 4 : 3"
+                      data-iscapture="true"
+                      // style={{height: 200}}
+                      onDrop={imgFiles => this._onDrop(imgFiles, 'picture')}
+                      className='dropzone'
+                      style={{width: '35%', marginTop: 8}}
+                      activeClassName='active-dropzone'
+                      multiple={true}>
+                      { form.picture.length !== 0 ?
+                        form.picture.map((file, index) => (
+                        <div key={index} className="dropzone-width dropzone dropzone-square-sm" style={{width:'100%'}}>
+                          <img className="dropzone-img" src={file.preview} alt="dropzone" />
+                          { /*<div style={closeStyle} onClick={() => this._onDeletePhoto(index,'picture')}>
+                              <i className="fa fa-times" aria-hidden="true"></i>
+                          </div> */ }
+                        </div>
+                      )) :
+                      <Dropzone
+                        data-for="upload-icon"
+                        data-tip="Unggah gambar dimensi 4 : 3"
+                        onDrop={imgFiles => this._onDrop(imgFiles,'picture')}
+                        className='dropzone'
+                        activeClassName='active-dropzone'
+                        multiple={true}>
+                        <div className="fa fa-plus fa-2x dropzone-box-add"></div>
+                      </Dropzone>
+                      }
+                    </Dropzone>
+                  </Tab>
+                  <Tab
+                    headerStyle={{cursor: 'pointer', padding: '4px 16px'}}
+                    activeHeaderStyle={{backgroundColor: 'rgba(200, 200, 200, 0.9)', color: 'rgb(50,50,50)', fontFamily: 'Open Sans, sans-serif'}}
+                    label="Crop foto">
+                    <input type="file" onChange={this.onChange} />
+                    <Cropper
+                      style={{ height: 200, width: '50%', marginTop: 8 }}
+                      aspectRatio={16 / 9}
+                      preview=".img-preview"
+                      guides={false}
+                      src={this.state.src}
+                      ref={cropper => { this.cropper = cropper; }} />
+                    <button style={{display: 'flex', marginTop: 8}} onClick={this.cropImage}>
+                        Crop Image
+                    </button>
+                    <img style={{ width: '50%', display: 'flex', marginTop: 8 }} src={this.state.cropResult} alt="cropped image" />
+                  </Tab>
+                </Tabs>
               </div>
               <label>Keterangan Foto Utama</label>
               <input
