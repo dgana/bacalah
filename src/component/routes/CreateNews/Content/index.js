@@ -14,6 +14,7 @@ import { Tabs, Tab } from 'react-bootstrap-tabs'
 
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
+import ImageCompressor from 'image-compressor.js';
 
 // GraphQL
 import { categoriesQuery, addNewsMutation, allNewsQuery, registerMutation, editNewsMutation } from './gql/'
@@ -136,27 +137,25 @@ class Content extends Component {
     let data = new FormData()
     data.append('image', imgFiles[0])
 
-    console.log(imgFiles);
-    console.log(data);
-    // axios({
-    //   method: 'post',
-    //   url: 'https://api.imgur.com/3/image',
-    //   data: data,
-    //   headers: {
-    //     'Authorization': 'Client-ID 8d26ccd12712fca'
-    //   },
-    // })
-    // .then(res => {
-    //   this.setState(prevState => ({
-    //     form: {
-    //       ...prevState.form,
-    //       picturePath: res.data.data.link
-    //     }
-    //   }))
-    // })
-    // .catch(err => {
-    //   console.log(err.response)
-    // })
+    axios({
+      method: 'post',
+      url: 'https://api.imgur.com/3/image',
+      data: data,
+      headers: {
+        'Authorization': 'Client-ID 8d26ccd12712fca'
+      },
+    })
+    .then(res => {
+      this.setState(prevState => ({
+        form: {
+          ...prevState.form,
+          picturePath: res.data.data.link
+        }
+      }))
+    })
+    .catch(err => {
+      console.log(err.response)
+    })
   }
 
   _onDropEdit = (imgFiles,key) => {
@@ -487,11 +486,8 @@ class Content extends Component {
     }
     var file = new Blob([new Uint8Array(array)], {type: 'image/png'});
 
-
     var data = new FormData();
     data.append("image", file);
-
-    console.log(file, data);
 
     axios({
       method: 'post',
@@ -590,7 +586,7 @@ class Content extends Component {
 
               <ReactTooltip id="upload-gambar" place={"bottom"} />
               <div className="form-group">
-                <label style={{display: 'block', marginBottom: 12}}>Upload Gambar Utama (Pilih salah simple upload atau crop foto) <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: pictureVal ? 1 : 0, visibility: pictureVal ? 'visible' : 'hidden'}}>Gambar utama tidak boleh kosong</span></label>
+                <label style={{display: 'block', marginBottom: 12}}>Upload Gambar Utama (Pilih salah satu simple upload atau crop foto) <span style={{color: 'red', marginLeft: 50, transition: '0.6s', marginBottom: 0, opacity: pictureVal ? 1 : 0, visibility: pictureVal ? 'visible' : 'hidden'}}>Gambar utama tidak boleh kosong</span></label>
 
                 <Tabs selected={selectedPic} onSelect={(index, label) => this._reactTabPic(index, label)}>
                   <Tab
